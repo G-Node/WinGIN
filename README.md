@@ -32,13 +32,11 @@ The GinClientApp solution is comprised of the following subprojects:
 This contains the source code for the desktop client
 2. GinClientLibrary  
 This project contains common code referenced by the other projects. It also contains the implementation of the Dokan driver interface, GinRepository and RepositoryManager classes the service relies on
-3. GinService  
-This project contains the source code for the Windows service component
-4. GinShellExtension  
+3. GinShellExtension  
 This project contains the source code for the Shell Extension component
-5. InstallerLibrary  
+4. InstallerLibrary  
 This project contains the source code for custom actions used within the Setup project
-6. Setup  
+5. Setup  
 A Visual Studio Installer project that builds the installer
 
 ### Coding Style
@@ -51,11 +49,10 @@ Brace style is Allman.
 #### GinClientApp
 The GinClientApp is a Windows Forms-based client. By default, the only UI displayed is the notification area icon created through the GinApplicationContext class. To achieve a more modern look, the MetroModernUI is used.
 When adding new dialogues or new messages, take care to place these within the app's Resources (resources.resx) to allow for easier localization.
+The GinClientApp also incorporates a WCF service component, which is started on program start and runs in a separate thread.
+This component is responsible for all the low-level interaction between Windows and gin; it executes all gin-related commands the user issues either through the notification area context menu, file context menus, or the UI.
 #### GinClientLibrary
 The output of this project has to be signed, preferably using the same key used for the GinShellExtension library.
-#### GinService
-The IGinService interface defines the communications protocol for all interactions between the Desktop client and the service. 
-The service exposes a WCF-based interface configured to use a multithreaded backend; as such, great care should be taken to enclose anything that will affect the state of the repositories or the RepositoryManager within locks.
 #### GinShellExtension
 The shell extension uses the SharpShell framework by Dave Kerr. Documentation for its use can be found here: https://github.com/dwmkerr/sharpshell
 #### InstallerLibrary and setup
@@ -67,7 +64,5 @@ The setup itself is a mostly straightforward VS Installer project, except for on
 
 ### Future work
 The following tasks are planned to be executed sometime post-initial release:
-1. Rolling the service into the GinClientApp application
-Nothing within the service _requires_ running it within a service context; this design was chosen at the start of implementation based on then-available information. It should be possible to implement its functionality within the desktop client; this would result in an overall cleaner project using the least amount of priviledge required
-2. Switching the WCF communication backend to use named pipes
+1. Switching the WCF communication backend to use named pipes
 At the moment, the project is using HTTP-based methods to communicate. While certainly straightforward and, within the context of a locally hosted and executed application, reasonably fast, it is also more open than it needs to be; using a named pipe would resolve this.
