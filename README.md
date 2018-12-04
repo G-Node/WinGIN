@@ -11,7 +11,7 @@ To make this process invisible to the user, GinUI stores the actual data within 
 
 ## Installation
 
-(Add DL link to the release)
+Installers and instructions can be found in the [Installers repository](https://web.gin.g-node.org/achilleas/gin-ui-installers) on GIN.
 
 ## Building the project
 
