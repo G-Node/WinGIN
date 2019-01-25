@@ -143,12 +143,12 @@ namespace GinClientApp.Dialogs
             if (strings.Length == 2)
             {
                 RepositoryData.Name = strings[1];
-                if (RepositoryData.PhysicalDirectory.IsEqualTo(GlobalOptions.Instance.DefaultCheckoutDir))
+                //if (RepositoryData.PhysicalDirectory.IsEqualTo(GlobalOptions.Instance.DefaultCheckoutDir))
                     RepositoryData.PhysicalDirectory =
-                        new DirectoryInfo(RepositoryData.PhysicalDirectory.FullName + @"\" + RepositoryData.Name);
-                if (RepositoryData.Mountpoint.IsEqualTo(GlobalOptions.Instance.DefaultMountpointDir))
+                        new DirectoryInfo(GlobalOptions.Instance.DefaultCheckoutDir + @"\" + RepositoryData.Name);
+                //if (RepositoryData.Mountpoint.IsEqualTo(GlobalOptions.Instance.DefaultMountpointDir))
                     RepositoryData.Mountpoint =
-                        new DirectoryInfo(RepositoryData.Mountpoint.FullName + @"\" + RepositoryData.Name);
+                        new DirectoryInfo(GlobalOptions.Instance.DefaultMountpointDir + @"\" + RepositoryData.Name);
 
                 mTxBRepoName.Text = RepositoryData.Name;
                 mTxBRepoCheckoutDir.Text = RepositoryData.PhysicalDirectory.FullName;
