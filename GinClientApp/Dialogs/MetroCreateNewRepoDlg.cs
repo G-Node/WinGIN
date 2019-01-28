@@ -173,7 +173,7 @@ namespace GinClientApp.Dialogs
             if (res == DialogResult.OK)
                 RepositoryData.PhysicalDirectory = new DirectoryInfo(folderBrowser.SelectedPath);
 
-            mTxBRepoCheckoutDir.Text = RepositoryData.PhysicalDirectory.FullName;
+            mTxBRepoCheckoutDir.Text = RepositoryData.PhysicalDirectory.FullName + @"\" + RepositoryData.Name;
         }
 
         private void mBtnPickRepoMountpointDir_Click(object sender, EventArgs e)
@@ -188,7 +188,7 @@ namespace GinClientApp.Dialogs
             if (res == DialogResult.OK)
                 RepositoryData.Mountpoint = new DirectoryInfo(folderBrowser.SelectedPath);
 
-            mTxBRepoMountpoint.Text = RepositoryData.Mountpoint.FullName;
+            mTxBRepoMountpoint.Text = RepositoryData.Mountpoint.FullName + @"\" + RepositoryData.Name;
         }
 
         private void mBtnRepoBrowser_Click(object sender, EventArgs e)
