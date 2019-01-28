@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Forms;
 using GinClientApp.Properties;
 using GinClientLibrary;
@@ -147,7 +149,20 @@ namespace GinClientApp.Dialogs
 
             if (strings.Length == 2)
             {
+                ///check special characters in repository name
+                var regexItem = new Regex("^[a-zA-Z0-9-_.]+$");
+                if (!regexItem.IsMatch(strings[1])) {
+                    MessageBoxResult result = System.Windows.MessageBox.Show("Repository name must be valid alpha or numeric or dash(-_) or dot characters.",
+                                          "Warning",
+                                          MessageBoxButton.OK,
+                                          MessageBoxImage.Exclamation);
+                    mTxBRepoAddress.Text = "";
+                    return;
+                }
                 RepositoryData.Name = strings[1];
+
+
+
                 if (RepositoryData.PhysicalDirectory.IsEqualTo(GlobalOptions.Instance.DefaultCheckoutDir))
                     RepositoryData.PhysicalDirectory =
                         new DirectoryInfo(RepositoryData.PhysicalDirectory.FullName);
