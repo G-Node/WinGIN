@@ -152,10 +152,9 @@ namespace GinClientApp.Dialogs
                 ///check special characters in repository name
                 var regexItem = new Regex("^[a-zA-Z0-9-_.]+$");
                 if (!regexItem.IsMatch(strings[1])) {
-                    MessageBoxResult result = System.Windows.MessageBox.Show("Repository name must be valid alpha or numeric or dash(-_) or dot characters.",
+                    MetroMessageBox.Show(this, "Repository name must be valid alpha or numeric or dash(-_) or dot characters.",
                                           "Warning",
-                                          MessageBoxButton.OK,
-                                          MessageBoxImage.Exclamation);
+                                          MessageBoxButtons.OK, MessageBoxIcon.Error,200);
                     mTxBRepoAddress.Text = "";
                     return;
                 }

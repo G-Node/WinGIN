@@ -50,7 +50,7 @@
             // 
             this.mBtnPickRepoMountpointDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.mBtnPickRepoMountpointDir.Location = new System.Drawing.Point(1032, 225);
-            this.mBtnPickRepoMountpointDir.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mBtnPickRepoMountpointDir.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnPickRepoMountpointDir.Name = "mBtnPickRepoMountpointDir";
             this.mBtnPickRepoMountpointDir.Size = new System.Drawing.Size(44, 44);
             this.mBtnPickRepoMountpointDir.TabIndex = 4;
@@ -62,7 +62,7 @@
             // 
             this.mBtnPickRepoCheckoutDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.mBtnPickRepoCheckoutDir.Location = new System.Drawing.Point(1032, 171);
-            this.mBtnPickRepoCheckoutDir.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mBtnPickRepoCheckoutDir.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnPickRepoCheckoutDir.Name = "mBtnPickRepoCheckoutDir";
             this.mBtnPickRepoCheckoutDir.Size = new System.Drawing.Size(44, 44);
             this.mBtnPickRepoCheckoutDir.TabIndex = 3;
@@ -88,10 +88,10 @@
             // 
             // 
             this.mTxBRepoAddress.CustomButton.Image = null;
-            this.mTxBRepoAddress.CustomButton.Location = new System.Drawing.Point(1348, 4);
-            this.mTxBRepoAddress.CustomButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mTxBRepoAddress.CustomButton.Location = new System.Drawing.Point(674, 2);
+            this.mTxBRepoAddress.CustomButton.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBRepoAddress.CustomButton.Name = "";
-            this.mTxBRepoAddress.CustomButton.Size = new System.Drawing.Size(78, 75);
+            this.mTxBRepoAddress.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBRepoAddress.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBRepoAddress.CustomButton.TabIndex = 1;
             this.mTxBRepoAddress.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -100,7 +100,7 @@
             this.mTxBRepoAddress.Lines = new string[] {
         "metroTextBox5"};
             this.mTxBRepoAddress.Location = new System.Drawing.Point(304, 115);
-            this.mTxBRepoAddress.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mTxBRepoAddress.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBRepoAddress.MaxLength = 32767;
             this.mTxBRepoAddress.Name = "mTxBRepoAddress";
             this.mTxBRepoAddress.PasswordChar = '\0';
@@ -128,10 +128,10 @@
             // 
             // 
             this.mTxBRepoMountpoint.CustomButton.Image = null;
-            this.mTxBRepoMountpoint.CustomButton.Location = new System.Drawing.Point(1348, 4);
-            this.mTxBRepoMountpoint.CustomButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mTxBRepoMountpoint.CustomButton.Location = new System.Drawing.Point(674, 2);
+            this.mTxBRepoMountpoint.CustomButton.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBRepoMountpoint.CustomButton.Name = "";
-            this.mTxBRepoMountpoint.CustomButton.Size = new System.Drawing.Size(78, 75);
+            this.mTxBRepoMountpoint.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBRepoMountpoint.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBRepoMountpoint.CustomButton.TabIndex = 1;
             this.mTxBRepoMountpoint.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -140,7 +140,7 @@
             this.mTxBRepoMountpoint.Lines = new string[] {
         "metroTextBox4"};
             this.mTxBRepoMountpoint.Location = new System.Drawing.Point(304, 225);
-            this.mTxBRepoMountpoint.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mTxBRepoMountpoint.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBRepoMountpoint.MaxLength = 32767;
             this.mTxBRepoMountpoint.Name = "mTxBRepoMountpoint";
             this.mTxBRepoMountpoint.PasswordChar = '\0';
@@ -176,10 +176,10 @@
             // 
             // 
             this.mTxBRepoCheckoutDir.CustomButton.Image = null;
-            this.mTxBRepoCheckoutDir.CustomButton.Location = new System.Drawing.Point(1348, 4);
-            this.mTxBRepoCheckoutDir.CustomButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mTxBRepoCheckoutDir.CustomButton.Location = new System.Drawing.Point(674, 2);
+            this.mTxBRepoCheckoutDir.CustomButton.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBRepoCheckoutDir.CustomButton.Name = "";
-            this.mTxBRepoCheckoutDir.CustomButton.Size = new System.Drawing.Size(78, 75);
+            this.mTxBRepoCheckoutDir.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBRepoCheckoutDir.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBRepoCheckoutDir.CustomButton.TabIndex = 1;
             this.mTxBRepoCheckoutDir.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -188,7 +188,7 @@
             this.mTxBRepoCheckoutDir.Lines = new string[] {
         "metroTextBox3"};
             this.mTxBRepoCheckoutDir.Location = new System.Drawing.Point(304, 171);
-            this.mTxBRepoCheckoutDir.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mTxBRepoCheckoutDir.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBRepoCheckoutDir.MaxLength = 32767;
             this.mTxBRepoCheckoutDir.Name = "mTxBRepoCheckoutDir";
             this.mTxBRepoCheckoutDir.PasswordChar = '\0';
@@ -224,10 +224,10 @@
             // 
             // 
             this.mTxBRepoName.CustomButton.Image = null;
-            this.mTxBRepoName.CustomButton.Location = new System.Drawing.Point(1460, 4);
-            this.mTxBRepoName.CustomButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mTxBRepoName.CustomButton.Location = new System.Drawing.Point(730, 2);
+            this.mTxBRepoName.CustomButton.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBRepoName.CustomButton.Name = "";
-            this.mTxBRepoName.CustomButton.Size = new System.Drawing.Size(78, 75);
+            this.mTxBRepoName.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBRepoName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBRepoName.CustomButton.TabIndex = 1;
             this.mTxBRepoName.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -236,7 +236,7 @@
             this.mTxBRepoName.Lines = new string[] {
         "metroTextBox2"};
             this.mTxBRepoName.Location = new System.Drawing.Point(304, 281);
-            this.mTxBRepoName.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mTxBRepoName.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBRepoName.MaxLength = 32767;
             this.mTxBRepoName.Name = "mTxBRepoName";
             this.mTxBRepoName.PasswordChar = '\0';
@@ -267,7 +267,7 @@
             // mBtnOK
             // 
             this.mBtnOK.Location = new System.Drawing.Point(50, 354);
-            this.mBtnOK.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mBtnOK.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnOK.Name = "mBtnOK";
             this.mBtnOK.Size = new System.Drawing.Size(150, 44);
             this.mBtnOK.TabIndex = 6;
@@ -278,7 +278,7 @@
             // mBtnCancel
             // 
             this.mBtnCancel.Location = new System.Drawing.Point(212, 354);
-            this.mBtnCancel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mBtnCancel.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnCancel.Name = "mBtnCancel";
             this.mBtnCancel.Size = new System.Drawing.Size(150, 44);
             this.mBtnCancel.TabIndex = 7;
@@ -290,7 +290,7 @@
             // 
             this.mBtnRepoBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.mBtnRepoBrowser.Location = new System.Drawing.Point(1032, 115);
-            this.mBtnRepoBrowser.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mBtnRepoBrowser.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnRepoBrowser.Name = "mBtnRepoBrowser";
             this.mBtnRepoBrowser.Size = new System.Drawing.Size(44, 44);
             this.mBtnRepoBrowser.TabIndex = 2;
@@ -317,7 +317,7 @@
             this.Controls.Add(this.mTxBRepoName);
             this.Controls.Add(this.metroLabel4);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "MetroCreateNewRepoDlg";
             this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Please enter Repository details";
