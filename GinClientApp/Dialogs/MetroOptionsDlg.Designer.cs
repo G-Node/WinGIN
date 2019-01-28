@@ -72,6 +72,7 @@
             this.mBtnCancel = new MetroFramework.Controls.MetroButton();
             this.mProgWorking = new MetroFramework.Controls.MetroProgressSpinner();
             this.mLblWorking = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
             this.mTabCtrl.SuspendLayout();
             this.tpUser.SuspendLayout();
             this.metroPanel1.SuspendLayout();
@@ -92,19 +93,21 @@
             this.mTabCtrl.Controls.Add(this.tpGlobalOptions);
             this.mTabCtrl.Controls.Add(this.tpRepositories);
             this.mTabCtrl.Controls.Add(this.About);
-            this.mTabCtrl.Location = new System.Drawing.Point(24, 64);
+            this.mTabCtrl.Location = new System.Drawing.Point(48, 123);
+            this.mTabCtrl.Margin = new System.Windows.Forms.Padding(6);
             this.mTabCtrl.Name = "mTabCtrl";
-            this.mTabCtrl.SelectedIndex = 3;
-            this.mTabCtrl.Size = new System.Drawing.Size(492, 294);
+            this.mTabCtrl.SelectedIndex = 0;
+            this.mTabCtrl.Size = new System.Drawing.Size(984, 565);
             this.mTabCtrl.TabIndex = 0;
             this.mTabCtrl.UseSelectable = true;
             // 
             // tpUser
             // 
             this.tpUser.Controls.Add(this.metroPanel1);
-            this.tpUser.Location = new System.Drawing.Point(4, 38);
+            this.tpUser.Location = new System.Drawing.Point(8, 41);
+            this.tpUser.Margin = new System.Windows.Forms.Padding(6);
             this.tpUser.Name = "tpUser";
-            this.tpUser.Size = new System.Drawing.Size(484, 252);
+            this.tpUser.Size = new System.Drawing.Size(968, 516);
             this.tpUser.TabIndex = 0;
             this.tpUser.Text = "Login";
             this.tpUser.Visible = false;
@@ -121,20 +124,22 @@
             this.metroPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.HorizontalScrollbarSize = 10;
+            this.metroPanel1.HorizontalScrollbarSize = 19;
             this.metroPanel1.Location = new System.Drawing.Point(0, 0);
+            this.metroPanel1.Margin = new System.Windows.Forms.Padding(6);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(484, 252);
+            this.metroPanel1.Size = new System.Drawing.Size(968, 516);
             this.metroPanel1.TabIndex = 0;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.VerticalScrollbarSize = 10;
+            this.metroPanel1.VerticalScrollbarSize = 20;
             // 
             // mLblStatus
             // 
             this.mLblStatus.AutoSize = true;
             this.mLblStatus.ForeColor = System.Drawing.Color.DarkRed;
-            this.mLblStatus.Location = new System.Drawing.Point(14, 106);
+            this.mLblStatus.Location = new System.Drawing.Point(28, 204);
+            this.mLblStatus.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.mLblStatus.Name = "mLblStatus";
             this.mLblStatus.Size = new System.Drawing.Size(250, 19);
             this.mLblStatus.TabIndex = 8;
@@ -149,9 +154,10 @@
             // 
             // 
             this.mTxBPassword.CustomButton.Image = null;
-            this.mTxBPassword.CustomButton.Location = new System.Drawing.Point(318, 1);
+            this.mTxBPassword.CustomButton.Location = new System.Drawing.Point(638, 2);
+            this.mTxBPassword.CustomButton.Margin = new System.Windows.Forms.Padding(12);
             this.mTxBPassword.CustomButton.Name = "";
-            this.mTxBPassword.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mTxBPassword.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBPassword.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBPassword.CustomButton.TabIndex = 1;
             this.mTxBPassword.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -159,7 +165,8 @@
             this.mTxBPassword.CustomButton.Visible = false;
             this.mTxBPassword.Lines = new string[] {
         "metroTextBox3"};
-            this.mTxBPassword.Location = new System.Drawing.Point(141, 70);
+            this.mTxBPassword.Location = new System.Drawing.Point(282, 135);
+            this.mTxBPassword.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBPassword.MaxLength = 32767;
             this.mTxBPassword.Name = "mTxBPassword";
             this.mTxBPassword.PasswordChar = '*';
@@ -168,7 +175,7 @@
             this.mTxBPassword.SelectionLength = 0;
             this.mTxBPassword.SelectionStart = 0;
             this.mTxBPassword.ShortcutsEnabled = true;
-            this.mTxBPassword.Size = new System.Drawing.Size(340, 23);
+            this.mTxBPassword.Size = new System.Drawing.Size(680, 44);
             this.mTxBPassword.TabIndex = 7;
             this.mTxBPassword.Text = "metroTextBox3";
             this.mTxBPassword.UseSelectable = true;
@@ -184,9 +191,10 @@
             // 
             // 
             this.mTxBUsername.CustomButton.Image = null;
-            this.mTxBUsername.CustomButton.Location = new System.Drawing.Point(318, 1);
+            this.mTxBUsername.CustomButton.Location = new System.Drawing.Point(638, 2);
+            this.mTxBUsername.CustomButton.Margin = new System.Windows.Forms.Padding(12);
             this.mTxBUsername.CustomButton.Name = "";
-            this.mTxBUsername.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mTxBUsername.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBUsername.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBUsername.CustomButton.TabIndex = 1;
             this.mTxBUsername.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -194,7 +202,8 @@
             this.mTxBUsername.CustomButton.Visible = false;
             this.mTxBUsername.Lines = new string[] {
         "metroTextBox2"};
-            this.mTxBUsername.Location = new System.Drawing.Point(141, 41);
+            this.mTxBUsername.Location = new System.Drawing.Point(282, 79);
+            this.mTxBUsername.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBUsername.MaxLength = 32767;
             this.mTxBUsername.Name = "mTxBUsername";
             this.mTxBUsername.PasswordChar = '\0';
@@ -203,7 +212,7 @@
             this.mTxBUsername.SelectionLength = 0;
             this.mTxBUsername.SelectionStart = 0;
             this.mTxBUsername.ShortcutsEnabled = true;
-            this.mTxBUsername.Size = new System.Drawing.Size(340, 23);
+            this.mTxBUsername.Size = new System.Drawing.Size(680, 44);
             this.mTxBUsername.TabIndex = 6;
             this.mTxBUsername.Text = "metroTextBox2";
             this.mTxBUsername.UseSelectable = true;
@@ -219,9 +228,10 @@
             // 
             // 
             this.mTxBServerAddress.CustomButton.Image = null;
-            this.mTxBServerAddress.CustomButton.Location = new System.Drawing.Point(318, 1);
+            this.mTxBServerAddress.CustomButton.Location = new System.Drawing.Point(638, 2);
+            this.mTxBServerAddress.CustomButton.Margin = new System.Windows.Forms.Padding(12);
             this.mTxBServerAddress.CustomButton.Name = "";
-            this.mTxBServerAddress.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mTxBServerAddress.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBServerAddress.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBServerAddress.CustomButton.TabIndex = 1;
             this.mTxBServerAddress.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -229,16 +239,18 @@
             this.mTxBServerAddress.CustomButton.Visible = false;
             this.mTxBServerAddress.Lines = new string[] {
         "gin.g-node.org"};
-            this.mTxBServerAddress.Location = new System.Drawing.Point(141, 12);
+            this.mTxBServerAddress.Location = new System.Drawing.Point(282, 23);
+            this.mTxBServerAddress.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBServerAddress.MaxLength = 32767;
             this.mTxBServerAddress.Name = "mTxBServerAddress";
             this.mTxBServerAddress.PasswordChar = '\0';
+            this.mTxBServerAddress.ReadOnly = true;
             this.mTxBServerAddress.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.mTxBServerAddress.SelectedText = "";
             this.mTxBServerAddress.SelectionLength = 0;
             this.mTxBServerAddress.SelectionStart = 0;
             this.mTxBServerAddress.ShortcutsEnabled = true;
-            this.mTxBServerAddress.Size = new System.Drawing.Size(340, 23);
+            this.mTxBServerAddress.Size = new System.Drawing.Size(680, 44);
             this.mTxBServerAddress.TabIndex = 5;
             this.mTxBServerAddress.Text = "gin.g-node.org";
             this.mTxBServerAddress.UseSelectable = true;
@@ -248,7 +260,8 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(14, 70);
+            this.metroLabel3.Location = new System.Drawing.Point(28, 135);
+            this.metroLabel3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(63, 19);
             this.metroLabel3.TabIndex = 4;
@@ -257,7 +270,8 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(14, 41);
+            this.metroLabel2.Location = new System.Drawing.Point(28, 79);
+            this.metroLabel2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(68, 19);
             this.metroLabel2.TabIndex = 3;
@@ -266,7 +280,8 @@
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(14, 12);
+            this.metroLabel1.Location = new System.Drawing.Point(28, 23);
+            this.metroLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(121, 19);
             this.metroLabel1.TabIndex = 2;
@@ -275,9 +290,10 @@
             // tpGlobalOptions
             // 
             this.tpGlobalOptions.Controls.Add(this.metroPanel2);
-            this.tpGlobalOptions.Location = new System.Drawing.Point(4, 38);
+            this.tpGlobalOptions.Location = new System.Drawing.Point(8, 41);
+            this.tpGlobalOptions.Margin = new System.Windows.Forms.Padding(6);
             this.tpGlobalOptions.Name = "tpGlobalOptions";
-            this.tpGlobalOptions.Size = new System.Drawing.Size(484, 252);
+            this.tpGlobalOptions.Size = new System.Drawing.Size(968, 516);
             this.tpGlobalOptions.TabIndex = 1;
             this.tpGlobalOptions.Text = "Global Options";
             this.tpGlobalOptions.Visible = false;
@@ -297,19 +313,21 @@
             this.metroPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroPanel2.HorizontalScrollbarBarColor = true;
             this.metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel2.HorizontalScrollbarSize = 10;
+            this.metroPanel2.HorizontalScrollbarSize = 19;
             this.metroPanel2.Location = new System.Drawing.Point(0, 0);
+            this.metroPanel2.Margin = new System.Windows.Forms.Padding(6);
             this.metroPanel2.Name = "metroPanel2";
-            this.metroPanel2.Size = new System.Drawing.Size(484, 252);
+            this.metroPanel2.Size = new System.Drawing.Size(968, 516);
             this.metroPanel2.TabIndex = 0;
             this.metroPanel2.VerticalScrollbarBarColor = true;
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel2.VerticalScrollbarSize = 10;
+            this.metroPanel2.VerticalScrollbarSize = 20;
             // 
             // metroLabel11
             // 
             this.metroLabel11.AutoSize = true;
-            this.metroLabel11.Location = new System.Drawing.Point(13, 103);
+            this.metroLabel11.Location = new System.Drawing.Point(26, 198);
+            this.metroLabel11.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel11.Name = "metroLabel11";
             this.metroLabel11.Size = new System.Drawing.Size(173, 19);
             this.metroLabel11.TabIndex = 11;
@@ -318,20 +336,22 @@
             // mTglDownloadAnnex
             // 
             this.mTglDownloadAnnex.AutoSize = true;
-            this.mTglDownloadAnnex.Location = new System.Drawing.Point(201, 105);
+            this.mTglDownloadAnnex.Location = new System.Drawing.Point(402, 202);
+            this.mTglDownloadAnnex.Margin = new System.Windows.Forms.Padding(6);
             this.mTglDownloadAnnex.Name = "mTglDownloadAnnex";
-            this.mTglDownloadAnnex.Size = new System.Drawing.Size(80, 17);
+            this.mTglDownloadAnnex.Size = new System.Drawing.Size(80, 29);
             this.mTglDownloadAnnex.TabIndex = 10;
-            this.mTglDownloadAnnex.Text = "Off";
+            this.mTglDownloadAnnex.Text = "Aus";
             this.mTglDownloadAnnex.UseSelectable = true;
             this.mTglDownloadAnnex.CheckedChanged += new System.EventHandler(this.mTglDownloadAnnex_CheckedChanged);
             // 
             // mBtnPickDefaultMountpointDir
             // 
             this.mBtnPickDefaultMountpointDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mBtnPickDefaultMountpointDir.Location = new System.Drawing.Point(457, 74);
+            this.mBtnPickDefaultMountpointDir.Location = new System.Drawing.Point(914, 142);
+            this.mBtnPickDefaultMountpointDir.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnPickDefaultMountpointDir.Name = "mBtnPickDefaultMountpointDir";
-            this.mBtnPickDefaultMountpointDir.Size = new System.Drawing.Size(24, 23);
+            this.mBtnPickDefaultMountpointDir.Size = new System.Drawing.Size(48, 44);
             this.mBtnPickDefaultMountpointDir.TabIndex = 9;
             this.mBtnPickDefaultMountpointDir.Text = "...";
             this.mBtnPickDefaultMountpointDir.UseSelectable = true;
@@ -340,7 +360,8 @@
             // metroLabel9
             // 
             this.metroLabel9.AutoSize = true;
-            this.metroLabel9.Location = new System.Drawing.Point(13, 74);
+            this.metroLabel9.Location = new System.Drawing.Point(26, 142);
+            this.metroLabel9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel9.Name = "metroLabel9";
             this.metroLabel9.Size = new System.Drawing.Size(180, 19);
             this.metroLabel9.TabIndex = 8;
@@ -354,9 +375,10 @@
             // 
             // 
             this.mTxBDefaultMountpoint.CustomButton.Image = null;
-            this.mTxBDefaultMountpoint.CustomButton.Location = new System.Drawing.Point(228, 1);
+            this.mTxBDefaultMountpoint.CustomButton.Location = new System.Drawing.Point(458, 2);
+            this.mTxBDefaultMountpoint.CustomButton.Margin = new System.Windows.Forms.Padding(12);
             this.mTxBDefaultMountpoint.CustomButton.Name = "";
-            this.mTxBDefaultMountpoint.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mTxBDefaultMountpoint.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBDefaultMountpoint.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBDefaultMountpoint.CustomButton.TabIndex = 1;
             this.mTxBDefaultMountpoint.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -364,7 +386,8 @@
             this.mTxBDefaultMountpoint.CustomButton.Visible = false;
             this.mTxBDefaultMountpoint.Lines = new string[] {
         "metroTextBox1"};
-            this.mTxBDefaultMountpoint.Location = new System.Drawing.Point(201, 74);
+            this.mTxBDefaultMountpoint.Location = new System.Drawing.Point(402, 142);
+            this.mTxBDefaultMountpoint.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBDefaultMountpoint.MaxLength = 32767;
             this.mTxBDefaultMountpoint.Name = "mTxBDefaultMountpoint";
             this.mTxBDefaultMountpoint.PasswordChar = '\0';
@@ -374,7 +397,7 @@
             this.mTxBDefaultMountpoint.SelectionLength = 0;
             this.mTxBDefaultMountpoint.SelectionStart = 0;
             this.mTxBDefaultMountpoint.ShortcutsEnabled = true;
-            this.mTxBDefaultMountpoint.Size = new System.Drawing.Size(250, 23);
+            this.mTxBDefaultMountpoint.Size = new System.Drawing.Size(500, 44);
             this.mTxBDefaultMountpoint.TabIndex = 7;
             this.mTxBDefaultMountpoint.Text = "metroTextBox1";
             this.mTxBDefaultMountpoint.UseSelectable = true;
@@ -384,9 +407,10 @@
             // mBtnPickDefaultCheckoutDir
             // 
             this.mBtnPickDefaultCheckoutDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mBtnPickDefaultCheckoutDir.Location = new System.Drawing.Point(457, 45);
+            this.mBtnPickDefaultCheckoutDir.Location = new System.Drawing.Point(914, 87);
+            this.mBtnPickDefaultCheckoutDir.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnPickDefaultCheckoutDir.Name = "mBtnPickDefaultCheckoutDir";
-            this.mBtnPickDefaultCheckoutDir.Size = new System.Drawing.Size(24, 23);
+            this.mBtnPickDefaultCheckoutDir.Size = new System.Drawing.Size(48, 44);
             this.mBtnPickDefaultCheckoutDir.TabIndex = 6;
             this.mBtnPickDefaultCheckoutDir.Text = "...";
             this.mBtnPickDefaultCheckoutDir.UseSelectable = true;
@@ -395,7 +419,8 @@
             // metroLabel8
             // 
             this.metroLabel8.AutoSize = true;
-            this.metroLabel8.Location = new System.Drawing.Point(13, 45);
+            this.metroLabel8.Location = new System.Drawing.Point(26, 87);
+            this.metroLabel8.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel8.Name = "metroLabel8";
             this.metroLabel8.Size = new System.Drawing.Size(166, 19);
             this.metroLabel8.TabIndex = 5;
@@ -409,9 +434,10 @@
             // 
             // 
             this.mTxBDefaultCheckout.CustomButton.Image = null;
-            this.mTxBDefaultCheckout.CustomButton.Location = new System.Drawing.Point(228, 1);
+            this.mTxBDefaultCheckout.CustomButton.Location = new System.Drawing.Point(458, 2);
+            this.mTxBDefaultCheckout.CustomButton.Margin = new System.Windows.Forms.Padding(12);
             this.mTxBDefaultCheckout.CustomButton.Name = "";
-            this.mTxBDefaultCheckout.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mTxBDefaultCheckout.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBDefaultCheckout.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBDefaultCheckout.CustomButton.TabIndex = 1;
             this.mTxBDefaultCheckout.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -419,7 +445,8 @@
             this.mTxBDefaultCheckout.CustomButton.Visible = false;
             this.mTxBDefaultCheckout.Lines = new string[] {
         "metroTextBox1"};
-            this.mTxBDefaultCheckout.Location = new System.Drawing.Point(201, 45);
+            this.mTxBDefaultCheckout.Location = new System.Drawing.Point(402, 87);
+            this.mTxBDefaultCheckout.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBDefaultCheckout.MaxLength = 32767;
             this.mTxBDefaultCheckout.Name = "mTxBDefaultCheckout";
             this.mTxBDefaultCheckout.PasswordChar = '\0';
@@ -429,7 +456,7 @@
             this.mTxBDefaultCheckout.SelectionLength = 0;
             this.mTxBDefaultCheckout.SelectionStart = 0;
             this.mTxBDefaultCheckout.ShortcutsEnabled = true;
-            this.mTxBDefaultCheckout.Size = new System.Drawing.Size(250, 23);
+            this.mTxBDefaultCheckout.Size = new System.Drawing.Size(500, 44);
             this.mTxBDefaultCheckout.TabIndex = 4;
             this.mTxBDefaultCheckout.Text = "metroTextBox1";
             this.mTxBDefaultCheckout.UseSelectable = true;
@@ -448,9 +475,10 @@
             "Every 15 minutes",
             "Every 30 minutes",
             "Every 60 minutes"});
-            this.mCBxRepoUpdates.Location = new System.Drawing.Point(201, 10);
+            this.mCBxRepoUpdates.Location = new System.Drawing.Point(402, 19);
+            this.mCBxRepoUpdates.Margin = new System.Windows.Forms.Padding(6);
             this.mCBxRepoUpdates.Name = "mCBxRepoUpdates";
-            this.mCBxRepoUpdates.Size = new System.Drawing.Size(280, 29);
+            this.mCBxRepoUpdates.Size = new System.Drawing.Size(556, 29);
             this.mCBxRepoUpdates.TabIndex = 3;
             this.mCBxRepoUpdates.UseSelectable = true;
             this.mCBxRepoUpdates.SelectedIndexChanged += new System.EventHandler(this.metroComboBox1_SelectedIndexChanged);
@@ -458,7 +486,8 @@
             // metroLabel7
             // 
             this.metroLabel7.AutoSize = true;
-            this.metroLabel7.Location = new System.Drawing.Point(13, 14);
+            this.metroLabel7.Location = new System.Drawing.Point(26, 27);
+            this.metroLabel7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel7.Name = "metroLabel7";
             this.metroLabel7.Size = new System.Drawing.Size(182, 19);
             this.metroLabel7.TabIndex = 2;
@@ -467,9 +496,10 @@
             // tpRepositories
             // 
             this.tpRepositories.Controls.Add(this.metroPanel3);
-            this.tpRepositories.Location = new System.Drawing.Point(4, 38);
+            this.tpRepositories.Location = new System.Drawing.Point(8, 41);
+            this.tpRepositories.Margin = new System.Windows.Forms.Padding(6);
             this.tpRepositories.Name = "tpRepositories";
-            this.tpRepositories.Size = new System.Drawing.Size(484, 252);
+            this.tpRepositories.Size = new System.Drawing.Size(968, 516);
             this.tpRepositories.TabIndex = 2;
             this.tpRepositories.Text = "Repositories";
             this.tpRepositories.Visible = false;
@@ -484,21 +514,23 @@
             this.metroPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroPanel3.HorizontalScrollbarBarColor = true;
             this.metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel3.HorizontalScrollbarSize = 10;
+            this.metroPanel3.HorizontalScrollbarSize = 19;
             this.metroPanel3.Location = new System.Drawing.Point(0, 0);
+            this.metroPanel3.Margin = new System.Windows.Forms.Padding(6);
             this.metroPanel3.Name = "metroPanel3";
-            this.metroPanel3.Size = new System.Drawing.Size(484, 252);
+            this.metroPanel3.Size = new System.Drawing.Size(968, 516);
             this.metroPanel3.TabIndex = 0;
             this.metroPanel3.VerticalScrollbarBarColor = true;
             this.metroPanel3.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel3.VerticalScrollbarSize = 10;
+            this.metroPanel3.VerticalScrollbarSize = 20;
             // 
             // mBtnCreateNew
             // 
             this.mBtnCreateNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.mBtnCreateNew.Location = new System.Drawing.Point(105, 226);
+            this.mBtnCreateNew.Location = new System.Drawing.Point(210, 466);
+            this.mBtnCreateNew.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnCreateNew.Name = "mBtnCreateNew";
-            this.mBtnCreateNew.Size = new System.Drawing.Size(75, 23);
+            this.mBtnCreateNew.Size = new System.Drawing.Size(150, 44);
             this.mBtnCreateNew.TabIndex = 16;
             this.mBtnCreateNew.Text = "Create New";
             this.mBtnCreateNew.UseSelectable = true;
@@ -507,9 +539,10 @@
             // mBtnCheckout
             // 
             this.mBtnCheckout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.mBtnCheckout.Location = new System.Drawing.Point(24, 226);
+            this.mBtnCheckout.Location = new System.Drawing.Point(48, 466);
+            this.mBtnCheckout.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnCheckout.Name = "mBtnCheckout";
-            this.mBtnCheckout.Size = new System.Drawing.Size(75, 23);
+            this.mBtnCheckout.Size = new System.Drawing.Size(150, 44);
             this.mBtnCheckout.TabIndex = 15;
             this.mBtnCheckout.Text = "Checkout";
             this.mBtnCheckout.UseSelectable = true;
@@ -518,9 +551,10 @@
             // mBtnRemove
             // 
             this.mBtnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.mBtnRemove.Location = new System.Drawing.Point(188, 226);
+            this.mBtnRemove.Location = new System.Drawing.Point(376, 466);
+            this.mBtnRemove.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnRemove.Name = "mBtnRemove";
-            this.mBtnRemove.Size = new System.Drawing.Size(75, 23);
+            this.mBtnRemove.Size = new System.Drawing.Size(150, 44);
             this.mBtnRemove.TabIndex = 14;
             this.mBtnRemove.Text = "Remove";
             this.mBtnRemove.UseSelectable = true;
@@ -529,7 +563,8 @@
             // metroLabel10
             // 
             this.metroLabel10.AutoSize = true;
-            this.metroLabel10.Location = new System.Drawing.Point(24, 11);
+            this.metroLabel10.Location = new System.Drawing.Point(48, 21);
+            this.metroLabel10.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel10.Name = "metroLabel10";
             this.metroLabel10.Size = new System.Drawing.Size(140, 19);
             this.metroLabel10.TabIndex = 3;
@@ -550,10 +585,11 @@
             this.mLVwRepositories.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.mLVwRepositories.HideSelection = false;
             this.mLVwRepositories.LabelWrap = false;
-            this.mLVwRepositories.Location = new System.Drawing.Point(24, 33);
+            this.mLVwRepositories.Location = new System.Drawing.Point(48, 63);
+            this.mLVwRepositories.Margin = new System.Windows.Forms.Padding(6);
             this.mLVwRepositories.MultiSelect = false;
             this.mLVwRepositories.Name = "mLVwRepositories";
-            this.mLVwRepositories.Size = new System.Drawing.Size(457, 187);
+            this.mLVwRepositories.Size = new System.Drawing.Size(910, 387);
             this.mLVwRepositories.TabIndex = 2;
             this.mLVwRepositories.UseCompatibleStateImageBehavior = false;
             this.mLVwRepositories.View = System.Windows.Forms.View.Details;
@@ -581,9 +617,10 @@
             // About
             // 
             this.About.Controls.Add(this.metroPanel4);
-            this.About.Location = new System.Drawing.Point(4, 38);
+            this.About.Location = new System.Drawing.Point(8, 41);
+            this.About.Margin = new System.Windows.Forms.Padding(6);
             this.About.Name = "About";
-            this.About.Size = new System.Drawing.Size(484, 252);
+            this.About.Size = new System.Drawing.Size(968, 516);
             this.About.TabIndex = 3;
             this.About.Text = "About";
             // 
@@ -596,19 +633,21 @@
             this.metroPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroPanel4.HorizontalScrollbarBarColor = true;
             this.metroPanel4.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel4.HorizontalScrollbarSize = 10;
+            this.metroPanel4.HorizontalScrollbarSize = 19;
             this.metroPanel4.Location = new System.Drawing.Point(0, 0);
+            this.metroPanel4.Margin = new System.Windows.Forms.Padding(6);
             this.metroPanel4.Name = "metroPanel4";
-            this.metroPanel4.Size = new System.Drawing.Size(484, 252);
+            this.metroPanel4.Size = new System.Drawing.Size(968, 516);
             this.metroPanel4.TabIndex = 0;
             this.metroPanel4.VerticalScrollbarBarColor = true;
             this.metroPanel4.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel4.VerticalScrollbarSize = 10;
+            this.metroPanel4.VerticalScrollbarSize = 20;
             // 
             // metroLabel6
             // 
             this.metroLabel6.AutoSize = true;
-            this.metroLabel6.Location = new System.Drawing.Point(16, 37);
+            this.metroLabel6.Location = new System.Drawing.Point(32, 71);
+            this.metroLabel6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel6.Name = "metroLabel6";
             this.metroLabel6.Size = new System.Drawing.Size(122, 19);
             this.metroLabel6.TabIndex = 7;
@@ -623,9 +662,10 @@
             // 
             // 
             this.mTxBLicense.CustomButton.Image = null;
-            this.mTxBLicense.CustomButton.Location = new System.Drawing.Point(277, 2);
+            this.mTxBLicense.CustomButton.Location = new System.Drawing.Point(536, 2);
+            this.mTxBLicense.CustomButton.Margin = new System.Windows.Forms.Padding(12);
             this.mTxBLicense.CustomButton.Name = "";
-            this.mTxBLicense.CustomButton.Size = new System.Drawing.Size(185, 185);
+            this.mTxBLicense.CustomButton.Size = new System.Drawing.Size(391, 391);
             this.mTxBLicense.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBLicense.CustomButton.TabIndex = 1;
             this.mTxBLicense.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -633,7 +673,8 @@
             this.mTxBLicense.CustomButton.Visible = false;
             this.mTxBLicense.Lines = new string[] {
         "metroTextBox1"};
-            this.mTxBLicense.Location = new System.Drawing.Point(16, 59);
+            this.mTxBLicense.Location = new System.Drawing.Point(32, 113);
+            this.mTxBLicense.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBLicense.MaxLength = 32767;
             this.mTxBLicense.Multiline = true;
             this.mTxBLicense.Name = "mTxBLicense";
@@ -644,7 +685,7 @@
             this.mTxBLicense.SelectionLength = 0;
             this.mTxBLicense.SelectionStart = 0;
             this.mTxBLicense.ShortcutsEnabled = true;
-            this.mTxBLicense.Size = new System.Drawing.Size(465, 190);
+            this.mTxBLicense.Size = new System.Drawing.Size(930, 396);
             this.mTxBLicense.TabIndex = 6;
             this.mTxBLicense.Text = "metroTextBox1";
             this.mTxBLicense.UseSelectable = true;
@@ -659,9 +700,10 @@
             // 
             // 
             this.mTxBGinCliVersion.CustomButton.Image = null;
-            this.mTxBGinCliVersion.CustomButton.Location = new System.Drawing.Point(325, 1);
+            this.mTxBGinCliVersion.CustomButton.Location = new System.Drawing.Point(652, 2);
+            this.mTxBGinCliVersion.CustomButton.Margin = new System.Windows.Forms.Padding(12);
             this.mTxBGinCliVersion.CustomButton.Name = "";
-            this.mTxBGinCliVersion.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mTxBGinCliVersion.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBGinCliVersion.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBGinCliVersion.CustomButton.TabIndex = 1;
             this.mTxBGinCliVersion.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -669,7 +711,8 @@
             this.mTxBGinCliVersion.CustomButton.Visible = false;
             this.mTxBGinCliVersion.Lines = new string[] {
         "metroTextBox1"};
-            this.mTxBGinCliVersion.Location = new System.Drawing.Point(133, 11);
+            this.mTxBGinCliVersion.Location = new System.Drawing.Point(266, 21);
+            this.mTxBGinCliVersion.Margin = new System.Windows.Forms.Padding(6);
             this.mTxBGinCliVersion.MaxLength = 32767;
             this.mTxBGinCliVersion.Name = "mTxBGinCliVersion";
             this.mTxBGinCliVersion.PasswordChar = '\0';
@@ -679,7 +722,7 @@
             this.mTxBGinCliVersion.SelectionLength = 0;
             this.mTxBGinCliVersion.SelectionStart = 0;
             this.mTxBGinCliVersion.ShortcutsEnabled = true;
-            this.mTxBGinCliVersion.Size = new System.Drawing.Size(347, 23);
+            this.mTxBGinCliVersion.Size = new System.Drawing.Size(694, 44);
             this.mTxBGinCliVersion.TabIndex = 3;
             this.mTxBGinCliVersion.Text = "metroTextBox1";
             this.mTxBGinCliVersion.UseSelectable = true;
@@ -689,7 +732,8 @@
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(16, 11);
+            this.metroLabel4.Location = new System.Drawing.Point(32, 21);
+            this.metroLabel4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(111, 19);
             this.metroLabel4.TabIndex = 2;
@@ -698,9 +742,10 @@
             // mBtnOK
             // 
             this.mBtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.mBtnOK.Location = new System.Drawing.Point(28, 360);
+            this.mBtnOK.Location = new System.Drawing.Point(56, 692);
+            this.mBtnOK.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnOK.Name = "mBtnOK";
-            this.mBtnOK.Size = new System.Drawing.Size(75, 23);
+            this.mBtnOK.Size = new System.Drawing.Size(150, 44);
             this.mBtnOK.TabIndex = 1;
             this.mBtnOK.Text = "OK";
             this.mBtnOK.UseSelectable = true;
@@ -709,9 +754,10 @@
             // mBtnCancel
             // 
             this.mBtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.mBtnCancel.Location = new System.Drawing.Point(110, 360);
+            this.mBtnCancel.Location = new System.Drawing.Point(220, 692);
+            this.mBtnCancel.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnCancel.Name = "mBtnCancel";
-            this.mBtnCancel.Size = new System.Drawing.Size(75, 23);
+            this.mBtnCancel.Size = new System.Drawing.Size(150, 44);
             this.mBtnCancel.TabIndex = 2;
             this.mBtnCancel.Text = "Cancel";
             this.mBtnCancel.UseSelectable = true;
@@ -720,10 +766,11 @@
             // mProgWorking
             // 
             this.mProgWorking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mProgWorking.Location = new System.Drawing.Point(486, 360);
+            this.mProgWorking.Location = new System.Drawing.Point(972, 692);
+            this.mProgWorking.Margin = new System.Windows.Forms.Padding(6);
             this.mProgWorking.Maximum = 100;
             this.mProgWorking.Name = "mProgWorking";
-            this.mProgWorking.Size = new System.Drawing.Size(23, 23);
+            this.mProgWorking.Size = new System.Drawing.Size(46, 44);
             this.mProgWorking.TabIndex = 17;
             this.mProgWorking.UseSelectable = true;
             this.mProgWorking.Value = 50;
@@ -732,25 +779,39 @@
             // 
             this.mLblWorking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.mLblWorking.AutoSize = true;
-            this.mLblWorking.Location = new System.Drawing.Point(413, 360);
+            this.mLblWorking.Location = new System.Drawing.Point(826, 692);
+            this.mLblWorking.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.mLblWorking.Name = "mLblWorking";
             this.mLblWorking.Size = new System.Drawing.Size(67, 19);
             this.mLblWorking.TabIndex = 18;
             this.mLblWorking.Text = "Working...";
             // 
+            // metroLabel5
+            // 
+            this.metroLabel5.AutoSize = true;
+            this.metroLabel5.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.metroLabel5.Location = new System.Drawing.Point(56, 64);
+            this.metroLabel5.Name = "metroLabel5";
+            this.metroLabel5.Size = new System.Drawing.Size(72, 25);
+            this.metroLabel5.TabIndex = 19;
+            this.metroLabel5.Text = "Options";
+            // 
             // MetroOptionsDlg
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 397);
+            this.ClientSize = new System.Drawing.Size(1074, 763);
+            this.Controls.Add(this.metroLabel5);
             this.Controls.Add(this.mLblWorking);
             this.Controls.Add(this.mBtnCancel);
             this.Controls.Add(this.mProgWorking);
             this.Controls.Add(this.mBtnOK);
             this.Controls.Add(this.mTabCtrl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "MetroOptionsDlg";
-            this.Text = "Options";
+            this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
+            this.Text = "G-Node GIN client";
             this.Theme = MetroFramework.MetroThemeStyle.Default;
             this.mTabCtrl.ResumeLayout(false);
             this.tpUser.ResumeLayout(false);
@@ -815,5 +876,6 @@
         private MetroFramework.Controls.MetroToggle mTglDownloadAnnex;
         private MetroFramework.Controls.MetroLabel mLblWorking;
         private MetroFramework.Controls.MetroProgressSpinner mProgWorking;
+        private MetroFramework.Controls.MetroLabel metroLabel5;
     }
 }
