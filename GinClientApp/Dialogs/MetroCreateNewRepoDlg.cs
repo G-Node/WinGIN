@@ -45,6 +45,7 @@ namespace GinClientApp.Dialogs
 
         private bool CheckSanity()
         {
+           
             var repoListJson = _appContext.ServiceClient.GetRemoteRepositoryList();
             var repoList = JsonConvert.DeserializeObject<RepositoryListing[]>(repoListJson);
             var paths = repoList.Select(repoListing => repoListing.full_name).ToList();
@@ -112,6 +113,10 @@ namespace GinClientApp.Dialogs
 
         private void mBtnOK_Click(object sender, EventArgs e)
         {
+            RepositoryData.PhysicalDirectory =
+                        new DirectoryInfo(RepositoryData.PhysicalDirectory.FullName + @"\" + RepositoryData.Name);
+            RepositoryData.Mountpoint =
+                        new DirectoryInfo(RepositoryData.Mountpoint.FullName + @"\" + RepositoryData.Name);
             if (!CheckSanity()) return;
 
             DialogResult = DialogResult.OK;
@@ -143,16 +148,16 @@ namespace GinClientApp.Dialogs
             if (strings.Length == 2)
             {
                 RepositoryData.Name = strings[1];
-                //if (RepositoryData.PhysicalDirectory.IsEqualTo(GlobalOptions.Instance.DefaultCheckoutDir))
+                if (RepositoryData.PhysicalDirectory.IsEqualTo(GlobalOptions.Instance.DefaultCheckoutDir))
                     RepositoryData.PhysicalDirectory =
-                        new DirectoryInfo(GlobalOptions.Instance.DefaultCheckoutDir + @"\" + RepositoryData.Name);
-                //if (RepositoryData.Mountpoint.IsEqualTo(GlobalOptions.Instance.DefaultMountpointDir))
+                        new DirectoryInfo(RepositoryData.PhysicalDirectory.FullName);
+               if (RepositoryData.Mountpoint.IsEqualTo(GlobalOptions.Instance.DefaultMountpointDir))
                     RepositoryData.Mountpoint =
-                        new DirectoryInfo(GlobalOptions.Instance.DefaultMountpointDir + @"\" + RepositoryData.Name);
+                        new DirectoryInfo(RepositoryData.Mountpoint.FullName );
 
                 mTxBRepoName.Text = RepositoryData.Name;
-                mTxBRepoCheckoutDir.Text = RepositoryData.PhysicalDirectory.FullName;
-                mTxBRepoMountpoint.Text = RepositoryData.Mountpoint.FullName;
+                mTxBRepoCheckoutDir.Text = RepositoryData.PhysicalDirectory.FullName + @"\" + RepositoryData.Name;
+                mTxBRepoMountpoint.Text = RepositoryData.Mountpoint.FullName + @"\" + RepositoryData.Name;
             }
         }
 
