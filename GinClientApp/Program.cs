@@ -32,33 +32,42 @@ namespace GinClientApp
             }
 
             var wb = new WebClient();
-
-            var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
-            var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
-            var fileDate = File.GetCreationTime(Assembly.GetExecutingAssembly().Location);
-            if (fileDate < rootObject.build.finished)
+            try
             {
-                var result = System.Windows.MessageBox.Show(
-                    "A new version of the Gin client is available. Do you want to update now?",
-                    "Gin Windows Client", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.Yes)
+                var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
+                var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
+                var fileDate = File.GetCreationTime(Assembly.GetExecutingAssembly().Location);
+                if (fileDate < rootObject.build.finished)
                 {
-                    if (!Directory.Exists(UpdaterBaseDirectory.FullName))
-                        Directory.CreateDirectory(UpdaterBaseDirectory.FullName);
+                    var result = System.Windows.MessageBox.Show(
+                        "A new version of the Gin client is available. Do you want to update now?",
+                        "Gin Windows Client", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                    File.Copy("Updater.exe", UpdaterBaseDirectory + "Updater.exe", true);
-                    File.Copy("Newtonsoft.Json.dll", UpdaterBaseDirectory + "Newtonsoft.Json.dll", true);
-                    File.Copy("Newtonsoft.Json.xml", UpdaterBaseDirectory + "Newtonsoft.Json.xml", true);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        if (!Directory.Exists(UpdaterBaseDirectory.FullName))
+                            Directory.CreateDirectory(UpdaterBaseDirectory.FullName);
 
-                    var psInfo = new ProcessStartInfo();
-                    psInfo.FileName = UpdaterBaseDirectory + "Updater.exe";
-                    Process.Start(psInfo);
-                    Environment.Exit(0);
+                        File.Copy("Updater.exe", UpdaterBaseDirectory + "Updater.exe", true);
+                        File.Copy("Newtonsoft.Json.dll", UpdaterBaseDirectory + "Newtonsoft.Json.dll", true);
+                        File.Copy("Newtonsoft.Json.xml", UpdaterBaseDirectory + "Newtonsoft.Json.xml", true);
+
+                        var psInfo = new ProcessStartInfo();
+                        psInfo.FileName = UpdaterBaseDirectory + "Updater.exe";
+                        Process.Start(psInfo);
+                        Environment.Exit(0);
+                    }
                 }
             }
+            catch (Exception e) {
+                MessageBox.Show("Cannot connect to GNode server.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (!Mutex.WaitOne(TimeSpan.Zero, true)) {
+                MessageBox.Show("GIN client is already running.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-            if (!Mutex.WaitOne(TimeSpan.Zero, true)) return;
 
             var path = AppDomain.CurrentDomain.BaseDirectory;
 
