@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Forms;
 using GinClientApp.Properties;
 using GinClientLibrary;
@@ -147,7 +149,19 @@ namespace GinClientApp.Dialogs
 
             if (strings.Length == 2)
             {
+                ///check special characters in repository name
+                var regexItem = new Regex("^[a-zA-Z0-9-_.]+$");
+                if (!regexItem.IsMatch(strings[1])) {
+                    MetroMessageBox.Show(this, "Repository name must be valid alpha or numeric or dash(-_) or dot characters.",
+                                          "Warning",
+                                          MessageBoxButtons.OK, MessageBoxIcon.Error,200);
+                    mTxBRepoAddress.Text = "";
+                    return;
+                }
                 RepositoryData.Name = strings[1];
+
+
+
                 if (RepositoryData.PhysicalDirectory.IsEqualTo(GlobalOptions.Instance.DefaultCheckoutDir))
                     RepositoryData.PhysicalDirectory =
                         new DirectoryInfo(RepositoryData.PhysicalDirectory.FullName);
@@ -173,7 +187,7 @@ namespace GinClientApp.Dialogs
             if (res == DialogResult.OK)
                 RepositoryData.PhysicalDirectory = new DirectoryInfo(folderBrowser.SelectedPath);
 
-            mTxBRepoCheckoutDir.Text = RepositoryData.PhysicalDirectory.FullName;
+            mTxBRepoCheckoutDir.Text = RepositoryData.PhysicalDirectory.FullName + @"\" + RepositoryData.Name;
         }
 
         private void mBtnPickRepoMountpointDir_Click(object sender, EventArgs e)
@@ -188,7 +202,7 @@ namespace GinClientApp.Dialogs
             if (res == DialogResult.OK)
                 RepositoryData.Mountpoint = new DirectoryInfo(folderBrowser.SelectedPath);
 
-            mTxBRepoMountpoint.Text = RepositoryData.Mountpoint.FullName;
+            mTxBRepoMountpoint.Text = RepositoryData.Mountpoint.FullName + @"\" + RepositoryData.Name;
         }
 
         private void mBtnRepoBrowser_Click(object sender, EventArgs e)
