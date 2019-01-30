@@ -41,15 +41,19 @@ namespace GinClientApp.Dialogs
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(26, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.Size = new System.Drawing.Size(0, 25);
             this.label1.TabIndex = 0;
             // 
             // chB_keepUserConfig
             // 
             this.chB_keepUserConfig.AutoSize = true;
-            this.chB_keepUserConfig.Location = new System.Drawing.Point(49, 63);
+            this.chB_keepUserConfig.Checked = true;
+            this.chB_keepUserConfig.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chB_keepUserConfig.Location = new System.Drawing.Point(98, 121);
+            this.chB_keepUserConfig.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chB_keepUserConfig.Name = "chB_keepUserConfig";
             this.chB_keepUserConfig.Size = new System.Drawing.Size(123, 15);
             this.chB_keepUserConfig.TabIndex = 1;
@@ -60,7 +64,10 @@ namespace GinClientApp.Dialogs
             // chB_keepLoginInfo
             // 
             this.chB_keepLoginInfo.AutoSize = true;
-            this.chB_keepLoginInfo.Location = new System.Drawing.Point(49, 86);
+            this.chB_keepLoginInfo.Checked = true;
+            this.chB_keepLoginInfo.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chB_keepLoginInfo.Location = new System.Drawing.Point(98, 165);
+            this.chB_keepLoginInfo.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chB_keepLoginInfo.Name = "chB_keepLoginInfo";
             this.chB_keepLoginInfo.Size = new System.Drawing.Size(145, 15);
             this.chB_keepLoginInfo.TabIndex = 2;
@@ -71,7 +78,10 @@ namespace GinClientApp.Dialogs
             // chB_keepCheckouts
             // 
             this.chB_keepCheckouts.AutoSize = true;
-            this.chB_keepCheckouts.Location = new System.Drawing.Point(49, 109);
+            this.chB_keepCheckouts.Checked = true;
+            this.chB_keepCheckouts.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chB_keepCheckouts.Location = new System.Drawing.Point(98, 210);
+            this.chB_keepCheckouts.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.chB_keepCheckouts.Name = "chB_keepCheckouts";
             this.chB_keepCheckouts.Size = new System.Drawing.Size(79, 15);
             this.chB_keepCheckouts.TabIndex = 3;
@@ -82,25 +92,28 @@ namespace GinClientApp.Dialogs
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(379, 136);
+            this.button1.Location = new System.Drawing.Point(758, 262);
+            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(150, 44);
             this.button1.TabIndex = 4;
             this.button1.Text = "Ok";
             this.button1.UseSelectable = true;
             // 
             // DeleteDataDlg
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 174);
+            this.ClientSize = new System.Drawing.Size(944, 335);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chB_keepCheckouts);
             this.Controls.Add(this.chB_keepLoginInfo);
             this.Controls.Add(this.chB_keepUserConfig);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "DeleteDataDlg";
+            this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Please mark any data you wish to keep:";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.DeleteDataDlg_Load);

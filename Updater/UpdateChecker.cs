@@ -62,7 +62,7 @@ namespace Updater
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 return false;
             }
