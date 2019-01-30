@@ -92,8 +92,13 @@ namespace GinClientApp.Dialogs
             foreach (var repo in repos)
                 mLVwRepositories.Items.Add(new ListViewItem(new[]
                     {repo.Name, repo.Mountpoint.FullName, repo.PhysicalDirectory.FullName, repo.Address}));
-            mLVwRepositories.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-
+            if (repos.Length > 1) {
+                mLVwRepositories.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            }
+            else
+            {
+            mLVwRepositories.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            }
             OnRepoListingChanged();
         }
 
