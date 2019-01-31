@@ -7,7 +7,7 @@ namespace GinClientLibrary
     /// </summary>
     public class Owner
     {
-        public int id { get; set; }
+        public long id { get; set; }
         public string login { get; set; }
         public string full_name { get; set; }
         public string email { get; set; }
@@ -24,7 +24,7 @@ namespace GinClientLibrary
 
     public class RepositoryListing
     {
-        public int id { get; set; }
+        public long id { get; set; }
         public Owner owner { get; set; }
         public string name { get; set; }
         public string full_name { get; set; }
@@ -34,7 +34,7 @@ namespace GinClientLibrary
         public object parent { get; set; }
         public bool empty { get; set; }
         public bool mirror { get; set; }
-        public int size { get; set; }
+        public long size { get; set; }
         public string html_url { get; set; }
         public string ssh_url { get; set; }
         public string clone_url { get; set; }

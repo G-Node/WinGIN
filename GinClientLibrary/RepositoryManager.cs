@@ -8,7 +8,6 @@ using System.Threading;
 using System.Windows.Forms;
 using DokanNet;
 using GinClientLibrary.Extensions;
-using MetroFramework;
 using Newtonsoft.Json;
 using static System.String;
 
