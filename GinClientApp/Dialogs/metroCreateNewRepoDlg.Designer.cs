@@ -104,7 +104,7 @@
             this.mTxBRepoAddress.MaxLength = 32767;
             this.mTxBRepoAddress.Name = "mTxBRepoAddress";
             this.mTxBRepoAddress.PasswordChar = '\0';
-            this.mTxBRepoAddress.PromptText = "<username>/<repository>";
+            this.mTxBRepoAddress.WaterMark= "<username>/<repository>";
             this.mTxBRepoAddress.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.mTxBRepoAddress.SelectedText = "";
             this.mTxBRepoAddress.SelectionLength = 0;
