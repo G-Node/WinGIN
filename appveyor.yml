@@ -7,10 +7,10 @@ environment:
 
 build_script:
     - nuget restore
-    - '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe" GinClientApp.sln /Rebuild Debug /Project Setup\Setup.vdproj'
+    - '"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe" GinClientApp.sln /Rebuild Release /Project Setup\Setup.vdproj'
 
 artifacts:
-    - path: 'Setup\Debug\*'
+    - path: 'Setup\Release\*'
       name: Setup
 
 on_finish:
