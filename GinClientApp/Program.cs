@@ -37,7 +37,7 @@ namespace GinClientApp
                 var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
                 var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
                 var fileDate = File.GetCreationTime(Assembly.GetExecutingAssembly().Location);
-                if (fileDate < rootObject.build.finished)
+                if(0>DateTime.Compare(fileDate, rootObject.build.finished))
                 {
                     var result = System.Windows.MessageBox.Show(
                         "A new version of the Gin client is available. Do you want to update now?",
