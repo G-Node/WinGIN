@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Management;
 using System.Net;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace Updater
@@ -18,8 +12,7 @@ namespace Updater
     {
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
 
-        private static readonly string UpdatedMsi =
-            "https://web.gin.g-node.org/achilleas/gin-ui-installers/raw/master/Setup.msi";
+        private static readonly string UpdatedMsi = System.Configuration.ConfigurationManager.AppSettings["updaterPath"];
         
         public static void DoUpdate()
         {         
