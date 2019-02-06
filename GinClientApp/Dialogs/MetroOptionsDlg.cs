@@ -92,12 +92,13 @@ namespace GinClientApp.Dialogs
             foreach (var repo in repos)
                 mLVwRepositories.Items.Add(new ListViewItem(new[]
                     {repo.Name, repo.Mountpoint.FullName, repo.PhysicalDirectory.FullName, repo.Address}));
-            if (repos.Length > 1) {
+            if (repos.Length > 1)
+            {
                 mLVwRepositories.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             }
             else
             {
-            mLVwRepositories.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                mLVwRepositories.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             }
             OnRepoListingChanged();
         }
@@ -173,12 +174,19 @@ namespace GinClientApp.Dialogs
             repoData = createNewDlg.RepositoryData;
             StartShowProgress();
 
-            if (repoData.CreateNew)
+            if (repoData.CreateNew){
                 await _parentContext.ServiceClient.CreateNewRepositoryAsync(repoData.Name);
-            await _parentContext.ServiceClient.AddRepositoryAsync(repoData.PhysicalDirectory.FullName,
+                await _parentContext.ServiceClient.AddRepositoryAsync(repoData.PhysicalDirectory.FullName,
                 repoData.Mountpoint.FullName, repoData.Name, repoData.Address,
                 GlobalOptions.Instance.RepositoryCheckoutOption == GlobalOptions.CheckoutOption.FullCheckout,
                 repoData.CreateNew);
+            }
+            else{
+                await _parentContext.ServiceClient.AddRepositoryAsync(repoData.PhysicalDirectory.FullName,
+                    repoData.Mountpoint.FullName, repoData.Name, repoData.Address,
+                    GlobalOptions.Instance.RepositoryCheckoutOption == GlobalOptions.CheckoutOption.FullCheckout,
+                    repoData.CreateNew);
+            }
 
             StopShowProgress();
 
