@@ -559,22 +559,22 @@
             // 
             // colHdName
             // 
-            this.colHdName.Text = "Name";
+            this.colHdName.Text = Properties.Resources.ResourceManager.GetString("GinAppRepo_ColumnName");
             this.colHdName.Width = 300;
             // 
             // colHdMountpoint
             // 
-            this.colHdMountpoint.Text = "Mountpoint";
+            this.colHdMountpoint.Text = Properties.Resources.ResourceManager.GetString("GinAppRepo_ColumnMount");
             this.colHdMountpoint.Width = 300;
             // 
             // colHdCheckoutDir
             // 
-            this.colHdCheckoutDir.Text = "Checkout Directory";
+            this.colHdCheckoutDir.Text = Properties.Resources.ResourceManager.GetString("GinAppRepo_ColumnCheckout");
             this.colHdCheckoutDir.Width = 300;
             // 
             // colHdAddress
             // 
-            this.colHdAddress.Text = "Address";
+            this.colHdAddress.Text = Properties.Resources.ResourceManager.GetString("GinAppRepo_ColumnAddress");
             this.colHdAddress.Width = 300;
             // 
             // About
@@ -584,7 +584,7 @@
             this.About.Name = "About";
             this.About.Size = new System.Drawing.Size(546, 294);
             this.About.TabIndex = 3;
-            this.About.Text = "About";
+            this.About.Text = Properties.Resources.ResourceManager.GetString("GinAppRepo_About");
             // 
             // metroPanel4
             // 
@@ -611,7 +611,7 @@
             this.metroLabel6.Name = "metroLabel6";
             this.metroLabel6.Size = new System.Drawing.Size(122, 19);
             this.metroLabel6.TabIndex = 7;
-            this.metroLabel6.Text = "License Information";
+            this.metroLabel6.Text = Properties.Resources.ResourceManager.GetString("GinAppRepo_LicenseInfo");
             // 
             // mTxBLicense
             // 
@@ -692,7 +692,7 @@
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(111, 19);
             this.metroLabel4.TabIndex = 2;
-            this.metroLabel4.Text = "Gin Client Version";
+            this.metroLabel4.Text = Properties.Resources.ResourceManager.GetString("GinAppRepo_GinVersion");
             // 
             // mBtnOK
             // 
