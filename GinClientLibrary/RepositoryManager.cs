@@ -334,14 +334,19 @@ namespace GinClientLibrary
             try
             {
                 var progress = JsonConvert.DeserializeObject<fileOpProgress>(message);
+                string errorMsg="";
+                if (!string.IsNullOrEmpty(progress.err)) {
+                    errorMsg = " Error : " + progress.err;
+                }
                 FileOperationProgress?.Invoke(progress.filename, (GinRepository) sender, progress.GetProgress(),
                     progress.rate, progress.state);
                 
-                AppIcon.BalloonTipText = progress.state + " " + progress.filename + " at " + progress.rate + ", " + progress.progress + " completed";
+                AppIcon.BalloonTipText = progress.state + " " + progress.filename + " at " + progress.rate + ", " + progress.progress + " completed."+ errorMsg;
                 AppIcon.Text = progress.state + ", " + progress.progress + " completed";
             }
             catch 
             {
+                AppIcon.BalloonTipText = "Error: Repo_FileOperationProgress";
             }
         }
         
@@ -358,6 +363,7 @@ namespace GinClientLibrary
             try
             {
                 AppIcon.Text = "";
+                AppIcon.ShowBalloonTip(1500, "GIN activity done", "Repository " + sender.Name + " work finished." , ToolTipIcon.Info);
             }
             catch
             {

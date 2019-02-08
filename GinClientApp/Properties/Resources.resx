@@ -277,4 +277,25 @@ Copyright (c) Microsoft</value>
   <data name="MetroCreateNewRepoDlg_Choose_a_directory_for_the_mountpoint" xml:space="preserve">
     <value>Choose a directory for the mountpoint</value>
   </data>
+  <data name="GinAppRepo_ColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="GinAppRepo_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="GinAppRepo_ColumnAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="GinAppRepo_ColumnCheckout" xml:space="preserve">
+    <value>Checkout Directory</value>
+  </data>
+  <data name="GinAppRepo_ColumnMount" xml:space="preserve">
+    <value>Mountpoint</value>
+  </data>
+  <data name="GinAppRepo_GinVersion" xml:space="preserve">
+    <value>Gin Client Version</value>
+  </data>
+  <data name="GinAppRepo_LicenseInfo" xml:space="preserve">
+    <value>License Information</value>
+  </data>
 </root>

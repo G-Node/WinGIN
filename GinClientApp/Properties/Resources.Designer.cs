@@ -262,6 +262,69 @@ namespace GinClientApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string GinAppRepo_About {
+            get {
+                return ResourceManager.GetString("GinAppRepo_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        internal static string GinAppRepo_ColumnAddress {
+            get {
+                return ResourceManager.GetString("GinAppRepo_ColumnAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checkout Directory.
+        /// </summary>
+        internal static string GinAppRepo_ColumnCheckout {
+            get {
+                return ResourceManager.GetString("GinAppRepo_ColumnCheckout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mountpoint.
+        /// </summary>
+        internal static string GinAppRepo_ColumnMount {
+            get {
+                return ResourceManager.GetString("GinAppRepo_ColumnMount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string GinAppRepo_ColumnName {
+            get {
+                return ResourceManager.GetString("GinAppRepo_ColumnName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gin Client Version.
+        /// </summary>
+        internal static string GinAppRepo_GinVersion {
+            get {
+                return ResourceManager.GetString("GinAppRepo_GinVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License Information.
+        /// </summary>
+        internal static string GinAppRepo_LicenseInfo {
+            get {
+                return ResourceManager.GetString("GinAppRepo_LicenseInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gin Client Warning.
         /// </summary>
         internal static string GinClientApp_Gin_Client_Warning {
