@@ -336,8 +336,7 @@ namespace GinClientLibrary
                 var progress = JsonConvert.DeserializeObject<fileOpProgress>(message);
                 string errorMsg="";
                 if (!string.IsNullOrEmpty(progress.err)) {
-                    AppIcon.BalloonTipText = "Error " + progress.err;
-                    errorMsg = " Error :" + progress.err;
+                    errorMsg = " Error : " + progress.err;
                 }
                 FileOperationProgress?.Invoke(progress.filename, (GinRepository) sender, progress.GetProgress(),
                     progress.rate, progress.state);
