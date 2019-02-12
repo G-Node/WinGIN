@@ -340,7 +340,7 @@ namespace GinClientLibrary
                 OnFileOperationStarted(new FileOperationEventArgs {File = Address});
 
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe download --json --content",
-                    PhysicalDirectory.Parent.FullName, out var error);
+                    PhysicalDirectory.FullName, out var error);
 
                 var result = string.IsNullOrEmpty(error);
 
