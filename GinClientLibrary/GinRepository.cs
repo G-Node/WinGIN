@@ -60,9 +60,9 @@ namespace GinClientLibrary
         public void DownloadUpdateInfo()
         {
             GetCommandLineOutput("cmd.exe", "/C gin.exe download", PhysicalDirectory.FullName, out var error);
-
             if (!string.IsNullOrEmpty(error))
                 OnFileOperationError(error);
+            ReadRepoStatus();
         }
 
         public void Initialize()
