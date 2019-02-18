@@ -15,7 +15,7 @@ namespace GinClientApp
     {
         static readonly Mutex Mutex = new Mutex(true, "{AC8AB48D-C289-445D-B1EB-ABCFF24443ED}" + Environment.UserName);
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
-        private static readonly string AppVeyorProjectUrl = "https://ci.appveyor.com/api/projects/achilleas-k/GinUI";
+        private static readonly string AppVeyorProjectUrl = "https://ci.appveyor.com/api/projects/G-Node/GinUI";
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
