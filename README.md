@@ -39,6 +39,9 @@ This project contains the source code for custom actions used within the Setup p
 5. Setup  
 A Visual Studio Installer project that builds the installer
 
+### App Versioning
+The version of app is taken from AppVeyor build json and compared to AppVeyor project json in the GIN-ui-installers repository(https://web.gin.g-node.org/G-Node/gin-ui-installers). Needs to be manually edited in GinClientApp -> Program.cs -> appVersion
+
 ### Coding Style
 This project uses ReSharper style throughout.  
 Private variables and fields should always be lowercase and preceded by an underscore, i.e. `private int _someint;`  

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace Updater
@@ -12,12 +13,20 @@ namespace Updater
     {
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
 
-        private static readonly string UpdatedMsi = System.Configuration.ConfigurationManager.AppSettings["updaterPath"];
+        private static readonly string UpdatedMsi = "https://web.gin.g-node.org/G-Node/gin-ui-installers/raw/master/Setup.msi";
 
         public static void DoUpdate()
         {
-            var wb = new WebClient();
-            wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
+            Uri ginUri = null;
+            try
+            {
+                var wb = new WebClient();
+                wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
+            }
+            catch(Exception e) {
+                MessageBox.Show("Error unable to download new version.");
+                return;
+            }
             if (!UninstallProgram("Gin Windows Client")) return;
             var procstartinfo = new ProcessStartInfo();
             procstartinfo.FileName = "msiexec.exe";

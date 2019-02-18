@@ -13,9 +13,10 @@ namespace GinClientApp
 {
     internal static class Program
     {
+        private static readonly string appVersion = "1.0.14";
         static readonly Mutex Mutex = new Mutex(true, "{AC8AB48D-C289-445D-B1EB-ABCFF24443ED}" + Environment.UserName);
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
-        private static readonly string AppVeyorProjectUrl = "https://ci.appveyor.com/api/projects/achilleas-k/GinUI";
+        private static readonly string AppVeyorProjectUrl = "https://web.gin.g-node.org/G-Node/gin-ui-installers/raw/master/build.json";
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
@@ -36,12 +37,13 @@ namespace GinClientApp
             {
                 var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
                 var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
-                var fileDate = File.GetCreationTime(Assembly.GetExecutingAssembly().Location);
-                var fileTime = fileDate.AddMinutes(60);
-                if(0>DateTime.Compare(fileTime, rootObject.build.finished))
+                var remoteVersion = new Version(rootObject.build.version);
+                var localVersion = new Version(appVersion);
+                var verResult = remoteVersion.CompareTo(localVersion);
+                if (verResult >0 )
                 {
                     var result = System.Windows.MessageBox.Show(
-                        "A new version of the Gin client is available. Do you want to update now?",
+                        "A new version " + remoteVersion + " of the Gin client is available. Do you want to update now?",
                         "Gin Windows Client", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
