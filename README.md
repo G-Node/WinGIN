@@ -40,7 +40,7 @@ This project contains the source code for custom actions used within the Setup p
 A Visual Studio Installer project that builds the installer
 
 ### App Versioning
-The version of app if taken from AppVeyor build json and compared to AppVeyor project json in GIN-ui-installers repository(https://web.gin.g-node.org/G-Node/gin-ui-installers). Need to be manually edited in GinClientApp -> Program.cs -> appVersion
+The version of app is taken from AppVeyor build json and compared to AppVeyor project json in the GIN-ui-installers repository(https://web.gin.g-node.org/G-Node/gin-ui-installers). Needs to be manually edited in GinClientApp -> Program.cs -> appVersion
 
 ### Coding Style
 This project uses ReSharper style throughout.  
