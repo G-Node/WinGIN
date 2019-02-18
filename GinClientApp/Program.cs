@@ -43,7 +43,7 @@ namespace GinClientApp
                 if (verResult >0 )
                 {
                     var result = System.Windows.MessageBox.Show(
-                        "A new version of the Gin client is available - "+ remoteVersion + ". Do you want to update now?",
+                        "A new version " + remoteVersion + " of the Gin client is available. Do you want to update now?",
                         "Gin Windows Client", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
