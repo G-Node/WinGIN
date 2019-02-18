@@ -51,7 +51,6 @@ namespace GinClientApp
 
                         File.Copy("Updater.exe", UpdaterBaseDirectory + "Updater.exe", true);
                         File.Copy("Newtonsoft.Json.dll", UpdaterBaseDirectory + "Newtonsoft.Json.dll", true);
-                        File.Copy("Newtonsoft.Json.xml", UpdaterBaseDirectory + "Newtonsoft.Json.xml", true);
 
                         var psInfo = new ProcessStartInfo();
                         psInfo.FileName = UpdaterBaseDirectory + "Updater.exe";
