@@ -13,20 +13,26 @@ namespace Updater
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
 
         private static readonly string UpdatedMsi = System.Configuration.ConfigurationManager.AppSettings["updaterPath"];
-        
+
         public static void DoUpdate()
-        {         
-            if (!UninstallProgram("Gin Windows Client")) return;
+        {
             var wb = new WebClient();
             wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
+            if (!UninstallProgram("Gin Windows Client")) return;
             var procstartinfo = new ProcessStartInfo();
             procstartinfo.FileName = "msiexec.exe";
             procstartinfo.Arguments = "/i \"" + UpdaterBaseDirectory.FullName + "\\setup.msi\"";
             procstartinfo.CreateNoWindow = true;
+            procstartinfo.UseShellExecute = true;
+            procstartinfo.Verb = "runas";
             var process = Process.Start(procstartinfo);
             process.WaitForExit();
         }
-
+        /// <summary>
+        /// uninstalls old version of GinUI
+        /// </summary>
+        /// <param name="ProgramName">Name of program</param>
+        /// <returns>true for success</returns>
         private static bool UninstallProgram(string ProgramName)
         {
             try
@@ -49,6 +55,8 @@ namespace Updater
                         psInfo.FileName = "cmd.exe";
                         psInfo.Arguments = "/C " + uninstallString + " /q";
                         psInfo.CreateNoWindow = true;
+                        psInfo.UseShellExecute = true;
+                        psInfo.Verb = "runas";
                         var process = Process.Start(psInfo);
                         process.WaitForExit();
                         return process.ExitCode == 0;
