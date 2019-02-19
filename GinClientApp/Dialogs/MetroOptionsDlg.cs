@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using GinClientApp.Properties;
 using GinClientLibrary;
@@ -73,7 +74,7 @@ namespace GinClientApp.Dialogs
             FillRepoList();
 
             mTxBLicense.Text = Resources.License_Text;
-            mTxBGinCliVersion.Text = parentContext.ServiceClient.GetGinCliVersion();
+            mTxBGinCliVersion.Text = parentContext.ServiceClient.GetGinCliVersion()+"  G-Node GIN client version "+ Assembly.GetExecutingAssembly().GetName().Version;
 
             _storedOptions = (GlobalOptions) GlobalOptions.Instance.Clone();
             _storedCredentials = (UserCredentials) UserCredentials.Instance.Clone();
