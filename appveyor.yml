@@ -12,6 +12,12 @@ build_script:
 artifacts:
     - path: 'Setup\Release\*'
       name: Setup
+      
+assembly_info:
+  patch: true
+  file: AssemblyInfo.cs
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
 
 on_finish:
     - ps: |

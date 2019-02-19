@@ -6,14 +6,14 @@ using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Windows;
-using GinService;
 using Application = System.Windows.Forms.Application;
 
 namespace GinClientApp
 {
     internal static class Program
     {
-        private static readonly string appVersion = "1.0.14";
+        //private static readonly string appVersion = System.Configuration.ConfigurationManager.AppSettings["version"];
+
         static readonly Mutex Mutex = new Mutex(true, "{AC8AB48D-C289-445D-B1EB-ABCFF24443ED}" + Environment.UserName);
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
         private static readonly string AppVeyorProjectUrl = "https://web.gin.g-node.org/G-Node/gin-ui-installers/raw/master/build.json";
@@ -35,11 +35,13 @@ namespace GinClientApp
             var wb = new WebClient();
             try
             {
+                //download build ressult from GIN-installers-repository
                 var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
                 var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
                 var remoteVersion = new Version(rootObject.build.version);
-                var localVersion = new Version(appVersion);
-                var verResult = remoteVersion.CompareTo(localVersion);
+                //get local assembly version
+                var assemblyVer = Assembly.GetExecutingAssembly().GetName().Version;
+                var verResult = remoteVersion.CompareTo(assemblyVer);
                 if (verResult >0 )
                 {
                     var result = System.Windows.MessageBox.Show(
