@@ -12,12 +12,12 @@ namespace Updater
     public class UpdateChecker
     {
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
+        private static readonly string UpdatedMsi = "https://web.gin.g-node.org/G-Node/gin-ui-installers/raw/master/Setup.msi";
 
         public static void DoUpdate()
         {
             try
             {
-                string UpdatedMsi = System.Configuration.ConfigurationManager.AppSettings["updaterPath"];
                 var wb = new WebClient();
                 wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
             }

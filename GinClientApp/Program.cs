@@ -35,11 +35,11 @@ namespace GinClientApp
             var wb = new WebClient();
             try
             {
+                //download build ressult from GIN-installers-repository
                 var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
                 var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
                 var remoteVersion = new Version(rootObject.build.version);
-                //string appVersion = System.Configuration.ConfigurationManager.AppSettings["version"];
-                //var localVersion = new Version(appVersion);
+                //get local assembly version
                 var assemblyVer = Assembly.GetExecutingAssembly().GetName().Version;
                 var verResult = remoteVersion.CompareTo(assemblyVer);
                 if (verResult >0 )
