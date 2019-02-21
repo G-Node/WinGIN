@@ -165,7 +165,6 @@ namespace GinClientLibrary
         #endregion
 
         #region Dokany interface implementation
-
         private const FileAccess DataAccess = FileAccess.ReadData | FileAccess.WriteData | FileAccess.AppendData |
                                               FileAccess.Execute |
                                               FileAccess.GenericExecute | FileAccess.GenericWrite |
@@ -757,6 +756,11 @@ namespace GinClientLibrary
             }
             return Trace(nameof(WriteFile), fileName, info, DokanResult.Success, "out " + bytesWritten,
                 offset.ToString(CultureInfo.InvariantCulture));
+        }
+
+        public NtStatus GetVolumeInformation(out string volumeLabel, out FileSystemFeatures features, out string fileSystemName, out uint maximumComponentLength, DokanFileInfo info)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
