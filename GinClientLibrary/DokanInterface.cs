@@ -62,8 +62,14 @@ namespace GinClientLibrary
         /// <exception cref="DokanInterfaceException">Thrown if the mount fails</exception>
         public void Initialize()
         {
-            this.Mount(_repository.Mountpoint.FullName.Trim('\\'),
-                DokanOptions.DebugMode | DokanOptions.StderrOutput);
+            try
+            {
+                this.Mount(_repository.Mountpoint.FullName.Trim('\\'),
+                    DokanOptions.DebugMode | DokanOptions.StderrOutput);
+            }
+            catch(Exception e) {
+                throw e;
+            }
         }
 
         #endregion
