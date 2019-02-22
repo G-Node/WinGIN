@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading;
@@ -72,6 +74,11 @@ namespace GinClientApp
                 return;
             }
 
+            if (!checkInstalled("Dokan Library 1.1.0.2000 Bundle"))
+            {
+                MessageBox.Show("Dokan library is missing! Please install Dokan or reinstall Gin Client", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             var path = AppDomain.CurrentDomain.BaseDirectory;
 
@@ -85,7 +92,52 @@ namespace GinClientApp
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GinApplicationContext());
         }
+
+        /// <summary>
+        /// Checks if application with provided name is installed
+        /// </summary>
+        /// <param name="c_name">name of application</param>
+        /// <returns>true for installed</returns>
+        public static bool checkInstalled(string c_name)
+        {
+            string displayName;
+            //32bit installations
+            string registryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(registryKey);
+            if (key != null)
+            {
+                foreach (RegistryKey subkey in key.GetSubKeyNames().Select(keyName => key.OpenSubKey(keyName)))
+                {
+                    displayName = subkey.GetValue("DisplayName") as string;
+                    if (displayName != null && displayName.Contains(c_name))
+                    {
+                        return true;
+                    }
+                }
+                key.Close();
+            }
+            //64bit installations
+            registryKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
+            key = Registry.LocalMachine.OpenSubKey(registryKey);
+            if (key != null)
+            {
+                foreach (RegistryKey subkey in key.GetSubKeyNames().Select(keyName => key.OpenSubKey(keyName)))
+                {
+                    displayName = subkey.GetValue("DisplayName") as string;
+                    if (displayName != null && displayName.Contains(c_name))
+                    {
+                        return true;
+                    }
+                }
+                key.Close();
+            }
+            //not found
+            return false;
+        }
     }
+
+
+
 
 
     public class NuGetFeed

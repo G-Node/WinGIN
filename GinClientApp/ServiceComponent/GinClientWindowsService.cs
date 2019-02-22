@@ -1,10 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reflection;
-using System.ServiceModel;
-using System.Threading;
+﻿using System.ServiceModel;
 using System.Windows.Forms;
-using GinClientApp;
 using GinClientLibrary;
 
 namespace GinService
@@ -32,6 +27,7 @@ namespace GinService
             _serviceHost = new ServiceHost(typeof(GinService));
             // Open the ServiceHostBase to create listeners and start 
             // listening for messages.
+            RepositoryManager.Instance.AppIcon.ShowBalloonTip(1000, "GIN client", "Gin client is running in the background.", ToolTipIcon.Info);
             _serviceHost.Open();
         }
         

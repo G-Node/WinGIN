@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -62,8 +61,14 @@ namespace GinClientLibrary
         /// <exception cref="DokanInterfaceException">Thrown if the mount fails</exception>
         public void Initialize()
         {
-            this.Mount(_repository.Mountpoint.FullName.Trim('\\'),
-                DokanOptions.DebugMode | DokanOptions.StderrOutput);
+            try
+            {
+                this.Mount(_repository.Mountpoint.FullName.Trim('\\'),
+                    DokanOptions.DebugMode | DokanOptions.StderrOutput);
+            }
+            catch(Exception e) {
+                throw e;
+            }
         }
 
         #endregion
@@ -165,7 +170,6 @@ namespace GinClientLibrary
         #endregion
 
         #region Dokany interface implementation
-
         private const FileAccess DataAccess = FileAccess.ReadData | FileAccess.WriteData | FileAccess.AppendData |
                                               FileAccess.Execute |
                                               FileAccess.GenericExecute | FileAccess.GenericWrite |
@@ -757,6 +761,11 @@ namespace GinClientLibrary
             }
             return Trace(nameof(WriteFile), fileName, info, DokanResult.Success, "out " + bytesWritten,
                 offset.ToString(CultureInfo.InvariantCulture));
+        }
+
+        public NtStatus GetVolumeInformation(out string volumeLabel, out FileSystemFeatures features, out string fileSystemName, out uint maximumComponentLength, DokanFileInfo info)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
