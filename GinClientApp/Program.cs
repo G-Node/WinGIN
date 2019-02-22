@@ -72,23 +72,23 @@ namespace GinClientApp
                 MessageBox.Show("GIN client is already running.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            var curPath = AppDomain.CurrentDomain.BaseDirectory;
             ///check if dokan is installed
             if (!checkInstalled("Dokan Library 1.1.0.2000 Bundle"))
             {
                 var result = MessageBox.Show(
-                       "Dokan library is missing! Please install Dokan. Do you want ot install Dokan now?",
+                       "Dokan library is missing! Please install Dokan. Do you want to install Dokan now?",
                         "Gin Windows Client", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 ///try to install dokan
                 if (result == MessageBoxResult.Yes)
-                {
-                    var curPath = AppDomain.CurrentDomain.BaseDirectory;
+                {                
                     var procstartinfo = new ProcessStartInfo();
                     procstartinfo.FileName = curPath + @"dokan/DokanSetup.exe";
                     procstartinfo.CreateNoWindow = true;
                     procstartinfo.UseShellExecute = true;
                     procstartinfo.Verb = "runas";
                     var process = Process.Start(procstartinfo);
-                    process.WaitForExit();
+                    Environment.Exit(0);
                 }
                 else
                 {
@@ -96,6 +96,12 @@ namespace GinClientApp
                     return;
                 }
             }
+            if (!File.Exists(curPath+@"gin-cli/bin/gin.exe")) {
+                var result = MessageBox.Show(
+                       "GIN binary is missing. Please reinstall application.",
+                        "Gin Windows Client", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
 
             var path = AppDomain.CurrentDomain.BaseDirectory;
 
