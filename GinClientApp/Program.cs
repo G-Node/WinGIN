@@ -76,7 +76,7 @@ namespace GinClientApp
 
             if (!checkInstalled("Dokan Library 1.1.0.2000 Bundle"))
             {
-                MessageBox.Show("Dokan library is missing. Please install Dokan.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Dokan library is missing! Please install Dokan or reinstall Gin Client", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -93,10 +93,15 @@ namespace GinClientApp
             Application.Run(new GinApplicationContext());
         }
 
+        /// <summary>
+        /// Checks if application with provided name is installed
+        /// </summary>
+        /// <param name="c_name">name of application</param>
+        /// <returns>true for installed</returns>
         public static bool checkInstalled(string c_name)
         {
             string displayName;
-
+            //32bit installations
             string registryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             RegistryKey key = Registry.LocalMachine.OpenSubKey(registryKey);
             if (key != null)
@@ -111,7 +116,7 @@ namespace GinClientApp
                 }
                 key.Close();
             }
-
+            //64bit installations
             registryKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(registryKey);
             if (key != null)
@@ -126,6 +131,7 @@ namespace GinClientApp
                 }
                 key.Close();
             }
+            //not found
             return false;
         }
     }
