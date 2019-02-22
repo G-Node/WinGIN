@@ -14,8 +14,6 @@ namespace GinClientApp
 {
     internal static class Program
     {
-        //private static readonly string appVersion = System.Configuration.ConfigurationManager.AppSettings["version"];
-
         static readonly Mutex Mutex = new Mutex(true, "{AC8AB48D-C289-445D-B1EB-ABCFF24443ED}" + Environment.UserName);
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
         private static readonly string AppVeyorProjectUrl = "https://web.gin.g-node.org/G-Node/gin-ui-installers/raw/master/build.json";
@@ -27,7 +25,7 @@ namespace GinClientApp
         {
             if (args.Length > 0)
             {
-                if ( args[0] == "-uninstall")
+                if (args[0] == "-uninstall")
                 {
                     Installer.DoUninstall();
                     return;
@@ -37,14 +35,14 @@ namespace GinClientApp
             var wb = new WebClient();
             try
             {
-                //download build ressult from GIN-installers-repository
+                ///download build ressult from GIN-installers-repository
                 var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
                 var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
                 var remoteVersion = new Version(rootObject.build.version);
-                //get local assembly version
+                ///get local assembly version
                 var assemblyVer = Assembly.GetExecutingAssembly().GetName().Version;
                 var verResult = remoteVersion.CompareTo(assemblyVer);
-                if (verResult >0 )
+                if (verResult > 0)
                 {
                     var result = System.Windows.MessageBox.Show(
                         "A new version " + remoteVersion + " of the Gin client is available. Do you want to update now?",
@@ -57,7 +55,6 @@ namespace GinClientApp
 
                         File.Copy("Updater.exe", UpdaterBaseDirectory + "Updater.exe", true);
                         File.Copy("Newtonsoft.Json.dll", UpdaterBaseDirectory + "Newtonsoft.Json.dll", true);
-
                         var psInfo = new ProcessStartInfo();
                         psInfo.FileName = UpdaterBaseDirectory + "Updater.exe";
                         Process.Start(psInfo);
@@ -65,19 +62,39 @@ namespace GinClientApp
                     }
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 MessageBox.Show("Cannot connect to GNode server.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if (!Mutex.WaitOne(TimeSpan.Zero, true)) {
+            if (!Mutex.WaitOne(TimeSpan.Zero, true))
+            {
                 MessageBox.Show("GIN client is already running.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
+            ///check if dokan is installed
             if (!checkInstalled("Dokan Library 1.1.0.2000 Bundle"))
             {
-                MessageBox.Show("Dokan library is missing! Please install Dokan or reinstall Gin Client", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                var result = MessageBox.Show(
+                       "Dokan library is missing! Please install Dokan. Do you want ot install Dokan now?",
+                        "Gin Windows Client", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                ///try to install dokan
+                if (result == MessageBoxResult.Yes)
+                {
+                    var curPath = AppDomain.CurrentDomain.BaseDirectory;
+                    var procstartinfo = new ProcessStartInfo();
+                    procstartinfo.FileName = curPath + @"dokan/DokanSetup.exe";
+                    procstartinfo.CreateNoWindow = true;
+                    procstartinfo.UseShellExecute = true;
+                    procstartinfo.Verb = "runas";
+                    var process = Process.Start(procstartinfo);
+                    process.WaitForExit();
+                }
+                else
+                {
+                    ///no dokan installed, exit app
+                    return;
+                }
             }
 
             var path = AppDomain.CurrentDomain.BaseDirectory;
@@ -101,7 +118,7 @@ namespace GinClientApp
         public static bool checkInstalled(string c_name)
         {
             string displayName;
-            //32bit installations
+            ///32bit installations
             string registryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
             RegistryKey key = Registry.LocalMachine.OpenSubKey(registryKey);
             if (key != null)
@@ -116,7 +133,7 @@ namespace GinClientApp
                 }
                 key.Close();
             }
-            //64bit installations
+            ///64bit installations
             registryKey = @"SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall";
             key = Registry.LocalMachine.OpenSubKey(registryKey);
             if (key != null)
@@ -131,13 +148,10 @@ namespace GinClientApp
                 }
                 key.Close();
             }
-            //not found
+            ///not found
             return false;
         }
     }
-
-
-
 
 
     public class NuGetFeed
