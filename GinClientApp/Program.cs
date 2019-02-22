@@ -62,7 +62,7 @@ namespace GinClientApp
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
                 MessageBox.Show("Cannot connect to GNode server.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -74,7 +74,7 @@ namespace GinClientApp
             }
             var curPath = AppDomain.CurrentDomain.BaseDirectory;
             ///check if dokan is installed
-            if (!checkInstalled("Dokan Library 1.1.0.2000 Bundle"))
+            if (!CheckInstalled("Dokan Library 1.1.0.2000 Bundle"))
             {
                 var result = MessageBox.Show(
                        "Dokan library is missing! Please install Dokan. Do you want to install Dokan now?",
@@ -100,6 +100,7 @@ namespace GinClientApp
                 var result = MessageBox.Show(
                        "GIN binary is missing. Please reinstall application.",
                         "Gin Windows Client", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
 
 
@@ -121,7 +122,7 @@ namespace GinClientApp
         /// </summary>
         /// <param name="c_name">name of application</param>
         /// <returns>true for installed</returns>
-        public static bool checkInstalled(string c_name)
+        public static bool CheckInstalled(string c_name)
         {
             string displayName;
             ///32bit installations
