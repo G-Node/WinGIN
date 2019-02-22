@@ -151,7 +151,7 @@ namespace InstallerLibrary
                 fs.Write(JsonConvert.SerializeObject(exc));
                 fs.Flush();
                 fs.Close();
-                MessageBox.Show("Installation failed. Please reinstall application with internet connection.");
+                throw new InstallException();
             }
         }
 
