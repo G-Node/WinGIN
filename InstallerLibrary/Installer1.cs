@@ -145,7 +145,7 @@ namespace InstallerLibrary
             }
             catch (Exception exc)
             {
-                var fs = File.CreateText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\exc.json");
+                var fs = File.CreateText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\GinError.json");
                 fs.Write(JsonConvert.SerializeObject(exc));
                 fs.Flush();
                 fs.Close();
