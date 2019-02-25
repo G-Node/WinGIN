@@ -7,12 +7,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
-using System.ServiceProcess;
 using System.Text;
 using System.Threading;
-using System.Windows.Forms;
-using Microsoft.Win32;
-using Shell32;
 using IWshRuntimeLibrary;
 using Newtonsoft.Json;
 using File = System.IO.File;
@@ -60,7 +56,8 @@ namespace InstallerLibrary
                 //Download the current gin-cli release and unpack it into our install directory
                 wb.DownloadFileCompleted += Wb_DownloadFileCompleted;
                 wb.DownloadProgressChanged += WbOnDownloadProgressChanged;
-                wb.DownloadFileAsync(new Uri(_ginURL), path.FullName + @"\gin-cli\gin-cli-latest-windows-386.zip");
+                string gincli = path.FullName + @"\gin-cli\gin-cli-latest-windows-386.zip";
+                wb.DownloadFileAsync(new Uri(_ginURL), gincli);
 
                 while (!_downloadComplete)
                     Thread.Sleep(500);
@@ -144,13 +141,15 @@ namespace InstallerLibrary
                 shortcut.WorkingDirectory = path.FullName;
                 shortcut.IconLocation = path.FullName + @"\gin_icon.ico";
                 shortcut.Save();
+                File.Delete(gincli);
             }
             catch (Exception exc)
             {
-                var fs = File.CreateText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\exc.json");
+                var fs = File.CreateText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\GinError.json");
                 fs.Write(JsonConvert.SerializeObject(exc));
                 fs.Flush();
                 fs.Close();
+                throw new InstallException("Installation failed. Please check your internet connection and try it later.");
             }
         }
 
