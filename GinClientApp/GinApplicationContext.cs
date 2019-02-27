@@ -287,13 +287,24 @@ namespace GinClientApp
 
         private void _trayIcon_DoubleClick(object sender, EventArgs e)
         {
-            var repomanager = new MetroOptionsDlg(this, MetroOptionsDlg.Page.Repositories);
-            repomanager.RepoListingChanged += (o, args) => { _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu()); };
-            repomanager.Closed += (o, args) =>
+            if (Application.OpenForms.OfType<MetroOptionsDlg>().Count() < 1)
             {
-                if (_trayIcon != null) _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
-            };
-            repomanager.ShowDialog();
+                var repomanager = new MetroOptionsDlg(this, MetroOptionsDlg.Page.Repositories);
+                repomanager.RepoListingChanged += (o, args) => { _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu()); };
+                repomanager.Closed += (o, args) =>
+                {
+                    if (_trayIcon != null) _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
+                };
+                repomanager.ShowDialog();
+            }
+            else {
+                var form = Application.OpenForms.OfType<MetroOptionsDlg>().First();
+                form.TopMost = true;
+                form.Show();
+                form.Focus();
+                form.BringToFront();
+                form.TopMost = false;
+            }
         }
 
         private void Exit(object sender, EventArgs e)
