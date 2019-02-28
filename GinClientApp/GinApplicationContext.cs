@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -8,7 +7,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using GinClientApp.Dialogs;
-using GinClientApp.GinService;
 using GinClientApp.Properties;
 using GinClientLibrary;
 using GinService;
@@ -20,7 +18,7 @@ using Timer = System.Timers.Timer;
 namespace GinClientApp
 {
     /// <summary>
-    ///     The main application context for the GINUI client.
+    ///     The main application context for the WinGIN.
     /// </summary>
     [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class GinApplicationContext : ApplicationContext

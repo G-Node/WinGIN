@@ -25,7 +25,7 @@ namespace Updater
                 MessageBox.Show("Error unable to download new version.");
                 return;
             }
-            if (!UninstallProgram("Gin Windows Client")) return;
+            if (!UninstallProgram("WinGIN")) return;
             var procstartinfo = new ProcessStartInfo();
             procstartinfo.FileName = "msiexec.exe";
             procstartinfo.Arguments = "/i \"" + UpdaterBaseDirectory.FullName + "\\setup.msi\"";
@@ -36,7 +36,7 @@ namespace Updater
             process.WaitForExit();
         }
         /// <summary>
-        /// uninstalls old version of GinUI
+        /// uninstalls old version of WinGIN
         /// </summary>
         /// <param name="ProgramName">Name of program</param>
         /// <returns>true for success</returns>
@@ -51,7 +51,7 @@ namespace Updater
                 foreach (var key in installedPrograms)
                 {
                     if ((from value in key.Values where value.Key == "DisplayName" select value.Value as string).Any(s => s != null &&
-                                                                                                                          s == "Gin Windows Client"))
+                                                                                                                          s == "WinGIN"))
                     {
                         var uninstallString = (from value in key.Values
                                                where value.Key == "UninstallString"

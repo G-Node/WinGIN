@@ -45,8 +45,8 @@ namespace GinClientApp
                 if (verResult > 0)
                 {
                     var result = System.Windows.MessageBox.Show(
-                        "A new version " + remoteVersion + " of the Gin client is available. Do you want to update now?",
-                        "Gin Windows Client", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        "A new version " + remoteVersion + " of the WinGIN is available. Do you want to update it now?",
+                        "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
@@ -69,7 +69,7 @@ namespace GinClientApp
             }
             if (!Mutex.WaitOne(TimeSpan.Zero, true))
             {
-                MessageBox.Show("GIN client is already running.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("WinGIN is already running.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             var curPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -78,7 +78,7 @@ namespace GinClientApp
             {
                 var result = MessageBox.Show(
                        "Dokan library is missing! Please install Dokan. Do you want to install Dokan now?",
-                        "Gin Windows Client", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                        "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 ///try to install dokan
                 if (result == MessageBoxResult.Yes)
                 {                
@@ -99,7 +99,7 @@ namespace GinClientApp
             if (!File.Exists(curPath+@"gin-cli/bin/gin.exe")) {
                 var result = MessageBox.Show(
                        "GIN binary is missing. Please reinstall application.",
-                        "Gin Windows Client", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        "WinGIN", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
