@@ -12,7 +12,7 @@ namespace Updater
     public class UpdateChecker
     {
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\WinGIN\Updates\");
-        private static readonly string UpdatedMsi = "https://web.gin.g-node.org/G-Node/gin-ui-installers/raw/master/Setup.msi";
+        private static readonly string UpdatedMsi = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/Setup.msi";
 
         public static void DoUpdate()
         {
