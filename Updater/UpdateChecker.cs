@@ -18,11 +18,13 @@ namespace Updater
         {
             try
             {
+                Directory.CreateDirectory(UpdaterBaseDirectory.ToString());
                 var wb = new WebClient();
                 wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
+                
             }
             catch(Exception e) {
-                MessageBox.Show("Error: unable to download new version.");
+                MessageBox.Show("Error: unable to download new version. "+e.Message);
                 return;
             }
             if (!UninstallProgram("WinGIN")) return;
