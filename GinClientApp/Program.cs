@@ -45,7 +45,7 @@ namespace GinClientApp
                 if (verResult > 0)
                 {
                     var result = System.Windows.MessageBox.Show(
-                        "A new version " + remoteVersion + " of the WinGIN is available. Do you want to update it now?",
+                        "A new version " + remoteVersion + " of WinGIN is available. Do you want to update it now?",
                         "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
