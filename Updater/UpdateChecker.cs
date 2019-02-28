@@ -11,21 +11,23 @@ namespace Updater
 {
     public class UpdateChecker
     {
-        private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
+        private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\WinGIN\Updates\");
         private static readonly string UpdatedMsi = "https://web.gin.g-node.org/G-Node/gin-ui-installers/raw/master/Setup.msi";
 
         public static void DoUpdate()
         {
             try
             {
+                Directory.CreateDirectory(UpdaterBaseDirectory.ToString());
                 var wb = new WebClient();
                 wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
+                
             }
             catch(Exception e) {
-                MessageBox.Show("Error unable to download new version.");
+                MessageBox.Show("Error: unable to download new version. "+e.Message);
                 return;
             }
-            if (!UninstallProgram("Gin Windows Client")) return;
+            if (!UninstallProgram("WinGIN")) return;
             var procstartinfo = new ProcessStartInfo();
             procstartinfo.FileName = "msiexec.exe";
             procstartinfo.Arguments = "/i \"" + UpdaterBaseDirectory.FullName + "\\setup.msi\"";
@@ -36,7 +38,7 @@ namespace Updater
             process.WaitForExit();
         }
         /// <summary>
-        /// uninstalls old version of GinUI
+        /// uninstalls old version of WinGIN
         /// </summary>
         /// <param name="ProgramName">Name of program</param>
         /// <returns>true for success</returns>
@@ -51,7 +53,7 @@ namespace Updater
                 foreach (var key in installedPrograms)
                 {
                     if ((from value in key.Values where value.Key == "DisplayName" select value.Value as string).Any(s => s != null &&
-                                                                                                                          s == "Gin Windows Client"))
+                                                                                                                          s == "WinGIN"))
                     {
                         var uninstallString = (from value in key.Values
                                                where value.Key == "UninstallString"

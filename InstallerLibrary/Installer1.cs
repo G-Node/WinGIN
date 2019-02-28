@@ -145,7 +145,8 @@ namespace InstallerLibrary
             }
             catch (Exception exc)
             {
-                var fs = File.CreateText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\GinError.json");
+                ///print error into json in appdata folder
+                var fs = File.CreateText(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\WinGIN\InstallError.json");
                 fs.Write(JsonConvert.SerializeObject(exc));
                 fs.Flush();
                 fs.Close();
