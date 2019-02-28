@@ -24,7 +24,7 @@ namespace Updater
                 
             }
             catch(Exception e) {
-                MessageBox.Show("Error: unable to download new version. "+e.Message);
+                MessageBox.Show("Error: unable to download new version.");
                 return;
             }
             if (!UninstallProgram("WinGIN")) return;
