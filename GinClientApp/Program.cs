@@ -96,22 +96,20 @@ namespace GinClientApp
                     return;
                 }
             }
-            if (!File.Exists(curPath+@"gin-cli/bin/gin.exe")) {
+            if (!File.Exists(curPath+@"gin-cli/bin/gin.exe"))
+            {
                 var result = MessageBox.Show(
                        "GIN binary is missing. Please reinstall application.",
                         "WinGIN", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-
             var path = AppDomain.CurrentDomain.BaseDirectory;
-
             var value = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
             value += ";" + path + @"gin-cli\bin";
             value += ";" + path + @"gin-cli\git\usr\bin";
             value += ";" + path + @"gin-cli\git\bin";
             Environment.SetEnvironmentVariable("PATH", value, EnvironmentVariableTarget.Process);
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new GinApplicationContext());
