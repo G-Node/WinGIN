@@ -23,7 +23,8 @@ namespace Updater
                 wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
                 
             }
-            catch(Exception e) {
+            catch
+            {
                 MessageBox.Show("Error: unable to download new version.");
                 return;
             }
@@ -72,11 +73,10 @@ namespace Updater
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
                 return false;
             }
-
             return false;
         }
 
