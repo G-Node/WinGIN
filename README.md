@@ -11,7 +11,7 @@ To make this process invisible to the user, WinGIN stores the actual data within
 
 ## Installation
 
-Installers and instructions can be found in the [Installers repository](https://web.gin.g-node.org/G-Node/gin-ui-installers) on GIN.
+Installers and instructions can be found in the [Installers repository](https://web.gin.g-node.org/G-Node/wingin-installers) on GIN.
 
 ## Building the project
 
@@ -40,7 +40,7 @@ This project contains the source code for custom actions used within the Setup p
 A Visual Studio Installer project that builds the installer
 
 ### App Versioning
-The version of app is patched by AppVeyor during a build and compared to AppVeyor project json in the GIN-ui-installers repository(https://web.gin.g-node.org/G-Node/gin-ui-installers).
+The version of app is patched by AppVeyor during a build and compared to AppVeyor project json in the wingin-installers repository(https://web.gin.g-node.org/G-Node/wingin-installers).
 
 ### Coding Style
 This project uses ReSharper style throughout.  
