@@ -45,8 +45,8 @@ namespace GinService
         void IGinService.DownloadUpdateInfo(string repoName)
         {
             var repo = RepositoryManager.Instance.GetRepoByName(repoName);
-
-            repo.DownloadUpdateInfo();
+            if (repo.DownloadUpdateInfo())
+                RepositoryManager.Instance.AppIcon.ShowBalloonTip(500, "WinGIN","Repository "+repoName+" is up to date.", System.Windows.Forms.ToolTipIcon.Info);
         }
 
         string IGinService.GetRepositoryList()

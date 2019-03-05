@@ -293,9 +293,8 @@ namespace GinClientApp
         private void UpdateRepoMenuItemHandler(object sender, EventArgs e)
         {
             var repo = (GinRepositoryData) ((MenuItem) sender).Parent.Tag;
-
+            //show status dialog
             ServiceClient.DownloadUpdateInfo(repo.Name);
-            _trayIcon.ShowBalloonTip(500, "WinGIN", "Repository "+ repo.Name +" is up to date.", ToolTipIcon.Info);
         }
 
         private void ManageRepositoriesMenuItemHandler(object sender, EventArgs e)
