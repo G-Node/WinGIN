@@ -98,7 +98,7 @@ namespace GinClientApp.Dialogs
             this.mTabCtrl.Location = new System.Drawing.Point(56, 171);
             this.mTabCtrl.Margin = new System.Windows.Forms.Padding(6);
             this.mTabCtrl.Name = "mTabCtrl";
-            this.mTabCtrl.SelectedIndex = 2;
+            this.mTabCtrl.SelectedIndex = 0;
             this.mTabCtrl.Size = new System.Drawing.Size(1108, 646);
             this.mTabCtrl.TabIndex = 0;
             this.mTabCtrl.UseSelectable = true;
@@ -596,25 +596,20 @@ namespace GinClientApp.Dialogs
             // colHdName
             // 
             this.colHdName.Text = "Name";
-            this.colHdName.Text = Resources.ResourceManager.GetString("GinAppRepo_ColumnName");
             this.colHdName.Width = 300;
             // 
             // colHdMountpoint
             // 
             this.colHdMountpoint.Text = "Mountpoint";
-            this.colHdMountpoint.Text = Resources.ResourceManager.GetString("GinAppRepo_ColumnMount");
             this.colHdMountpoint.Width = 300;
             // 
             // colHdCheckoutDir
             // 
-            this.colHdAddress.Text = "Checkout Directory";
-            this.colHdAddress.Text = Resources.ResourceManager.GetString("GinAppRepo_ColumnCheckout");
             this.colHdCheckoutDir.Width = 300;
             // 
             // colHdAddress
             // 
             this.colHdAddress.Text = "Address";
-            this.colHdAddress.Text = Resources.ResourceManager.GetString("GinAppRepo_ColumnAddress");
             this.colHdAddress.Width = 300;
             // 
             // About
@@ -625,6 +620,7 @@ namespace GinClientApp.Dialogs
             this.About.Name = "About";
             this.About.Size = new System.Drawing.Size(1092, 597);
             this.About.TabIndex = 3;
+            this.About.Text = "About";
             // 
             // metroPanel4
             // 
