@@ -110,9 +110,7 @@ namespace GinClientApp.Dialogs
             DialogResult = DialogResult.OK;
             GlobalOptions.Save();
             UserCredentials.Save();
-
             SaveRepoList();
-
             Close();
         }
 
