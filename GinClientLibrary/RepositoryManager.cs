@@ -353,7 +353,14 @@ namespace GinClientLibrary
         
         private void OnFileRetrievalStarted(DokanInterface.FileOperationEventArgs e, GinRepository sender)
         {
-            AppIcon.ShowBalloonTip(1000, "GIN activity in progress", "Repository " + sender.Name + " operating on " + e.File, ToolTipIcon.Info);
+            if (!string.Equals(e.File, "."))
+            {
+                AppIcon.ShowBalloonTip(1000, "GIN activity in progress", "Repository " + sender.Name + " operating on " + e.File, ToolTipIcon.Info);
+            }
+            else
+            {
+                AppIcon.ShowBalloonTip(1000, "GIN activity in progress", "Repository " + sender.Name + " operating on all files.", ToolTipIcon.Info);
+            }
         }
 
         public event FileRetrievalCompletedHandler FileRetrievalCompleted;

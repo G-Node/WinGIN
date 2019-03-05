@@ -27,7 +27,7 @@ namespace GinService
             _serviceHost = new ServiceHost(typeof(GinService));
             // Open the ServiceHostBase to create listeners and start 
             // listening for messages.
-            RepositoryManager.Instance.AppIcon.ShowBalloonTip(1000, "GIN client", "Gin client is running in the background.", ToolTipIcon.Info);
+            RepositoryManager.Instance.AppIcon.ShowBalloonTip(1000, "WinGIN", "Gin client is running in the background.", ToolTipIcon.Info);
             _serviceHost.Open();
         }
         

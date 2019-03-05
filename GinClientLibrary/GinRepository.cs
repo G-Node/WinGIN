@@ -253,7 +253,6 @@ namespace GinClientLibrary
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json", PhysicalDirectory.FullName,
                     out var error);
 
-
                 ReadRepoStatus();
 
                 if (!string.IsNullOrEmpty(error))

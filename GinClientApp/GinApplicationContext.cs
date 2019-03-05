@@ -225,7 +225,16 @@ namespace GinClientApp
 
             var files = alteredFiles as KeyValuePair<string, GinRepository.FileStatus>[] ?? alteredFiles.ToArray();
             if (!files.Any())
-                return; //Nothing to upload here
+            {
+                try
+                {
+                    _trayIcon.ShowBalloonTip(500, "WinGIN", "Nothing to do.", ToolTipIcon.Info);
+                }
+                catch
+                {
+                }
+                    return; //Nothing to upload here
+            }
 
             var uploadfiledlg = new MetroUploadFilesDlg(files);
             var res = uploadfiledlg.ShowDialog();

@@ -79,7 +79,10 @@ namespace GinClientApp
                 fwriter.Write(JsonConvert.SerializeObject(_instance));
             }
         }
-
+        /// <summary>
+        /// loads saved Global Options
+        /// </summary>
+        /// <returns></returns>
         public static bool Load()
         {
             var saveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
