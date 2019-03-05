@@ -40,7 +40,7 @@ This project contains the source code for custom actions used within the Setup p
 A Visual Studio Installer project that builds the installer
 
 ### App Versioning
-The version of app is patched by AppVeyor during a build and compared to AppVeyor project json in the wingin-installers repository(https://web.gin.g-node.org/G-Node/wingin-installers).
+The version of app is patched by AppVeyor during a build and compared to AppVeyor project json in the wingin-installers repository(https://web.gin.g-node.org/G-Node/wingin-installers). Version consists of Major_version.Minor_version.Build_number.
 
 ### Coding Style
 This project uses ReSharper style throughout.  
