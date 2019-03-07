@@ -712,11 +712,11 @@ namespace GinClientApp.Dialogs
             this.mTxBGinCliVersion.Location = new System.Drawing.Point(266, 21);
             this.mTxBGinCliVersion.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.mTxBGinCliVersion.MaxLength = 32767;
-            this.mTxBGinCliVersion.Multiline = true;
+            this.mTxBGinCliVersion.Multiline = false;           
             this.mTxBGinCliVersion.Name = "mTxBGinCliVersion";
             this.mTxBGinCliVersion.PasswordChar = '\0';
             this.mTxBGinCliVersion.ReadOnly = true;
-            this.mTxBGinCliVersion.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mTxBGinCliVersion.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.mTxBGinCliVersion.SelectedText = "";
             this.mTxBGinCliVersion.SelectionLength = 0;
             this.mTxBGinCliVersion.SelectionStart = 0;
