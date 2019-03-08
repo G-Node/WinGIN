@@ -217,7 +217,7 @@
             this.Name = "MetroGetUserCredentialsDlg";
             this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Resizable = false;
-            this.Text = "G-Node GIN client";
+            this.Text = "WinGIN - G-Node GIN client";
             this.ResumeLayout(false);
             this.PerformLayout();
 

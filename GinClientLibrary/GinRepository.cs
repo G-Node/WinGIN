@@ -57,12 +57,17 @@ namespace GinClientLibrary
         private Dictionary<string, FileStatus> StatusCache =>
             _scache ?? (_scache = new Dictionary<string, FileStatus>());
 
-        public void DownloadUpdateInfo()
+        public bool DownloadUpdateInfo()
         {
+            bool result = true;
             GetCommandLineOutput("cmd.exe", "/C gin.exe download", PhysicalDirectory.FullName, out var error);
             if (!string.IsNullOrEmpty(error))
+            {
                 OnFileOperationError(error);
+                result = false;
+            }
             ReadRepoStatus();
+            return result;
         }
 
         public void Initialize()
@@ -252,7 +257,6 @@ namespace GinClientLibrary
             {
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json", PhysicalDirectory.FullName,
                     out var error);
-
 
                 ReadRepoStatus();
 

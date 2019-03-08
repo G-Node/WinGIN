@@ -74,7 +74,7 @@ namespace GinClientApp.Dialogs
             FillRepoList();
 
             mTxBLicense.Text = Resources.License_Text;
-            mTxBGinCliVersion.Text = parentContext.ServiceClient.GetGinCliVersion()+"  WinGIN "+ Assembly.GetExecutingAssembly().GetName().Version;
+            mTxBGinCliVersion.Text = parentContext.ServiceClient.GetGinCliVersion()+"\n WinGIN version "+ Assembly.GetExecutingAssembly().GetName().Version;
 
             _storedOptions = (GlobalOptions) GlobalOptions.Instance.Clone();
             _storedCredentials = (UserCredentials) UserCredentials.Instance.Clone();
@@ -110,9 +110,7 @@ namespace GinClientApp.Dialogs
             DialogResult = DialogResult.OK;
             GlobalOptions.Save();
             UserCredentials.Save();
-
             SaveRepoList();
-
             Close();
         }
 

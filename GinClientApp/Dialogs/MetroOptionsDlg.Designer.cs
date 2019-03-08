@@ -1,4 +1,6 @@
-﻿namespace GinClientApp.Dialogs
+﻿using GinClientApp.Properties;
+
+namespace GinClientApp.Dialogs
 {
     partial class MetroOptionsDlg
     {
@@ -96,7 +98,7 @@
             this.mTabCtrl.Location = new System.Drawing.Point(56, 171);
             this.mTabCtrl.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.mTabCtrl.Name = "mTabCtrl";
-            this.mTabCtrl.SelectedIndex = 2;
+            this.mTabCtrl.SelectedIndex = 3;
             this.mTabCtrl.Size = new System.Drawing.Size(1108, 646);
             this.mTabCtrl.TabIndex = 0;
             this.mTabCtrl.UseSelectable = true;
@@ -593,10 +595,12 @@
             // 
             // colHdName
             // 
+            this.colHdName.Text = "Name";
             this.colHdName.Width = 300;
             // 
             // colHdMountpoint
             // 
+            this.colHdMountpoint.Text = "Mountpoint";
             this.colHdMountpoint.Width = 300;
             // 
             // colHdCheckoutDir
@@ -605,6 +609,7 @@
             // 
             // colHdAddress
             // 
+            this.colHdAddress.Text = "Address";
             this.colHdAddress.Width = 300;
             // 
             // About
@@ -615,6 +620,7 @@
             this.About.Name = "About";
             this.About.Size = new System.Drawing.Size(1092, 597);
             this.About.TabIndex = 3;
+            this.About.Text = "About";
             // 
             // metroPanel4
             // 
@@ -639,10 +645,11 @@
             // 
             this.metroLabel6.AutoSize = true;
             this.metroLabel6.Location = new System.Drawing.Point(32, 71);
-            this.metroLabel6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.metroLabel6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel6.Name = "metroLabel6";
-            this.metroLabel6.Size = new System.Drawing.Size(0, 0);
+            this.metroLabel6.Size = new System.Drawing.Size(122, 19);
             this.metroLabel6.TabIndex = 7;
+            this.metroLabel6.Text = "License Information";
             // 
             // mTxBLicense
             // 
@@ -653,10 +660,10 @@
             // 
             // 
             this.mTxBLicense.CustomButton.Image = null;
-            this.mTxBLicense.CustomButton.Location = new System.Drawing.Point(578, 2);
+            this.mTxBLicense.CustomButton.Location = new System.Drawing.Point(576, 2);
             this.mTxBLicense.CustomButton.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.mTxBLicense.CustomButton.Name = "";
-            this.mTxBLicense.CustomButton.Size = new System.Drawing.Size(473, 473);
+            this.mTxBLicense.CustomButton.Size = new System.Drawing.Size(475, 475);
             this.mTxBLicense.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBLicense.CustomButton.TabIndex = 1;
             this.mTxBLicense.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -669,14 +676,14 @@
             this.mTxBLicense.MaxLength = 32767;
             this.mTxBLicense.Multiline = true;
             this.mTxBLicense.Name = "mTxBLicense";
+            this.mTxBLicense.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.mTxBLicense.PasswordChar = '\0';
             this.mTxBLicense.ReadOnly = true;
-            this.mTxBLicense.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.mTxBLicense.SelectedText = "";
             this.mTxBLicense.SelectionLength = 0;
             this.mTxBLicense.SelectionStart = 0;
             this.mTxBLicense.ShortcutsEnabled = true;
-            this.mTxBLicense.Size = new System.Drawing.Size(1054, 478);
+            this.mTxBLicense.Size = new System.Drawing.Size(1054, 480);
             this.mTxBLicense.TabIndex = 6;
             this.mTxBLicense.Text = "metroTextBox1";
             this.mTxBLicense.UseSelectable = true;
@@ -691,10 +698,10 @@
             // 
             // 
             this.mTxBGinCliVersion.CustomButton.Image = null;
-            this.mTxBGinCliVersion.CustomButton.Location = new System.Drawing.Point(1552, 4);
+            this.mTxBGinCliVersion.CustomButton.Location = new System.Drawing.Point(776, 2);
             this.mTxBGinCliVersion.CustomButton.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.mTxBGinCliVersion.CustomButton.Name = "";
-            this.mTxBGinCliVersion.CustomButton.Size = new System.Drawing.Size(78, 75);
+            this.mTxBGinCliVersion.CustomButton.Size = new System.Drawing.Size(39, 39);
             this.mTxBGinCliVersion.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBGinCliVersion.CustomButton.TabIndex = 1;
             this.mTxBGinCliVersion.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -705,10 +712,11 @@
             this.mTxBGinCliVersion.Location = new System.Drawing.Point(266, 21);
             this.mTxBGinCliVersion.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.mTxBGinCliVersion.MaxLength = 32767;
+            this.mTxBGinCliVersion.Multiline = false;           
             this.mTxBGinCliVersion.Name = "mTxBGinCliVersion";
             this.mTxBGinCliVersion.PasswordChar = '\0';
             this.mTxBGinCliVersion.ReadOnly = true;
-            this.mTxBGinCliVersion.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mTxBGinCliVersion.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.mTxBGinCliVersion.SelectedText = "";
             this.mTxBGinCliVersion.SelectionLength = 0;
             this.mTxBGinCliVersion.SelectionStart = 0;
@@ -724,10 +732,11 @@
             // 
             this.metroLabel4.AutoSize = true;
             this.metroLabel4.Location = new System.Drawing.Point(32, 21);
-            this.metroLabel4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.metroLabel4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(0, 0);
+            this.metroLabel4.Size = new System.Drawing.Size(111, 19);
             this.metroLabel4.TabIndex = 2;
+            this.metroLabel4.Text = "Gin Client Version";
             // 
             // mBtnOK
             // 

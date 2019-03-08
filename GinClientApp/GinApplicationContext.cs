@@ -203,13 +203,21 @@ namespace GinClientApp
 
         private void ShowAboutMenuItemHandler(object sender, EventArgs e)
         {
-            var optionsdlg = new MetroOptionsDlg(this, MetroOptionsDlg.Page.About);
-            optionsdlg.RepoListingChanged += (o, args) => { _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu()); };
-            optionsdlg.Closed += (o, args) =>
+            if (Application.OpenForms.OfType<MetroOptionsDlg>().Count() > 0)
             {
-                if (_trayIcon != null) _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
-            };
-            optionsdlg.Show();
+                var form = Application.OpenForms.OfType<MetroOptionsDlg>().First();
+                form.SetTab(MetroOptionsDlg.Page.About);
+            }
+            else
+            {
+                var optionsdlg = new MetroOptionsDlg(this, MetroOptionsDlg.Page.About);
+                optionsdlg.RepoListingChanged += (o, args) => { _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu()); };
+                optionsdlg.Closed += (o, args) =>
+                {
+                    if (_trayIcon != null) _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
+                };
+                optionsdlg.Show();
+            }
         }
 
         private void UploadRepoMenuItemHandler(object sender, EventArgs e)
@@ -225,7 +233,16 @@ namespace GinClientApp
 
             var files = alteredFiles as KeyValuePair<string, GinRepository.FileStatus>[] ?? alteredFiles.ToArray();
             if (!files.Any())
-                return; //Nothing to upload here
+            {
+                try
+                {
+                    _trayIcon.ShowBalloonTip(500, "WinGIN", "Nothing to do.", ToolTipIcon.Info);
+                }
+                catch
+                {
+                }
+                    return; //Nothing to upload here
+            }
 
             var uploadfiledlg = new MetroUploadFilesDlg(files);
             var res = uploadfiledlg.ShowDialog();
@@ -238,53 +255,70 @@ namespace GinClientApp
 
         private void ShowOptionsMenuItemHandler(object sender, EventArgs e)
         {
-            var optionsDlg = new MetroOptionsDlg(this, MetroOptionsDlg.Page.GlobalOptions);
-            optionsDlg.RepoListingChanged += (o, args) => { _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu()); };
-            optionsDlg.Closed += (o, args) =>
+            if (Application.OpenForms.OfType<MetroOptionsDlg>().Count() > 0)
             {
-                if (_trayIcon != null) _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
-            };
-            var res = optionsDlg.ShowDialog();
-
-            if (res != DialogResult.OK) return;
-
-            if (GlobalOptions.Instance.RepositoryUpdateInterval <= 0)
-            {
-                _updateIntervalTimer?.Stop();
-                return;
+                var form = Application.OpenForms.OfType<MetroOptionsDlg>().First();
+                form.SetTab(MetroOptionsDlg.Page.GlobalOptions);
             }
-
-            if (_updateIntervalTimer == null)
+            else
             {
-                _updateIntervalTimer =
-                    new Timer(GlobalOptions.Instance.RepositoryUpdateInterval * 1000) {AutoReset = true};
-                _updateIntervalTimer.Elapsed += (sender1, args) => { ServiceClient.DownloadAllUpdateInfo(); };
+                var optionsDlg = new MetroOptionsDlg(this, MetroOptionsDlg.Page.GlobalOptions);
+                optionsDlg.RepoListingChanged += (o, args) => { _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu()); };
+                optionsDlg.Closed += (o, args) =>
+                {
+                    if (_trayIcon != null) _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
+                };
+                var res = optionsDlg.ShowDialog();
+
+                if (res != DialogResult.OK) return;
+
+                if (GlobalOptions.Instance.RepositoryUpdateInterval <= 0)
+                {
+                    _updateIntervalTimer?.Stop();
+                    return;
+                }
+
+                if (_updateIntervalTimer == null)
+                {
+                    _updateIntervalTimer =
+                        new Timer(GlobalOptions.Instance.RepositoryUpdateInterval * 1000) { AutoReset = true };
+                    _updateIntervalTimer.Elapsed += (sender1, args) => { ServiceClient.DownloadAllUpdateInfo(); };
+                }
+                _updateIntervalTimer.Stop();
+                _updateIntervalTimer.Interval = GlobalOptions.Instance.RepositoryUpdateInterval * 1000;
+                _updateIntervalTimer.Start();
             }
-            _updateIntervalTimer.Stop();
-            _updateIntervalTimer.Interval = GlobalOptions.Instance.RepositoryUpdateInterval * 1000;
-            _updateIntervalTimer.Start();
         }
 
         private void UpdateRepoMenuItemHandler(object sender, EventArgs e)
         {
             var repo = (GinRepositoryData) ((MenuItem) sender).Parent.Tag;
-
+            //show status dialog
             ServiceClient.DownloadUpdateInfo(repo.Name);
         }
 
         private void ManageRepositoriesMenuItemHandler(object sender, EventArgs e)
         {
-            var repomanager = new MetroOptionsDlg(this, MetroOptionsDlg.Page.Repositories);
-            repomanager.RepoListingChanged += (o, args) => { _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu()); };
-            repomanager.Closed += (o, args) =>
+            if (Application.OpenForms.OfType<MetroOptionsDlg>().Count() > 0)
             {
-                if (_trayIcon != null) _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
-            };
-            repomanager.ShowDialog();
+                var form = Application.OpenForms.OfType<MetroOptionsDlg>().First();
+                form.SetTab(MetroOptionsDlg.Page.Repositories);
+            }
+            else
+            {
+                var repomanager = new MetroOptionsDlg(this, MetroOptionsDlg.Page.Repositories);
+                repomanager.RepoListingChanged += (o, args) => { _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu()); };
+                repomanager.Closed += (o, args) =>
+                {
+                    if (_trayIcon != null) _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
+                };
+                repomanager.ShowDialog();
+            }
         }
 
         private void _trayIcon_DoubleClick(object sender, EventArgs e)
         {
+            ///app is not opened yet
             if (Application.OpenForms.OfType<MetroOptionsDlg>().Count() < 1)
             {
                 var repomanager = new MetroOptionsDlg(this, MetroOptionsDlg.Page.Repositories);
@@ -295,7 +329,9 @@ namespace GinClientApp
                 };
                 repomanager.ShowDialog();
             }
-            else {
+            else
+            {
+                ///bring form to top
                 var form = Application.OpenForms.OfType<MetroOptionsDlg>().First();
                 form.TopMost = true;
                 form.Show();
