@@ -151,6 +151,14 @@ namespace GinService
         string GetFileInfo(string path);
 
         /// <summary>
+        ///     Return a string with the gin status of a given file
+        /// </summary>
+        /// <param name="path">Fully qualified path to the file</param>
+        /// <returns></returns>
+        [OperationContract]
+        string GetHistory(string path);
+
+        /// <summary>
         ///     Check whether a given path is part of any managed repository
         /// </summary>
         /// <param name="filePath"></param>

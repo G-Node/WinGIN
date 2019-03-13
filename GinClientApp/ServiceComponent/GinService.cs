@@ -223,5 +223,11 @@ namespace GinService
         {
             return true;
         }
+
+        public string GetHistory(string path)
+        {
+            return RepositoryManager.Instance.GetFileHistory(path);
+            throw new NotImplementedException();
+        }
     }
 }

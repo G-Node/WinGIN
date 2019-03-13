@@ -451,6 +451,30 @@ namespace GinClientLibrary
             return output.ToString();
         }
 
+        public string GetFileHistory(string path)
+        {
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = "gin.exe",
+                    WorkingDirectory = @"C:\",
+                    Arguments = "version --json " + path,
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false
+                }
+            };
+            StringBuilder output = new StringBuilder();
+            process.OutputDataReceived += (sender, args) => { output.AppendLine(args.Data); };        
+            process.Start();
+            process.BeginOutputReadLine();
+            process.WaitForExit();
+            return output.ToString();
+        }
+
 
         private struct fileOpProgress
         {

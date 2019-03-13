@@ -189,7 +189,7 @@ namespace GinClientLibrary
         /// <returns></returns>
         public bool RetrieveFile(string filePath)
         {
-            OnFileOperationStarted(new FileOperationEventArgs {File = filePath});
+            OnFileOperationStarted(new FileOperationEventArgs { File = filePath });
             GetActualFilename(filePath, out var directoryName, out var filename);
 
             lock (this)
@@ -204,7 +204,7 @@ namespace GinClientLibrary
                 var result = string.IsNullOrEmpty(error);
 
                 if (result)
-                    OnFileOperationCompleted(new FileOperationEventArgs {File = filePath, Success = true});
+                    OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
                 else
                     OnFileOperationError(error);
 
@@ -233,7 +233,7 @@ namespace GinClientLibrary
 
             lock (this)
             {
-                OnFileOperationStarted(new FileOperationEventArgs {File = filename});
+                OnFileOperationStarted(new FileOperationEventArgs { File = filename });
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,
                     out var error);
 
@@ -243,7 +243,7 @@ namespace GinClientLibrary
                 var result = string.IsNullOrEmpty(error);
 
                 if (result)
-                    OnFileOperationCompleted(new FileOperationEventArgs {File = filePath, Success = true});
+                    OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
                 else
                     OnFileOperationError(error);
 
@@ -277,7 +277,7 @@ namespace GinClientLibrary
             var fstatus = GetFileStatus(directoryName + "\\" + filename);
             if (fstatus == FileStatus.InAnnex || fstatus == FileStatus.InAnnexModified || fstatus == FileStatus.Unknown)
                 return true;
-            
+
             lock (this)
             {
                 GetCommandLineOutput("cmd.exe", "/C gin.exe remove-content \"" + filename + "\"" /*+ " -json"*/,
@@ -290,6 +290,22 @@ namespace GinClientLibrary
                 return
                     string.IsNullOrEmpty(
                         error); // If an error happens here, it's most likely due to trying to remove-content on a file already removed
+            }
+        }
+
+        public bool GetVersionsForFile(string filePath)
+        {
+            GetActualFilename(filePath, out var directoryName, out var filename);
+            lock (this)
+            {
+               var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe vesion --json " +filename,
+                    directoryName, out var error);
+
+                //Output.Clear();
+
+                //ReadRepoStatus();
+
+                return string.IsNullOrEmpty(error); 
             }
         }
 
