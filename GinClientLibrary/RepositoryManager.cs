@@ -424,6 +424,7 @@ namespace GinClientLibrary
 
         public string GetRemoteRepositoryInfo(string path)
         {
+            var repo = GetRepoByPath(path);
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -451,6 +452,7 @@ namespace GinClientLibrary
             return output.ToString();
         }
 
+        /*
         public string GetFileHistory(string path)
         {
             var process = new Process
@@ -474,7 +476,7 @@ namespace GinClientLibrary
             process.WaitForExit();
             return output.ToString();
         }
-
+        */
 
         private struct fileOpProgress
         {

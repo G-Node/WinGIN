@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 using DokanNet;
 using GinClientLibrary.Extensions;
 using Newtonsoft.Json;
@@ -293,16 +294,17 @@ namespace GinClientLibrary
             }
         }
 
-        public bool GetVersionsForFile(string filePath)
+        public bool GetFileHistory(string filePath)
         {
             GetActualFilename(filePath, out var directoryName, out var filename);
             lock (this)
             {
-               var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe vesion --json " +filename,
+               var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe version --json " +filename,
                     directoryName, out var error);
 
-                //Output.Clear();
-
+                Output.Clear();
+                //var progress = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
+                //MessageBox.Show("hash "+progress.First().abbrevhash + " author "+ progress.First().authorname);
                 //ReadRepoStatus();
 
                 return string.IsNullOrEmpty(error); 
@@ -602,6 +604,22 @@ namespace GinClientLibrary
         private void OnCmdLineOutput(object sender, string message)
         {
             FileOperationProgress?.Invoke(sender, message);
+        }
+
+        #endregion
+
+        #region VersionJson
+        private struct FileVersion
+        {
+            public string hash { get; set; }
+            public string abbrevhash { get; set; }
+            public string authorname { get; set; }
+            public string authoremail { get; set; }
+            public string date { get; set; }
+            public string subject { get; set; }
+            public string body { get; set; }
+            public string filestats { get; set; }
+
         }
 
         #endregion

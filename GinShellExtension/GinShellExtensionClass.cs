@@ -200,7 +200,7 @@ namespace GinShellExtension
             if (_client == null)
                 _client = ServiceClient.CreateServiceClient(this, 8741);
 
-            _client.GetHistory(SelectedItemPaths.ToArray());
+            _client.GetHistory(SelectedItemPaths.First());
 
             ((ICommunicationObject)_client).Close();
             _client = null;

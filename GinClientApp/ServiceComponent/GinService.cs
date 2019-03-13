@@ -224,10 +224,15 @@ namespace GinService
             return true;
         }
 
-        public string GetHistory(string path)
+        string IGinService.GetHistory(string path)
         {
-            return RepositoryManager.Instance.GetFileHistory(path);
-            throw new NotImplementedException();
+            var repo = RepositoryManager.Instance.GetRepoByPath(path);
+            repo.GetFileHistory(path);
+            return "";
+            // return RepositoryManager.Instance.GetFileHistory(path);
+            //throw new NotImplementedException();
         }
+
+        
     }
 }
