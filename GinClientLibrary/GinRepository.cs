@@ -306,17 +306,37 @@ namespace GinClientLibrary
                 try
                 {
                     var progress = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
-                    MessageBox.Show("hash "+progress.First().abbrevhash + " author "+ progress.First().authorname);
-                    FileHistoryForm form = new FileHistoryForm(progress);
-                    form.Show();
+                    var form = new FileHistoryForm(progress);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        string abbrHash = form.hashRestore;
+                        MessageBox.Show(abbrHash);
+                        
+                        SaveFileDialog saveFileDialog1 = new SaveFileDialog
+                        {
+                            RestoreDirectory = true,
+                            Title = "Select location for restortoration of file",
+                            CheckPathExists = true
+                        };
+                        if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                        {
+                        var filepath = saveFileDialog1.FileName;
+                            ///restore file
+                         
+                        }
+
+                    }
+                    else
+                    {
+                        return true;
+                    }                  
+                    //form.Show();
                 }
                 catch (Exception)
                 {
                     return false;
                 }
-
                 ReadRepoStatus();
-
                 return string.IsNullOrEmpty(error); 
             }
         }

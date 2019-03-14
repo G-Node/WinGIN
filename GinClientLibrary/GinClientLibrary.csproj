@@ -71,10 +71,6 @@
     <Compile Include="Custom_Controls\FileHistoryForm.Designer.cs">
       <DependentUpon>FileHistoryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Custom_Controls\MetroFileHistory.cs" />
-    <Compile Include="Custom_Controls\MetroFileHistory.Designer.cs">
-      <DependentUpon>MetroFileHistory.cs</DependentUpon>
-    </Compile>
     <Compile Include="DokanInterface.cs" />
     <Compile Include="Extensions\DirectoryInfoExtension.cs" />
     <Compile Include="GinRepository.cs" />
@@ -91,9 +87,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Custom_Controls\FileHistoryForm.resx">
       <DependentUpon>FileHistoryForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Custom_Controls\MetroFileHistory.resx">
-      <DependentUpon>MetroFileHistory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
