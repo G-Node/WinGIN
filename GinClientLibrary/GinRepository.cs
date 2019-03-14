@@ -303,9 +303,16 @@ namespace GinClientLibrary
                     directoryName, out var error);
 
                 Output.Clear();
-                //var progress = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
-                //MessageBox.Show("hash "+progress.First().abbrevhash + " author "+ progress.First().authorname);
-                //ReadRepoStatus();
+                try
+                {
+                    var progress = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
+                    MessageBox.Show("hash "+progress.First().abbrevhash + " author "+ progress.First().authorname);
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+                ReadRepoStatus();
 
                 return string.IsNullOrEmpty(error); 
             }
@@ -618,10 +625,19 @@ namespace GinClientLibrary
             public string date { get; set; }
             public string subject { get; set; }
             public string body { get; set; }
-            public string filestats { get; set; }
+            public DiffStat filestats { get; set; }
 
+            public DateTime getDateTime() {
+                return Convert.ToDateTime(date);
+            }
         }
 
+        private struct DiffStat
+        {
+            public string [] newFiles { get; set; }
+            public string [] deletedFiles { get; set; }
+            public string [] modifiedFiles { get; set; }
+        }
         #endregion
 
         #region IDisposable Support
