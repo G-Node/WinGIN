@@ -5,9 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using DokanNet;
+using GinClientLibrary.Custom_Controls;
 using GinClientLibrary.Extensions;
 using Newtonsoft.Json;
 using static GinClientLibrary.DokanInterface;
@@ -307,11 +307,14 @@ namespace GinClientLibrary
                 {
                     var progress = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
                     MessageBox.Show("hash "+progress.First().abbrevhash + " author "+ progress.First().authorname);
+                    FileHistoryForm form = new FileHistoryForm(progress);
+                    form.Show();
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return false;
                 }
+
                 ReadRepoStatus();
 
                 return string.IsNullOrEmpty(error); 
@@ -616,7 +619,7 @@ namespace GinClientLibrary
         #endregion
 
         #region VersionJson
-        private struct FileVersion
+        public struct FileVersion
         {
             public string hash { get; set; }
             public string abbrevhash { get; set; }
@@ -632,7 +635,7 @@ namespace GinClientLibrary
             }
         }
 
-        private struct DiffStat
+        public struct DiffStat
         {
             public string [] newFiles { get; set; }
             public string [] deletedFiles { get; set; }
