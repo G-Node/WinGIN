@@ -293,43 +293,61 @@ namespace GinClientLibrary
                         error); // If an error happens here, it's most likely due to trying to remove-content on a file already removed
             }
         }
+        public bool CheckoutFileVersion(FileVersion versInfo, string dirName, string filename)
+        {
+            lock (this)
+            {
+                GetCommandLineOutput("cmd.exe", "/C gin.exe version --id " + versInfo.hash + " --copy-to \"" + dirName + "\" " + filename,
+                    dirName, out var error);
+                MessageBox.Show(" hash "+versInfo.hash + " dir " + dirName + " ");
+                Output.Clear();
+
+                ReadRepoStatus();
+
+                return string.IsNullOrEmpty(error);
+                // If an error happens here, it's most likely due to trying to remove-content on a file already removed
+            }
+        }
+
 
         public bool GetFileHistory(string filePath)
         {
             GetActualFilename(filePath, out var directoryName, out var filename);
             lock (this)
             {
-               var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe version --json " +filename,
-                    directoryName, out var error);
+                var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe version --json " + filename,
+                     directoryName, out var error);
 
                 Output.Clear();
                 try
                 {
-                    var progress = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
-                    var form = new FileHistoryForm(progress);
+                    var history = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
+                    FileVersion selectedVersion = default(FileVersion);
+                    var form = new FileHistoryForm(history);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         string abbrHash = form.hashRestore;
+                        foreach (var vers in history)
+                        {
+                            if (abbrHash.Equals(vers.abbrevhash))
+                            {
+                                selectedVersion = vers;
+                                break;
+                            }
+                        }
+                        CheckoutFileVersion(selectedVersion, directoryName, filename);
                         MessageBox.Show(abbrHash);
-                        
-                        SaveFileDialog saveFileDialog1 = new SaveFileDialog
+                        /*SaveFileDialog saveFileDialog1 = new SaveFileDialog
                         {
                             RestoreDirectory = true,
                             Title = "Select location for restortoration of file",
                             CheckPathExists = true
-                        };
-                        if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                        {
-                        var filepath = saveFileDialog1.FileName;
-                            ///restore file
-                         
-                        }
-
+                        };*/
                     }
                     else
                     {
                         return true;
-                    }                  
+                    }
                     //form.Show();
                 }
                 catch (Exception)
@@ -337,7 +355,7 @@ namespace GinClientLibrary
                     return false;
                 }
                 ReadRepoStatus();
-                return string.IsNullOrEmpty(error); 
+                return string.IsNullOrEmpty(error);
             }
         }
 
