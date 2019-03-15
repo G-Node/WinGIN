@@ -229,8 +229,6 @@ namespace GinService
             var repo = RepositoryManager.Instance.GetRepoByPath(path);
             repo.GetFileHistory(path);
             return "";
-            // return RepositoryManager.Instance.GetFileHistory(path);
-            //throw new NotImplementedException();
         }
 
         

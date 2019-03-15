@@ -297,19 +297,20 @@ namespace GinClientLibrary
         {
             lock (this)
             {
-                GetCommandLineOutput("cmd.exe", "/C gin.exe version --id " + versInfo.hash + " --copy-to \"" + dirName + "\" " + filename,
+                var message = GetCommandLineOutput("cmd.exe", "/C gin.exe version --id " + versInfo.hash + " --copy-to \"" + dirName + "\" " + filename,
                     dirName, out var error);
-                MessageBox.Show(" hash "+versInfo.hash + " dir " + dirName + " ");
+                MessageBox.Show(message +" hash "+versInfo.hash + " dir " + dirName + " ");
                 Output.Clear();
-
-                ReadRepoStatus();
-
                 return string.IsNullOrEmpty(error);
                 // If an error happens here, it's most likely due to trying to remove-content on a file already removed
             }
         }
 
-
+        /// <summary>
+        /// recovers previous version of file in repository directory
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns>true for success</returns>
         public bool GetFileHistory(string filePath)
         {
             GetActualFilename(filePath, out var directoryName, out var filename);
@@ -324,6 +325,7 @@ namespace GinClientLibrary
                     var history = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
                     FileVersion selectedVersion = default(FileVersion);
                     var form = new FileHistoryForm(history);
+                    form.Text = "Select previous version of " + filename;
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         string abbrHash = form.hashRestore;
@@ -335,20 +337,20 @@ namespace GinClientLibrary
                                 break;
                             }
                         }
-                        CheckoutFileVersion(selectedVersion, directoryName, filename);
-                        MessageBox.Show(abbrHash);
-                        /*SaveFileDialog saveFileDialog1 = new SaveFileDialog
+                        if (CheckoutFileVersion(selectedVersion, directoryName, filename))
                         {
-                            RestoreDirectory = true,
-                            Title = "Select location for restortoration of file",
-                            CheckPathExists = true
-                        };*/
+                            MessageBox.Show("File" + filename + " was recovered to " + directoryName, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            //failed
+                            return false;
+                        }
                     }
                     else
                     {
                         return true;
                     }
-                    //form.Show();
                 }
                 catch (Exception)
                 {
