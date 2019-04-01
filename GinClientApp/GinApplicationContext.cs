@@ -246,9 +246,9 @@ namespace GinClientApp
 
             var uploadfiledlg = new MetroUploadFilesDlg(files);
             var res = uploadfiledlg.ShowDialog();
-
+            string commitMessage = uploadfiledlg.CommitTextBox.Text;
             if (res == DialogResult.Cancel) return;
-
+            if(String.IsNullOrEmpty(commitMessage))
             //WCF requires that non-optional arguments be non-empty, so we provide a placeholder value
             ServiceClient.UploadFile(repo.Name, "%EMPTYSTRING%");
         }

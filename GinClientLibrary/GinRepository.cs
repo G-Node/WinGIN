@@ -309,6 +309,8 @@ namespace GinClientLibrary
                     dirName, out var error);
                 MessageBox.Show(message +" hash "+versInfo.hash + " dir " + dirName + " ");
                 Output.Clear();
+                string err = "fatal";
+                if (message.ToUpper().Contains(err.ToUpper())) return false;
                 return string.IsNullOrEmpty(error);
             }
         }
@@ -353,7 +355,6 @@ namespace GinClientLibrary
                         }
                         else
                         {
-                            MessageBox.Show("error","", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             ///checkout of older version failed
                             return false;
                         }

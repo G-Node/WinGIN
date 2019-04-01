@@ -125,6 +125,6 @@
         private MetroFramework.Controls.MetroButton mBtnOK;
         private MetroFramework.Controls.MetroButton mBtnCancel;
         private System.Windows.Forms.Label CommitLabel;
-        private System.Windows.Forms.TextBox CommitTextBox;
+        public System.Windows.Forms.TextBox CommitTextBox;
     }
 }
