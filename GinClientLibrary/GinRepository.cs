@@ -293,6 +293,14 @@ namespace GinClientLibrary
                         error); // If an error happens here, it's most likely due to trying to remove-content on a file already removed
             }
         }
+        
+        /// <summary>
+        /// method for retrieving older version of file 
+        /// </summary>
+        /// <param name="versInfo"></param>
+        /// <param name="dirName"></param>
+        /// <param name="filename"></param>
+        /// <returns>returns true for no error</returns>
         public bool CheckoutFileVersion(FileVersion versInfo, string dirName, string filename)
         {
             lock (this)
@@ -302,7 +310,6 @@ namespace GinClientLibrary
                 MessageBox.Show(message +" hash "+versInfo.hash + " dir " + dirName + " ");
                 Output.Clear();
                 return string.IsNullOrEmpty(error);
-                // If an error happens here, it's most likely due to trying to remove-content on a file already removed
             }
         }
 
@@ -324,8 +331,10 @@ namespace GinClientLibrary
                 {
                     var history = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
                     FileVersion selectedVersion = default(FileVersion);
-                    var form = new FileHistoryForm(history);
-                    form.Text = "Select previous version of " + filename;
+                    var form = new FileHistoryForm(history)
+                    {
+                        Text = "Select previous version of " + filename
+                    };
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         string abbrHash = form.hashRestore;
@@ -339,16 +348,19 @@ namespace GinClientLibrary
                         }
                         if (CheckoutFileVersion(selectedVersion, directoryName, filename))
                         {
+                            ///show information about old version recovery
                             MessageBox.Show("File" + filename + " was recovered to " + directoryName, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
-                            //failed
+                            MessageBox.Show("error","", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ///checkout of older version failed
                             return false;
                         }
                     }
                     else
                     {
+                        ///version selection canceled
                         return true;
                     }
                 }

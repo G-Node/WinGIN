@@ -33,6 +33,8 @@
             this.mLvwFiles = new MetroFramework.Controls.MetroListView();
             this.mBtnOK = new MetroFramework.Controls.MetroButton();
             this.mBtnCancel = new MetroFramework.Controls.MetroButton();
+            this.CommitLabel = new System.Windows.Forms.Label();
+            this.CommitTextBox = new System.Windows.Forms.TextBox();
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
@@ -54,7 +56,7 @@
             this.mLvwFiles.Name = "mLvwFiles";
             this.mLvwFiles.OwnerDraw = true;
             this.mLvwFiles.ShowItemToolTips = true;
-            this.mLvwFiles.Size = new System.Drawing.Size(257, 188);
+            this.mLvwFiles.Size = new System.Drawing.Size(257, 254);
             this.mLvwFiles.TabIndex = 0;
             this.mLvwFiles.UseCompatibleStateImageBehavior = false;
             this.mLvwFiles.UseSelectable = true;
@@ -64,7 +66,7 @@
             // 
             this.mBtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.mBtnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.mBtnOK.Location = new System.Drawing.Point(24, 259);
+            this.mBtnOK.Location = new System.Drawing.Point(24, 363);
             this.mBtnOK.Name = "mBtnOK";
             this.mBtnOK.Size = new System.Drawing.Size(75, 23);
             this.mBtnOK.TabIndex = 1;
@@ -75,18 +77,36 @@
             // 
             this.mBtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.mBtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.mBtnCancel.Location = new System.Drawing.Point(106, 259);
+            this.mBtnCancel.Location = new System.Drawing.Point(106, 363);
             this.mBtnCancel.Name = "mBtnCancel";
             this.mBtnCancel.Size = new System.Drawing.Size(75, 23);
             this.mBtnCancel.TabIndex = 2;
             this.mBtnCancel.Text = "Cancel";
             this.mBtnCancel.UseSelectable = true;
             // 
+            // CommitLabel
+            // 
+            this.CommitLabel.AutoSize = true;
+            this.CommitLabel.Location = new System.Drawing.Point(24, 321);
+            this.CommitLabel.Name = "CommitLabel";
+            this.CommitLabel.Size = new System.Drawing.Size(87, 13);
+            this.CommitLabel.TabIndex = 3;
+            this.CommitLabel.Text = "Commit Message";
+            // 
+            // CommitTextBox
+            // 
+            this.CommitTextBox.Location = new System.Drawing.Point(24, 337);
+            this.CommitTextBox.Name = "CommitTextBox";
+            this.CommitTextBox.Size = new System.Drawing.Size(254, 20);
+            this.CommitTextBox.TabIndex = 4;
+            // 
             // MetroUploadFilesDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 300);
+            this.ClientSize = new System.Drawing.Size(304, 404);
+            this.Controls.Add(this.CommitTextBox);
+            this.Controls.Add(this.CommitLabel);
             this.Controls.Add(this.mBtnCancel);
             this.Controls.Add(this.mBtnOK);
             this.Controls.Add(this.mLvwFiles);
@@ -95,6 +115,7 @@
             this.Text = "Files to upload";
             this.Load += new System.EventHandler(this.MetroUploadFilesDlg_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -103,5 +124,7 @@
         private MetroFramework.Controls.MetroListView mLvwFiles;
         private MetroFramework.Controls.MetroButton mBtnOK;
         private MetroFramework.Controls.MetroButton mBtnCancel;
+        private System.Windows.Forms.Label CommitLabel;
+        private System.Windows.Forms.TextBox CommitTextBox;
     }
 }
