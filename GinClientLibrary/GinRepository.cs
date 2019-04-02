@@ -307,7 +307,7 @@ namespace GinClientLibrary
             {
                 var message = GetCommandLineOutput("cmd.exe", "/C gin.exe version --id " + versInfo.hash + " --copy-to \"" + dirName + "\" " + filename,
                     dirName, out var error);
-                MessageBox.Show(message +" hash "+versInfo.hash + " dir " + dirName + " ");
+                MessageBox.Show(message,"Version checkout result",MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Output.Clear();
                 string err = "fatal";
                 if (message.ToUpper().Contains(err.ToUpper())) return false;
@@ -322,7 +322,7 @@ namespace GinClientLibrary
         /// <returns>true for success</returns>
         public bool GetFileHistory(string filePath)
         {
-            GetActualFilename(filePath, out var directoryName, out var filename);
+            GetActualFilename(filePath, out var directoryName, out var filename);           
             lock (this)
             {
                 var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe version --json " + filename,
@@ -351,7 +351,8 @@ namespace GinClientLibrary
                         if (CheckoutFileVersion(selectedVersion, directoryName, filename))
                         {
                             ///show information about old version recovery
-                            MessageBox.Show("File" + filename + " was recovered to " + directoryName, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ReadRepoStatus();
+                            return string.IsNullOrEmpty(error);
                         }
                         else
                         {
@@ -369,8 +370,6 @@ namespace GinClientLibrary
                 {
                     return false;
                 }
-                ReadRepoStatus();
-                return string.IsNullOrEmpty(error);
             }
         }
 

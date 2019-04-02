@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using GinClientApp.Dialogs;
 using DirectoryInfoExtension = GinClientLibrary.Extensions.DirectoryInfoExtension;
 
