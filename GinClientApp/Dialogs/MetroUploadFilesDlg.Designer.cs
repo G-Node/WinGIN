@@ -52,11 +52,12 @@
             this.mLvwFiles.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.mLvwFiles.FullRowSelect = true;
             this.mLvwFiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            this.mLvwFiles.Location = new System.Drawing.Point(24, 64);
+            this.mLvwFiles.Location = new System.Drawing.Point(48, 123);
+            this.mLvwFiles.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.mLvwFiles.Name = "mLvwFiles";
             this.mLvwFiles.OwnerDraw = true;
             this.mLvwFiles.ShowItemToolTips = true;
-            this.mLvwFiles.Size = new System.Drawing.Size(257, 254);
+            this.mLvwFiles.Size = new System.Drawing.Size(510, 485);
             this.mLvwFiles.TabIndex = 0;
             this.mLvwFiles.UseCompatibleStateImageBehavior = false;
             this.mLvwFiles.UseSelectable = true;
@@ -66,9 +67,10 @@
             // 
             this.mBtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.mBtnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.mBtnOK.Location = new System.Drawing.Point(24, 363);
+            this.mBtnOK.Location = new System.Drawing.Point(48, 698);
+            this.mBtnOK.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.mBtnOK.Name = "mBtnOK";
-            this.mBtnOK.Size = new System.Drawing.Size(75, 23);
+            this.mBtnOK.Size = new System.Drawing.Size(150, 44);
             this.mBtnOK.TabIndex = 1;
             this.mBtnOK.Text = "OK";
             this.mBtnOK.UseSelectable = true;
@@ -77,9 +79,10 @@
             // 
             this.mBtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.mBtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.mBtnCancel.Location = new System.Drawing.Point(106, 363);
+            this.mBtnCancel.Location = new System.Drawing.Point(212, 698);
+            this.mBtnCancel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.mBtnCancel.Name = "mBtnCancel";
-            this.mBtnCancel.Size = new System.Drawing.Size(75, 23);
+            this.mBtnCancel.Size = new System.Drawing.Size(150, 44);
             this.mBtnCancel.TabIndex = 2;
             this.mBtnCancel.Text = "Cancel";
             this.mBtnCancel.UseSelectable = true;
@@ -87,31 +90,37 @@
             // CommitLabel
             // 
             this.CommitLabel.AutoSize = true;
-            this.CommitLabel.Location = new System.Drawing.Point(24, 321);
+            this.CommitLabel.Location = new System.Drawing.Point(48, 617);
+            this.CommitLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.CommitLabel.Name = "CommitLabel";
-            this.CommitLabel.Size = new System.Drawing.Size(87, 13);
+            this.CommitLabel.Size = new System.Drawing.Size(178, 25);
             this.CommitLabel.TabIndex = 3;
             this.CommitLabel.Text = "Commit Message";
+            this.CommitLabel.Visible = false;
             // 
             // CommitTextBox
             // 
-            this.CommitTextBox.Location = new System.Drawing.Point(24, 337);
+            this.CommitTextBox.Location = new System.Drawing.Point(48, 648);
+            this.CommitTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.CommitTextBox.Name = "CommitTextBox";
-            this.CommitTextBox.Size = new System.Drawing.Size(254, 20);
+            this.CommitTextBox.Size = new System.Drawing.Size(504, 31);
             this.CommitTextBox.TabIndex = 4;
+            this.CommitTextBox.Visible = false;
             // 
             // MetroUploadFilesDlg
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 404);
+            this.ClientSize = new System.Drawing.Size(608, 777);
             this.Controls.Add(this.CommitTextBox);
             this.Controls.Add(this.CommitLabel);
             this.Controls.Add(this.mBtnCancel);
             this.Controls.Add(this.mBtnOK);
             this.Controls.Add(this.mLvwFiles);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "MetroUploadFilesDlg";
+            this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Files to upload";
             this.Load += new System.EventHandler(this.MetroUploadFilesDlg_Load);
             this.ResumeLayout(false);
