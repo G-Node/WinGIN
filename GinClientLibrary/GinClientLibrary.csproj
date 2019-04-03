@@ -65,6 +65,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom_Controls\FileHistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Custom_Controls\FileHistoryForm.Designer.cs">
+      <DependentUpon>FileHistoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DokanInterface.cs" />
     <Compile Include="Extensions\DirectoryInfoExtension.cs" />
     <Compile Include="GinRepository.cs" />
@@ -77,6 +83,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="TempKey.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Custom_Controls\FileHistoryForm.resx">
+      <DependentUpon>FileHistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

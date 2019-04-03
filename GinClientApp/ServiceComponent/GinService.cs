@@ -223,5 +223,14 @@ namespace GinService
         {
             return true;
         }
+
+        string IGinService.GetHistory(string path)
+        {
+            var repo = RepositoryManager.Instance.GetRepoByPath(path);
+            repo.GetFileHistory(path);
+            return "";
+        }
+
+        
     }
 }

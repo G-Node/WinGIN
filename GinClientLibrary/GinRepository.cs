@@ -5,8 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Threading;
+using System.Windows.Forms;
 using DokanNet;
+using GinClientLibrary.Custom_Controls;
 using GinClientLibrary.Extensions;
 using Newtonsoft.Json;
 using static GinClientLibrary.DokanInterface;
@@ -189,7 +190,7 @@ namespace GinClientLibrary
         /// <returns></returns>
         public bool RetrieveFile(string filePath)
         {
-            OnFileOperationStarted(new FileOperationEventArgs {File = filePath});
+            OnFileOperationStarted(new FileOperationEventArgs { File = filePath });
             GetActualFilename(filePath, out var directoryName, out var filename);
 
             lock (this)
@@ -204,7 +205,7 @@ namespace GinClientLibrary
                 var result = string.IsNullOrEmpty(error);
 
                 if (result)
-                    OnFileOperationCompleted(new FileOperationEventArgs {File = filePath, Success = true});
+                    OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
                 else
                     OnFileOperationError(error);
 
@@ -233,7 +234,7 @@ namespace GinClientLibrary
 
             lock (this)
             {
-                OnFileOperationStarted(new FileOperationEventArgs {File = filename});
+                OnFileOperationStarted(new FileOperationEventArgs { File = filename });
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,
                     out var error);
 
@@ -243,7 +244,7 @@ namespace GinClientLibrary
                 var result = string.IsNullOrEmpty(error);
 
                 if (result)
-                    OnFileOperationCompleted(new FileOperationEventArgs {File = filePath, Success = true});
+                    OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
                 else
                     OnFileOperationError(error);
 
@@ -277,7 +278,7 @@ namespace GinClientLibrary
             var fstatus = GetFileStatus(directoryName + "\\" + filename);
             if (fstatus == FileStatus.InAnnex || fstatus == FileStatus.InAnnexModified || fstatus == FileStatus.Unknown)
                 return true;
-            
+
             lock (this)
             {
                 GetCommandLineOutput("cmd.exe", "/C gin.exe remove-content \"" + filename + "\"" /*+ " -json"*/,
@@ -290,6 +291,85 @@ namespace GinClientLibrary
                 return
                     string.IsNullOrEmpty(
                         error); // If an error happens here, it's most likely due to trying to remove-content on a file already removed
+            }
+        }
+        
+        /// <summary>
+        /// method for retrieving older version of file 
+        /// </summary>
+        /// <param name="versInfo"></param>
+        /// <param name="dirName"></param>
+        /// <param name="filename"></param>
+        /// <returns>returns true for no error</returns>
+        public bool CheckoutFileVersion(FileVersion versInfo, string dirName, string filename)
+        {
+            lock (this)
+            {
+                var message = GetCommandLineOutput("cmd.exe", "/C gin.exe version --id " + versInfo.hash + " --copy-to \"" + dirName + "\" " + filename,
+                    dirName, out var error);
+                MessageBox.Show(message,"Version checkout result",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Output.Clear();
+                string err = "fatal";
+                if (message.ToUpper().Contains(err.ToUpper())) return false;
+                return string.IsNullOrEmpty(error);
+            }
+        }
+
+        /// <summary>
+        /// recovers previous version of file in repository directory
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns>true for success</returns>
+        public bool GetFileHistory(string filePath)
+        {
+            GetActualFilename(filePath, out var directoryName, out var filename);           
+            lock (this)
+            {
+                var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe version --json " + filename,
+                     directoryName, out var error);
+
+                Output.Clear();
+                try
+                {
+                    var history = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
+                    FileVersion selectedVersion = default(FileVersion);
+                    var form = new FileHistoryForm(history)
+                    {
+                        Text = "Select previous version of " + filename
+                    };
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        string abbrHash = form.hashRestore;
+                        foreach (var vers in history)
+                        {
+                            if (abbrHash.Equals(vers.abbrevhash))
+                            {
+                                selectedVersion = vers;
+                                break;
+                            }
+                        }
+                        if (CheckoutFileVersion(selectedVersion, directoryName, filename))
+                        {
+                            ///show information about old version recovery
+                            ReadRepoStatus();
+                            return string.IsNullOrEmpty(error);
+                        }
+                        else
+                        {
+                            ///checkout of older version failed
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        ///version selection canceled
+                        return true;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             }
         }
 
@@ -588,6 +668,31 @@ namespace GinClientLibrary
             FileOperationProgress?.Invoke(sender, message);
         }
 
+        #endregion
+
+        #region VersionJson
+        public struct FileVersion
+        {
+            public string hash { get; set; }
+            public string abbrevhash { get; set; }
+            public string authorname { get; set; }
+            public string authoremail { get; set; }
+            public string date { get; set; }
+            public string subject { get; set; }
+            public string body { get; set; }
+            public DiffStat filestats { get; set; }
+
+            public DateTime getDateTime() {
+                return Convert.ToDateTime(date);
+            }
+        }
+
+        public struct DiffStat
+        {
+            public string [] newFiles { get; set; }
+            public string [] deletedFiles { get; set; }
+            public string [] modifiedFiles { get; set; }
+        }
         #endregion
 
         #region IDisposable Support
