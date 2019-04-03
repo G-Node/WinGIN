@@ -339,7 +339,7 @@ namespace GinClientLibrary
                     {
                         Text = "Select previous version of " + filename
                     };
-                    if (form.ShowDialog() == DialogResult.OK && form.hashRestore != null)
+                    if (form.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(form.hashRestore))
                     {
                         string abbrHash = form.hashRestore;
                         foreach (var vers in history)
