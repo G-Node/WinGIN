@@ -175,7 +175,7 @@ namespace GinClientLibrary
             if (StatusCache.ContainsKey(filePath.ToLowerInvariant()))
                 return StatusCache[filePath.ToLowerInvariant()];
 
-            //Windows will sometimes try to inspect the contents of a zip file; we need to catch this here and return the filestatus of the zip
+            ///Windows will sometimes try to inspect the contents of a zip file; we need to catch this here and return the filestatus of the zip
             var parentDirectory = Directory.GetParent(filePath).FullName;
             if (parentDirectory.ToLower().Contains(".zip"))
                 return GetFileStatus(parentDirectory);
@@ -198,17 +198,17 @@ namespace GinClientLibrary
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe get-content --json \"" + filename + "\"",
                     directoryName,
                     out var error);
-
-
                 ReadRepoStatus();
-
                 var result = string.IsNullOrEmpty(error);
 
                 if (result)
+                {
                     OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
+                }
                 else
+                {
                     OnFileOperationError(error);
-
+                }
                 return result;
             }
         }
@@ -290,7 +290,7 @@ namespace GinClientLibrary
 
                 return
                     string.IsNullOrEmpty(
-                        error); // If an error happens here, it's most likely due to trying to remove-content on a file already removed
+                        error); /// If an error happens here, it's most likely due to trying to remove-content on a file already removed
             }
         }
         
@@ -325,19 +325,21 @@ namespace GinClientLibrary
             GetActualFilename(filePath, out var directoryName, out var filename);           
             lock (this)
             {
+                ///get all available versions for the specified file in json
                 var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe version --json " + filename,
                      directoryName, out var error);
 
                 Output.Clear();
                 try
                 {
+                    ///show available version of file to user for selection
                     var history = JsonConvert.DeserializeObject<List<FileVersion>>(versionJson);
                     FileVersion selectedVersion = default(FileVersion);
                     var form = new FileHistoryForm(history)
                     {
                         Text = "Select previous version of " + filename
                     };
-                    if (form.ShowDialog() == DialogResult.OK)
+                    if (form.ShowDialog() == DialogResult.OK && form.hashRestore != null)
                     {
                         string abbrHash = form.hashRestore;
                         foreach (var vers in history)
@@ -362,11 +364,11 @@ namespace GinClientLibrary
                     }
                     else
                     {
-                        ///version selection canceled
+                        ///version selection canceled or no version selected
                         return true;
                     }
                 }
-                catch (Exception)
+                catch 
                 {
                     return false;
                 }

@@ -234,6 +234,7 @@ namespace GinClientApp
             var files = alteredFiles as KeyValuePair<string, GinRepository.FileStatus>[] ?? alteredFiles.ToArray();
             if (!files.Any())
             {
+                ///No new or changed files. Show notification.
                 try
                 {
                     _trayIcon.ShowBalloonTip(500, "WinGIN", "Nothing to do.", ToolTipIcon.Info);
@@ -318,7 +319,7 @@ namespace GinClientApp
 
         private void _trayIcon_DoubleClick(object sender, EventArgs e)
         {
-            ///app is not opened yet
+            ///app is not opened yet, open new form
             if (Application.OpenForms.OfType<MetroOptionsDlg>().Count() < 1)
             {
                 var repomanager = new MetroOptionsDlg(this, MetroOptionsDlg.Page.Repositories);
@@ -331,7 +332,7 @@ namespace GinClientApp
             }
             else
             {
-                ///bring form to top
+                ///App is already open, bring the app form on top
                 var form = Application.OpenForms.OfType<MetroOptionsDlg>().First();
                 form.TopMost = true;
                 form.Show();
@@ -343,7 +344,7 @@ namespace GinClientApp
 
         private void Exit(object sender, EventArgs e)
         {
-            // Hide tray icon, otherwise it will remain shown until user mouses over it
+            /// Hide tray icon, otherwise it will remain shown until user mouses over it
             if (_trayIcon != null)
                 _trayIcon.Visible = false;
 
