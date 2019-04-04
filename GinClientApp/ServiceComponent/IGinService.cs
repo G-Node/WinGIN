@@ -196,6 +196,8 @@ namespace GinService
         [OperationContract(IsOneWay = true)]
         void UploadRepositories(IEnumerable<string> filePaths);
 
+        [OperationContract(IsOneWay = true)]
+        void UploadRepositoriesWithMessage(IEnumerable<string> filePaths, string message);
         /// <summary>
         ///     Retrieves the specified files from their repositories
         /// </summary>

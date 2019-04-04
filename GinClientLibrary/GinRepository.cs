@@ -266,6 +266,33 @@ namespace GinClientLibrary
             }
         }
 
+        public void UploadRepositoryWithMessage(string message)
+        {
+            lock (this)
+            {
+                message = CheckMessage(message);
+                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m "+ "\""+message+"\"", PhysicalDirectory.FullName,
+                    out var cError);
+                if (!string.IsNullOrEmpty(cError))
+                {
+                    OnFileOperationError(cError);
+                    return;
+                }
+                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json", PhysicalDirectory.FullName,
+                    out var error);
+
+                ReadRepoStatus();
+
+                if (!string.IsNullOrEmpty(error))
+                    OnFileOperationError(error);
+            }
+        }
+
+        private string CheckMessage(string message)
+        {
+            return message.Replace("\""," ");
+        }
+
         /// <summary>
         ///     Return a file to the annex
         /// </summary>
@@ -283,14 +310,11 @@ namespace GinClientLibrary
             {
                 GetCommandLineOutput("cmd.exe", "/C gin.exe remove-content \"" + filename + "\"" /*+ " -json"*/,
                     directoryName, out var error);
-
                 Output.Clear();
-
                 ReadRepoStatus();
-
                 return
-                    string.IsNullOrEmpty(
-                        error); /// If an error happens here, it's most likely due to trying to remove-content on a file already removed
+                    string.IsNullOrEmpty(error); 
+                /// If an error happens here, it's most likely due to trying to remove-content on a file already removed
             }
         }
         
@@ -310,7 +334,8 @@ namespace GinClientLibrary
                 MessageBox.Show(message,"Version checkout result",MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Output.Clear();
                 string err = "fatal";
-                if (message.ToUpper().Contains(err.ToUpper())) return false;
+                if (message.ToUpper().Contains(err.ToUpper()))
+                    return false;
                 return string.IsNullOrEmpty(error);
             }
         }

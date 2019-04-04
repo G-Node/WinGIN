@@ -123,6 +123,12 @@ namespace GinClientApp.GinService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetFileInfo", ReplyAction="http://tempuri.org/IGinService/GetFileInfoResponse")]
         System.Threading.Tasks.Task<string> GetFileInfoAsync(string path);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetHistory", ReplyAction="http://tempuri.org/IGinService/GetHistoryResponse")]
+        string GetHistory(string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetHistory", ReplyAction="http://tempuri.org/IGinService/GetHistoryResponse")]
+        System.Threading.Tasks.Task<string> GetHistoryAsync(string path);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/IsManagedPath", ReplyAction="http://tempuri.org/IGinService/IsManagedPathResponse")]
         bool IsManagedPath(string filePath);
         
@@ -365,6 +371,14 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task<string> GetFileInfoAsync(string path) {
             return base.Channel.GetFileInfoAsync(path);
+        }
+        
+        public string GetHistory(string path) {
+            return base.Channel.GetHistory(path);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetHistoryAsync(string path) {
+            return base.Channel.GetHistoryAsync(path);
         }
         
         public bool IsManagedPath(string filePath) {
