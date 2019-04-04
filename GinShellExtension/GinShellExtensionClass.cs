@@ -119,6 +119,7 @@ namespace GinShellExtension
                 if (_fileStatus[file] == FileStatus.OnDisk)
                 {
                     mItems.Add(new ToolStripMenuItem("Remove local content", null, FileRemove));
+                    mItems.Add(new ToolStripMenuItem("Get older version", null, FileHistory));
                 }
 
                 return mItems.ToArray();
@@ -189,6 +190,17 @@ namespace GinShellExtension
                 _client = ServiceClient.CreateServiceClient(this, 8741);
 
             _client.RemoveLocalContent(SelectedItemPaths.ToArray());
+
+            ((ICommunicationObject)_client).Close();
+            _client = null;
+        }
+
+        private void FileHistory(object sender, EventArgs eventArgs)
+        {
+            if (_client == null)
+                _client = ServiceClient.CreateServiceClient(this, 8741);
+
+            _client.GetHistory(SelectedItemPaths.First());
 
             ((ICommunicationObject)_client).Close();
             _client = null;

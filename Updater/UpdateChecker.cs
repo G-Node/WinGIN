@@ -11,17 +11,24 @@ namespace Updater
 {
     public class UpdateChecker
     {
+        /// <summary>
+        /// updater folder
+        /// </summary>
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\WinGIN\Updates\");
+        /// <summary>
+        /// url for nevest released version of WinGIN msi
+        /// </summary>
         private static readonly string UpdatedMsi = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/Setup.msi";
-
+        /// <summary>
+        /// downloads latest WinGIN, uninstalls old version and install new version
+        /// </summary>
         public static void DoUpdate()
         {
             try
             {
                 Directory.CreateDirectory(UpdaterBaseDirectory.ToString());
                 var wb = new WebClient();
-                wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
-                
+                wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");               
             }
             catch
             {
@@ -29,12 +36,14 @@ namespace Updater
                 return;
             }
             if (!UninstallProgram("WinGIN")) return;
-            var procstartinfo = new ProcessStartInfo();
-            procstartinfo.FileName = "msiexec.exe";
-            procstartinfo.Arguments = "/i \"" + UpdaterBaseDirectory.FullName + "\\setup.msi\"";
-            procstartinfo.CreateNoWindow = true;
-            procstartinfo.UseShellExecute = true;
-            procstartinfo.Verb = "runas";
+            var procstartinfo = new ProcessStartInfo
+            {
+                FileName = "msiexec.exe",
+                Arguments = "/i \"" + UpdaterBaseDirectory.FullName + "\\setup.msi\"",
+                CreateNoWindow = true,
+                UseShellExecute = true,
+                Verb = "runas"
+            };
             var process = Process.Start(procstartinfo);
             process.WaitForExit();
         }
@@ -61,12 +70,14 @@ namespace Updater
                                                select value.Value as string).First();
 
                         uninstallString = uninstallString.Replace("/I", "/x");
-                        var psInfo = new ProcessStartInfo();
-                        psInfo.FileName = "cmd.exe";
-                        psInfo.Arguments = "/C " + uninstallString + " /q";
-                        psInfo.CreateNoWindow = true;
-                        psInfo.UseShellExecute = true;
-                        psInfo.Verb = "runas";
+                        var psInfo = new ProcessStartInfo
+                        {
+                            FileName = "cmd.exe",
+                            Arguments = "/C " + uninstallString + " /q",
+                            CreateNoWindow = true,
+                            UseShellExecute = true,
+                            Verb = "runas"
+                        };
                         var process = Process.Start(psInfo);
                         process.WaitForExit();
                         return process.ExitCode == 0;

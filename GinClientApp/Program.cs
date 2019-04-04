@@ -31,7 +31,11 @@ namespace GinClientApp
                     return;
                 }
             }
-
+            if (!Mutex.WaitOne(TimeSpan.Zero, true))
+            {
+                MessageBox.Show("WinGIN is already running.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             var wb = new WebClient();
             try
             {
@@ -41,22 +45,28 @@ namespace GinClientApp
                 var remoteVersion = new Version(rootObject.build.version);
                 ///get local assembly version
                 var assemblyVer = Assembly.GetExecutingAssembly().GetName().Version;
+                ///compare local and latest released version
                 var verResult = remoteVersion.CompareTo(assemblyVer);
                 if (verResult > 0)
                 {
+                    ///if new version available ask for installation
                     var result = System.Windows.MessageBox.Show(
                         "A new version " + remoteVersion + " of WinGIN is available. Do you want to update it now?",
                         "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
+                        ///install new version of WinGIN
                         if (!Directory.Exists(UpdaterBaseDirectory.FullName))
+                        {
                             Directory.CreateDirectory(UpdaterBaseDirectory.FullName);
-
+                        }
                         File.Copy("Updater.exe", UpdaterBaseDirectory + "Updater.exe", true);
                         File.Copy("Newtonsoft.Json.dll", UpdaterBaseDirectory + "Newtonsoft.Json.dll", true);
-                        var psInfo = new ProcessStartInfo();
-                        psInfo.FileName = UpdaterBaseDirectory + "Updater.exe";
+                        var psInfo = new ProcessStartInfo
+                        {
+                            FileName = UpdaterBaseDirectory + "Updater.exe"
+                        };
                         Process.Start(psInfo);
                         Environment.Exit(0);
                     }
@@ -64,12 +74,8 @@ namespace GinClientApp
             }
             catch
             {
-                MessageBox.Show("Cannot connect to GNode server.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (!Mutex.WaitOne(TimeSpan.Zero, true))
-            {
-                MessageBox.Show("WinGIN is already running.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                ///connection issue; location change;
+                MessageBox.Show("Cannot connect to G-Node server.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             var curPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -81,12 +87,14 @@ namespace GinClientApp
                         "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 ///try to install dokan
                 if (result == MessageBoxResult.Yes)
-                {                
-                    var procstartinfo = new ProcessStartInfo();
-                    procstartinfo.FileName = curPath + @"dokan/DokanSetup.exe";
-                    procstartinfo.CreateNoWindow = true;
-                    procstartinfo.UseShellExecute = true;
-                    procstartinfo.Verb = "runas";
+                {
+                    var procstartinfo = new ProcessStartInfo
+                    {
+                        FileName = curPath + @"dokan/DokanSetup.exe",
+                        CreateNoWindow = true,
+                        UseShellExecute = true,
+                        Verb = "runas"
+                    };
                     var process = Process.Start(procstartinfo);
                     Environment.Exit(0);
                 }
@@ -96,6 +104,7 @@ namespace GinClientApp
                     return;
                 }
             }
+            ///check if gin-cli is present
             if (!File.Exists(curPath+@"gin-cli/bin/gin.exe"))
             {
                 var result = MessageBox.Show(
@@ -103,7 +112,7 @@ namespace GinClientApp
                         "WinGIN", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
+            ///add gin-cli to path
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var value = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
             value += ";" + path + @"gin-cli\bin";
