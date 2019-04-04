@@ -119,6 +119,14 @@ namespace GinService
         /// <returns></returns>
         [OperationContract]
         void UploadFile(string repoName, string filepath);
+        /// <summary>
+        ///     Upload a file to the remote with Commit message
+        /// </summary>
+        /// <param name="repoName">Name of the repository</param>
+        /// <param name="filepath">Path to the file</param>
+        /// <param name="message">Commit message</param>
+        [OperationContract]
+        void UploadFileWithMessage(string repoName, string filepath, string message);
 
         /// <summary>
         ///     Updates the repository to the current version on the remote server.

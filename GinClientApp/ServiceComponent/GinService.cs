@@ -242,5 +242,12 @@ namespace GinService
                 repo?.UploadRepositoryWithMessage(message);
             }
         }
+
+        public void UploadFileWithMessage(string repoName, string filepath, string message)
+        {
+            var repo = string.Compare(repoName, "%EMPTYSTRING%", StringComparison.Ordinal) == 0 ? RepositoryManager.Instance.GetRepoByPath(filepath) : RepositoryManager.Instance.GetRepoByName(repoName);
+
+            repo?.UploadFileWithMessage(filepath, message);
+        }
     }
 }

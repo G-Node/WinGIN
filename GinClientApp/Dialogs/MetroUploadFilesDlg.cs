@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -61,6 +62,15 @@ namespace GinClientApp.Dialogs
         private void MetroUploadFilesDlg_Load(object sender, EventArgs e)
         {
            
+        }
+
+        private void textBox1_Validating(object sender, CancelEventArgs e)
+        {
+            if (CommitTextBox.Text.Contains("\"") || CommitTextBox.Text.Contains("\'"))
+                errorProvider1.SetError(CommitTextBox, "Invalid characters in commit message.");
+            else
+                errorProvider1.SetError(CommitTextBox, "");
+            
         }
     }
 }

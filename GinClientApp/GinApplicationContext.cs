@@ -249,9 +249,11 @@ namespace GinClientApp
             var res = uploadfiledlg.ShowDialog();
             string commitMessage = uploadfiledlg.CommitTextBox.Text;
             if (res == DialogResult.Cancel) return;
-            if(String.IsNullOrEmpty(commitMessage))
-            //WCF requires that non-optional arguments be non-empty, so we provide a placeholder value
-            ServiceClient.UploadFile(repo.Name, "%EMPTYSTRING%");
+            if (String.IsNullOrEmpty(commitMessage))
+                //WCF requires that non-optional arguments be non-empty, so we provide a placeholder value
+                ServiceClient.UploadFile(repo.Name, "%EMPTYSTRING%");
+            else
+                ServiceClient.UploadFileWithMessage();
         }
 
         private void ShowOptionsMenuItemHandler(object sender, EventArgs e)

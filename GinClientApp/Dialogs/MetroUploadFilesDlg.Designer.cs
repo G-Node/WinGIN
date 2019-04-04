@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ColumnHeader columnHeader1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MetroUploadFilesDlg));
             this.mLvwFiles = new MetroFramework.Controls.MetroListView();
@@ -35,7 +36,9 @@
             this.mBtnCancel = new MetroFramework.Controls.MetroButton();
             this.CommitLabel = new System.Windows.Forms.Label();
             this.CommitTextBox = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // columnHeader1
@@ -53,7 +56,7 @@
             this.mLvwFiles.FullRowSelect = true;
             this.mLvwFiles.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.mLvwFiles.Location = new System.Drawing.Point(48, 123);
-            this.mLvwFiles.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mLvwFiles.Margin = new System.Windows.Forms.Padding(6);
             this.mLvwFiles.Name = "mLvwFiles";
             this.mLvwFiles.OwnerDraw = true;
             this.mLvwFiles.ShowItemToolTips = true;
@@ -68,7 +71,7 @@
             this.mBtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.mBtnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.mBtnOK.Location = new System.Drawing.Point(48, 698);
-            this.mBtnOK.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mBtnOK.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnOK.Name = "mBtnOK";
             this.mBtnOK.Size = new System.Drawing.Size(150, 44);
             this.mBtnOK.TabIndex = 1;
@@ -80,7 +83,7 @@
             this.mBtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.mBtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.mBtnCancel.Location = new System.Drawing.Point(212, 698);
-            this.mBtnCancel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.mBtnCancel.Margin = new System.Windows.Forms.Padding(6);
             this.mBtnCancel.Name = "mBtnCancel";
             this.mBtnCancel.Size = new System.Drawing.Size(150, 44);
             this.mBtnCancel.TabIndex = 2;
@@ -96,16 +99,18 @@
             this.CommitLabel.Size = new System.Drawing.Size(178, 25);
             this.CommitLabel.TabIndex = 3;
             this.CommitLabel.Text = "Commit Message";
-            this.CommitLabel.Visible = false;
             // 
             // CommitTextBox
             // 
             this.CommitTextBox.Location = new System.Drawing.Point(48, 648);
-            this.CommitTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.CommitTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.CommitTextBox.Name = "CommitTextBox";
             this.CommitTextBox.Size = new System.Drawing.Size(504, 31);
             this.CommitTextBox.TabIndex = 4;
-            this.CommitTextBox.Visible = false;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // MetroUploadFilesDlg
             // 
@@ -118,11 +123,12 @@
             this.Controls.Add(this.mBtnOK);
             this.Controls.Add(this.mLvwFiles);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "MetroUploadFilesDlg";
             this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Files to upload";
             this.Load += new System.EventHandler(this.MetroUploadFilesDlg_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,5 +141,6 @@
         private MetroFramework.Controls.MetroButton mBtnCancel;
         private System.Windows.Forms.Label CommitLabel;
         public System.Windows.Forms.TextBox CommitTextBox;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

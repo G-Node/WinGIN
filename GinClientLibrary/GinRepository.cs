@@ -252,6 +252,50 @@ namespace GinClientLibrary
             }
         }
 
+        public bool UploadFileWithMessage(string filePath, string message)
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                return UploadFile(filePath);
+            }
+            else
+            {
+                string directoryName = PhysicalDirectory.FullName, filename;
+
+                if (string.Compare(filePath, "%EMPTYSTRING%", StringComparison.InvariantCulture) != 0)
+                {
+                    GetActualFilename(filePath, out directoryName, out filename);
+                    filename = '"' + filename + '"';
+                }
+                else
+                {
+                    filename = ".";
+                }
+
+                lock (this)
+                {
+                    OnFileOperationStarted(new FileOperationEventArgs { File = filename });
+                    GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m \""+CheckMessage(message)+"\"" + filename, directoryName,
+                        out var cError);
+
+                    GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,
+                        out var error);
+
+
+                    ReadRepoStatus();
+
+                    var result = string.IsNullOrEmpty(error);
+
+                    if (result)
+                        OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
+                    else
+                        OnFileOperationError(error);
+
+                    return result;
+                }
+            }
+        }
+
         public void UploadRepository()
         {
             lock (this)
