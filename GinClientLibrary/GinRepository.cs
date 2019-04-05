@@ -275,7 +275,7 @@ namespace GinClientLibrary
                 lock (this)
                 {
                     OnFileOperationStarted(new FileOperationEventArgs { File = filename });
-                    GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m \""+CheckMessage(message)+"\"" + filename, directoryName,
+                    GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m \""+CheckMessage(message)+"\" " + filename, directoryName,
                         out var cError);
 
                     GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,

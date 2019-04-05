@@ -253,7 +253,7 @@ namespace GinClientApp
                 //WCF requires that non-optional arguments be non-empty, so we provide a placeholder value
                 ServiceClient.UploadFile(repo.Name, "%EMPTYSTRING%");
             else
-                ServiceClient.UploadFileWithMessage();
+                ServiceClient.UploadFileWithMessage(repo.Name, "%EMPTYSTRING%", commitMessage);
         }
 
         private void ShowOptionsMenuItemHandler(object sender, EventArgs e)

@@ -131,7 +131,7 @@ namespace GinClientApp.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/IsManagedPath", ReplyAction="http://tempuri.org/IGinService/IsManagedPathResponse")]
         bool IsManagedPath(string filePath);
-        
+        void UploadFileWithMessage(string name, string v, string commitMessage);
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/IsManagedPath", ReplyAction="http://tempuri.org/IGinService/IsManagedPathResponse")]
         System.Threading.Tasks.Task<bool> IsManagedPathAsync(string filePath);
         
@@ -475,6 +475,11 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task<bool> IsAliveAsync() {
             return base.Channel.IsAliveAsync();
+        }
+
+        public void UploadFileWithMessage(string name, string v, string commitMessage)
+        {
+            base.Channel.UploadFileWithMessage(name, v , commitMessage);
         }
     }
 }
