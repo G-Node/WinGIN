@@ -252,6 +252,43 @@ namespace GinClientLibrary
             }
         }
 
+        public bool UploadFileWithMessage(string filePath, string message)
+        {
+            string directoryName = PhysicalDirectory.FullName, filename;
+
+            if (string.Compare(filePath, "%EMPTYSTRING%", StringComparison.InvariantCulture) != 0)
+            {
+                GetActualFilename(filePath, out directoryName, out filename);
+                filename = '"' + filename + '"';
+            }
+            else
+            {
+                filename = ".";
+            }
+
+            lock (this)
+            {
+                OnFileOperationStarted(new FileOperationEventArgs { File = filename });
+                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m \"" + CheckMessage(message) + "\" " + filename, directoryName,
+                    out var cError);
+
+                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,
+                    out var error);
+
+                ReadRepoStatus();
+
+                var result = string.IsNullOrEmpty(error);
+
+                if (result)
+                    OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
+                else
+                    OnFileOperationError(error);
+
+                return result;
+            }
+
+        }
+
         public void UploadRepository()
         {
             lock (this)
@@ -264,6 +301,33 @@ namespace GinClientLibrary
                 if (!string.IsNullOrEmpty(error))
                     OnFileOperationError(error);
             }
+        }
+
+        public void UploadRepositoryWithMessage(string message)
+        {
+            lock (this)
+            {
+                message = CheckMessage(message);
+                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m "+ "\""+message+"\"", PhysicalDirectory.FullName,
+                    out var cError);
+                if (!string.IsNullOrEmpty(cError))
+                {
+                    OnFileOperationError(cError);
+                    return;
+                }
+                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json", PhysicalDirectory.FullName,
+                    out var error);
+
+                ReadRepoStatus();
+
+                if (!string.IsNullOrEmpty(error))
+                    OnFileOperationError(error);
+            }
+        }
+
+        private string CheckMessage(string message)
+        {
+            return message.Replace("\""," ");
         }
 
         /// <summary>
@@ -283,14 +347,11 @@ namespace GinClientLibrary
             {
                 GetCommandLineOutput("cmd.exe", "/C gin.exe remove-content \"" + filename + "\"" /*+ " -json"*/,
                     directoryName, out var error);
-
                 Output.Clear();
-
                 ReadRepoStatus();
-
                 return
-                    string.IsNullOrEmpty(
-                        error); /// If an error happens here, it's most likely due to trying to remove-content on a file already removed
+                    string.IsNullOrEmpty(error); 
+                /// If an error happens here, it's most likely due to trying to remove-content on a file already removed
             }
         }
         
@@ -310,7 +371,8 @@ namespace GinClientLibrary
                 MessageBox.Show(message,"Version checkout result",MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Output.Clear();
                 string err = "fatal";
-                if (message.ToUpper().Contains(err.ToUpper())) return false;
+                if (message.ToUpper().Contains(err.ToUpper()))
+                    return false;
                 return string.IsNullOrEmpty(error);
             }
         }

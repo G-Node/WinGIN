@@ -99,6 +99,12 @@ namespace GinClientApp.GinService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/UploadFile", ReplyAction="http://tempuri.org/IGinService/UploadFileResponse")]
         System.Threading.Tasks.Task UploadFileAsync(string repoName, string filepath);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/UploadFileWithMessage", ReplyAction="http://tempuri.org/IGinService/UploadFileWithMessageResponse")]
+        void UploadFileWithMessage(string repoName, string filepath, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/UploadFileWithMessage", ReplyAction="http://tempuri.org/IGinService/UploadFileWithMessageResponse")]
+        System.Threading.Tasks.Task UploadFileWithMessageAsync(string repoName, string filepath, string message);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/DownloadUpdateInfo", ReplyAction="http://tempuri.org/IGinService/DownloadUpdateInfoResponse")]
         void DownloadUpdateInfo(string repoName);
         
@@ -122,6 +128,12 @@ namespace GinClientApp.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetFileInfo", ReplyAction="http://tempuri.org/IGinService/GetFileInfoResponse")]
         System.Threading.Tasks.Task<string> GetFileInfoAsync(string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetHistory", ReplyAction="http://tempuri.org/IGinService/GetHistoryResponse")]
+        string GetHistory(string path);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetHistory", ReplyAction="http://tempuri.org/IGinService/GetHistoryResponse")]
+        System.Threading.Tasks.Task<string> GetHistoryAsync(string path);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/IsManagedPath", ReplyAction="http://tempuri.org/IGinService/IsManagedPathResponse")]
         bool IsManagedPath(string filePath);
@@ -152,6 +164,12 @@ namespace GinClientApp.GinService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGinService/UploadRepositories")]
         System.Threading.Tasks.Task UploadRepositoriesAsync(string[] filePaths);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGinService/UploadRepositoriesWithMessage")]
+        void UploadRepositoriesWithMessage(string[] filePaths, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGinService/UploadRepositoriesWithMessage")]
+        System.Threading.Tasks.Task UploadRepositoriesWithMessageAsync(string[] filePaths, string message);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGinService/DownloadFiles")]
         void DownloadFiles(string[] filePaths);
@@ -335,6 +353,14 @@ namespace GinClientApp.GinService {
             return base.Channel.UploadFileAsync(repoName, filepath);
         }
         
+        public void UploadFileWithMessage(string repoName, string filepath, string message) {
+            base.Channel.UploadFileWithMessage(repoName, filepath, message);
+        }
+        
+        public System.Threading.Tasks.Task UploadFileWithMessageAsync(string repoName, string filepath, string message) {
+            return base.Channel.UploadFileWithMessageAsync(repoName, filepath, message);
+        }
+        
         public void DownloadUpdateInfo(string repoName) {
             base.Channel.DownloadUpdateInfo(repoName);
         }
@@ -365,6 +391,14 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task<string> GetFileInfoAsync(string path) {
             return base.Channel.GetFileInfoAsync(path);
+        }
+        
+        public string GetHistory(string path) {
+            return base.Channel.GetHistory(path);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetHistoryAsync(string path) {
+            return base.Channel.GetHistoryAsync(path);
         }
         
         public bool IsManagedPath(string filePath) {
@@ -405,6 +439,14 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task UploadRepositoriesAsync(string[] filePaths) {
             return base.Channel.UploadRepositoriesAsync(filePaths);
+        }
+        
+        public void UploadRepositoriesWithMessage(string[] filePaths, string message) {
+            base.Channel.UploadRepositoriesWithMessage(filePaths, message);
+        }
+        
+        public System.Threading.Tasks.Task UploadRepositoriesWithMessageAsync(string[] filePaths, string message) {
+            return base.Channel.UploadRepositoriesWithMessageAsync(filePaths, message);
         }
         
         public void DownloadFiles(string[] filePaths) {

@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Threading.Tasks;
+
 namespace GinShellExtension.GinService {
     
     
@@ -98,7 +100,13 @@ namespace GinShellExtension.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/UploadFile", ReplyAction="http://tempuri.org/IGinService/UploadFileResponse")]
         System.Threading.Tasks.Task UploadFileAsync(string repoName, string filepath);
-        
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IGinService/UploadFileWithMessage", ReplyAction = "http://tempuri.org/IGinService/UploadFileWithMessageResponse")]
+        void UploadFileWithMessage(string repoName, string filepath, string message);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IGinService/UploadFileWithMessage", ReplyAction = "http://tempuri.org/IGinService/UploadFileWithMessageResponse")]
+        System.Threading.Tasks.Task UploadFileWithMessageAsync(string repoName, string filepath, string message);
+
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/DownloadUpdateInfo", ReplyAction="http://tempuri.org/IGinService/DownloadUpdateInfoResponse")]
         void DownloadUpdateInfo(string repoName);
         
@@ -475,6 +483,16 @@ namespace GinShellExtension.GinService {
         
         public System.Threading.Tasks.Task<bool> IsAliveAsync() {
             return base.Channel.IsAliveAsync();
+        }
+
+        public void UploadFileWithMessage(string repoName, string filepath, string message)
+        {
+            base.Channel.UploadFileWithMessage(repoName, filepath, message);
+        }
+
+        public Task UploadFileWithMessageAsync(string repoName, string filepath, string message)
+        {
+            return base.Channel.UploadFileWithMessageAsync(repoName, filepath, message);
         }
     }
 }

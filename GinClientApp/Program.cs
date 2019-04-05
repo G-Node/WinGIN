@@ -14,8 +14,17 @@ namespace GinClientApp
 {
     internal static class Program
     {
+        /// <summary>
+        /// mutex that provides one instance of WinGIN per user
+        /// </summary>
         static readonly Mutex Mutex = new Mutex(true, "{AC8AB48D-C289-445D-B1EB-ABCFF24443ED}" + Environment.UserName);
+        /// <summary>
+        /// Directory for updater; latest msi is downloaded there
+        /// </summary>
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
+        /// <summary>
+        /// Link to AppVeyor project json; used to check latest released version: version.subversion.build
+        /// </summary>
         private static readonly string AppVeyorProjectUrl = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/build.json";
         /// <summary>
         ///     The main entry point for the application.
@@ -167,7 +176,7 @@ namespace GinClientApp
         }
     }
 
-
+    #region stuctures
     public class NuGetFeed
     {
         public string id { get; set; }
@@ -284,5 +293,5 @@ namespace GinClientApp
         public Project project { get; set; }
         public Build build { get; set; }
     }
-
+    #endregion
 }
