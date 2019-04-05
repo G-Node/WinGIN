@@ -77,6 +77,7 @@
             this.mBtnOK.TabIndex = 1;
             this.mBtnOK.Text = "OK";
             this.mBtnOK.UseSelectable = true;
+            this.mBtnOK.Click += new System.EventHandler(this.mBtnOK_Click);
             // 
             // mBtnCancel
             // 
@@ -93,6 +94,7 @@
             // CommitLabel
             // 
             this.CommitLabel.AutoSize = true;
+            this.CommitLabel.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.CommitLabel.Location = new System.Drawing.Point(48, 617);
             this.CommitLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.CommitLabel.Name = "CommitLabel";
@@ -102,11 +104,13 @@
             // 
             // CommitTextBox
             // 
+            this.CommitTextBox.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.CommitTextBox.Location = new System.Drawing.Point(48, 648);
             this.CommitTextBox.Margin = new System.Windows.Forms.Padding(6);
             this.CommitTextBox.Name = "CommitTextBox";
             this.CommitTextBox.Size = new System.Drawing.Size(504, 31);
             this.CommitTextBox.TabIndex = 4;
+            this.CommitTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.CommitTextBox_Validating);
             // 
             // errorProvider1
             // 
@@ -128,6 +132,7 @@
             this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Files to upload";
             this.Load += new System.EventHandler(this.MetroUploadFilesDlg_Load);
+            this.Validating += new System.ComponentModel.CancelEventHandler(this.CommitTextBox_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
