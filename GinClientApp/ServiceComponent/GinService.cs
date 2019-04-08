@@ -173,6 +173,8 @@ namespace GinService
             }
         }
 
+
+
         void IGinService.DownloadFiles(IEnumerable<string> filePaths)
         {
             var files = filePaths as string[] ?? filePaths.ToArray();
@@ -231,6 +233,21 @@ namespace GinService
             return "";
         }
 
-        
+        public void UploadRepositoriesWithMessage(IEnumerable<string> filePaths, string message)
+        {
+            foreach(var filePath in filePaths)
+            {
+                var repo = RepositoryManager.Instance.GetRepoByPath(filePath);
+
+                repo?.UploadRepositoryWithMessage(message);
+            }
+        }
+
+        public void UploadFileWithMessage(string repoName, string filepath, string message)
+        {
+            var repo = string.Compare(repoName, "%EMPTYSTRING%", StringComparison.Ordinal) == 0 ? RepositoryManager.Instance.GetRepoByPath(filepath) : RepositoryManager.Instance.GetRepoByName(repoName);
+
+            repo?.UploadFileWithMessage(filepath, message);
+        }
     }
 }

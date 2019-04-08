@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -16,8 +17,7 @@ namespace GinClientApp.Dialogs
         {
             InitializeComponent();
             _alteredFiles = alteredFiles;
-
-            foreach (var file in _alteredFiles)
+        foreach (var file in _alteredFiles)
             {
                 var lvi = new ListViewItem(Path.GetFileName(file.Key));
                 switch (file.Value)
@@ -61,6 +61,41 @@ namespace GinClientApp.Dialogs
         private void MetroUploadFilesDlg_Load(object sender, EventArgs e)
         {
            
+        }
+
+        private void CommitTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (!ValidateMessage())
+                e.Cancel = true;            
+        }
+
+        private void CommitTextBox_Validated(object sender, EventArgs e)
+        {
+            errorProvider1.SetError(CommitTextBox, "");
+        }
+
+        private bool ValidateMessage()
+        {
+            if (CommitTextBox.Text.Contains("\"") || CommitTextBox.Text.Contains("\'"))
+            {
+                errorProvider1.SetError(CommitTextBox, "Invalid characters in commit message. Message cannot contain \" or \'");
+                return false;
+            }
+            else
+            {
+                errorProvider1.SetError(CommitTextBox, "");
+                return true;
+            }
+        }
+
+        private void mBtnOK_Click(object sender, EventArgs e)
+        {
+            if (!ValidateMessage())
+            {
+                return;
+            }
+            
+            
         }
     }
 }

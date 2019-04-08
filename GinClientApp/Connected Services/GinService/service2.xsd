@@ -183,6 +183,20 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="UploadFileWithMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="repoName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="filepath" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UploadFileWithMessageResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="DownloadUpdateInfo">
     <xs:complexType>
       <xs:sequence>
@@ -225,6 +239,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="GetFileInfoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="path" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetHistoryResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -284,17 +312,25 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="DownloadFiles">
+  <xs:element name="UploadRepositoriesWithMessage">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="filePaths" nillable="true" type="q4:ArrayOfstring" />
+        <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DownloadFiles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="filePaths" nillable="true" type="q5:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="RemoveLocalContent">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="filePaths" nillable="true" type="q5:ArrayOfstring" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="filePaths" nillable="true" type="q6:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
