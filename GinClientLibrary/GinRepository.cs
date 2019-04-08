@@ -252,7 +252,7 @@ namespace GinClientLibrary
             }
         }
         /// <summary>
-        /// upload files with cpecified commit message
+        /// upload file with specified commit message
         /// </summary>
         /// <param name="filePath">path to uploaded file</param>
         /// <param name="message">commit message</param>
@@ -305,7 +305,11 @@ namespace GinClientLibrary
                     OnFileOperationError(error);
             }
         }
-
+        /// <summary>
+        /// upload repository with specified commit message
+        /// </summary>
+        /// <param name="message">commit message</param>
+        /// <returns>true for success</returns>
         public void UploadRepositoryWithMessage(string message)
         {
             lock (this)
