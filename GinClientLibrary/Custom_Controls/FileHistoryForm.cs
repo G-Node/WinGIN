@@ -10,12 +10,17 @@ namespace GinClientLibrary.Custom_Controls
         public FileHistoryForm(List<GinRepository.FileVersion> fileHistory)
         {
             InitializeComponent();
-            listView1.Items.Clear();           
+            listView1.Items.Clear();
+            ///bring form to top
+            TopMost = true;
+            Show();
+            Focus();
+            BringToFront();
+            TopMost = false;
             foreach (var history in fileHistory)
             {
                 listView1.Items.Add(new ListViewItem(new[] { history.date, history.authorname, history.subject, history.body, history.abbrevhash }));
-            }
-            
+            }           
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
@@ -26,7 +31,6 @@ namespace GinClientLibrary.Custom_Controls
             {
                 var old = listView1.SelectedItems[0].SubItems[4].Text;
                 hashRestore = old;
-
             }
         }
 
