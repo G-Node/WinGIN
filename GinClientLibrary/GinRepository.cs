@@ -251,7 +251,12 @@ namespace GinClientLibrary
                 return result;
             }
         }
-
+        /// <summary>
+        /// upload files with cpecified commit message
+        /// </summary>
+        /// <param name="filePath">path to uploaded file</param>
+        /// <param name="message">commit message</param>
+        /// <returns>true for success</returns>
         public bool UploadFileWithMessage(string filePath, string message)
         {
             string directoryName = PhysicalDirectory.FullName, filename;
@@ -262,10 +267,8 @@ namespace GinClientLibrary
                 filename = '"' + filename + '"';
             }
             else
-            {
                 filename = ".";
-            }
-
+ 
             lock (this)
             {
                 OnFileOperationStarted(new FileOperationEventArgs { File = filename });
@@ -324,7 +327,11 @@ namespace GinClientLibrary
                     OnFileOperationError(error);
             }
         }
-
+        /// <summary>
+        /// replaces " characters with space in commit message 
+        /// </summary>
+        /// <param name="message">commit message</param>
+        /// <returns>edited string</returns>
         private string CheckMessage(string message)
         {
             return message.Replace("\""," ");
@@ -419,16 +426,12 @@ namespace GinClientLibrary
                             return string.IsNullOrEmpty(error);
                         }
                         else
-                        {
                             ///checkout of older version failed
                             return false;
-                        }
                     }
                     else
-                    {
                         ///version selection canceled or no version selected
                         return true;
-                    }
                 }
                 catch 
                 {
