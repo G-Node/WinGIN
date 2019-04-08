@@ -17,15 +17,7 @@ namespace GinClientApp.Dialogs
         {
             InitializeComponent();
             _alteredFiles = alteredFiles;
-
-            ///show on top
-            TopMost = true;
-            Show();
-            Focus();
-            BringToFront();
-            TopMost = false;
-
-            foreach (var file in _alteredFiles)
+        foreach (var file in _alteredFiles)
             {
                 var lvi = new ListViewItem(Path.GetFileName(file.Key));
                 switch (file.Value)

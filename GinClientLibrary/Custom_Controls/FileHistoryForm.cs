@@ -11,12 +11,6 @@ namespace GinClientLibrary.Custom_Controls
         {
             InitializeComponent();
             listView1.Items.Clear();
-            ///bring form to top
-            TopMost = true;
-            Show();
-            Focus();
-            BringToFront();
-            TopMost = false;
             foreach (var history in fileHistory)
             {
                 listView1.Items.Add(new ListViewItem(new[] { history.date, history.authorname, history.subject, history.body, history.abbrevhash }));
