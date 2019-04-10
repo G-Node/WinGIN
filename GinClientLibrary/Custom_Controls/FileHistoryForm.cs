@@ -13,7 +13,7 @@ namespace GinClientLibrary.Custom_Controls
             listView1.Items.Clear();
             foreach (var history in fileHistory)
             {
-                listView1.Items.Add(new ListViewItem(new[] { history.date, history.authorname, history.subject, history.body, history.abbrevhash }));
+                listView1.Items.Add(new ListViewItem(new[] { history.getDateTime().ToString("dd/MM/yyyy hh:mm:ss"), history.authorname, history.subject, history.body, history.abbrevhash }));
             }           
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
