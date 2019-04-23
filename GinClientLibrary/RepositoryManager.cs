@@ -38,6 +38,8 @@ namespace GinClientLibrary
 
         private List<GinRepository> _repositories;
 
+        private const string ginError= "Gin Error! Error message is: ";
+
         private RepositoryManager()
         {
         }
@@ -324,7 +326,7 @@ namespace GinClientLibrary
         private void RepoOnFileOperationError(object sender,
             GinRepository.FileOperationErrorEventArgs fileOperationErrorEventArgs)
         {
-            OnRepositoryOperationError((GinRepository) sender, fileOperationErrorEventArgs);
+            OnRepositoryOperationError((GinRepository)sender, fileOperationErrorEventArgs);
         }
 
         public event FileOperationProgressHandler FileOperationProgress;
@@ -334,23 +336,23 @@ namespace GinClientLibrary
             try
             {
                 var progress = JsonConvert.DeserializeObject<fileOpProgress>(message);
-                string errorMsg="";
+                string errorMsg = "";
                 if (!string.IsNullOrEmpty(progress.err))
                 {
                     errorMsg = " Error : " + progress.err;
                 }
-                FileOperationProgress?.Invoke(progress.filename, (GinRepository) sender, progress.GetProgress(),
+                FileOperationProgress?.Invoke(progress.filename, (GinRepository)sender, progress.GetProgress(),
                     progress.rate, progress.state);
-                
-                AppIcon.BalloonTipText = progress.state + " " + progress.filename + " at " + progress.rate + ", " + progress.progress + " completed."+ errorMsg;
+
+                AppIcon.BalloonTipText = progress.state + " " + progress.filename + " at " + progress.rate + ", " + progress.progress + " completed." + errorMsg;
                 AppIcon.Text = progress.state + ", " + progress.progress + " completed";
             }
-            catch 
+            catch
             {
                 AppIcon.BalloonTipText = "Error: Repo_FileOperationProgress";
             }
         }
-        
+
         private void OnFileRetrievalStarted(DokanInterface.FileOperationEventArgs e, GinRepository sender)
         {
             if (!string.Equals(e.File, "."))
@@ -371,7 +373,7 @@ namespace GinClientLibrary
             try
             {
                 AppIcon.Text = "";
-                AppIcon.ShowBalloonTip(1500, "GIN activity done", "Repository " + sender.Name + " work finished." , ToolTipIcon.Info);
+                AppIcon.ShowBalloonTip(1500, "GIN activity done", "Repository " + sender.Name + " work finished.", ToolTipIcon.Info);
             }
             catch
             {
@@ -380,18 +382,18 @@ namespace GinClientLibrary
 
         private void Repo_FileOperationCompleted(object sender, DokanInterface.FileOperationEventArgs e)
         {
-            OnFileRetrievalCompleted(e, (GinRepository) sender);
+            OnFileRetrievalCompleted(e, (GinRepository)sender);
         }
 
         private void Repo_FileOperationStarted(object sender, DokanInterface.FileOperationEventArgs e)
         {
-            OnFileRetrievalStarted(e, (GinRepository) sender);
+            OnFileRetrievalStarted(e, (GinRepository)sender);
         }
-        
+
         private void OnRepositoryOperationError(GinRepository sender,
             GinRepository.FileOperationErrorEventArgs message)
         {
-            MessageBox.Show("Gin Error! Error message is: " + message.Message, "GIN Service Error",
+            MessageBox.Show(ginError + message.Message, "GIN Service Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -413,11 +415,11 @@ namespace GinClientLibrary
             };
             StringBuilder output = new StringBuilder();
             process.OutputDataReceived += (sender, args) => { output.AppendLine(args.Data); };
-            
+
             process.Start();
             process.BeginOutputReadLine();
             process.WaitForExit();
-            
+
             return output.ToString();
         }
 

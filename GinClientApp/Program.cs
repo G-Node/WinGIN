@@ -28,11 +28,11 @@ namespace GinClientApp
         private static readonly string AppVeyorProjectUrl = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/build.json";
 
         #region Forms Strings
-        private static readonly string dokanApp = "Dokan Library 1.1.0.2000 Bundle";
-        private static readonly string connectionError = "Cannot connect to G-Node server.";
-        private static readonly string dokanNotInstalled = "Dokan library is missing! Please install Dokan. Do you want to install Dokan now?";
-        private static readonly string ginNotInstalled = "GIN binary is missing. Please reinstall application.";
-        private static readonly string winginIsRunning = "WinGIN is already running.";
+        private const string dokanApp = "Dokan Library 1.1.0.2000 Bundle";
+        private const string connectionError = "Cannot connect to G-Node server.";
+        private const string dokanNotInstalled = "Dokan library is missing! Please install Dokan. Do you want to install Dokan now?";
+        private const string ginNotInstalled = "GIN binary is missing. Please reinstall application.";
+        private const string winginIsRunning = "WinGIN is already running.";
         #endregion
 
         /// <summary>
