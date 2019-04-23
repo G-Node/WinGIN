@@ -35,7 +35,6 @@ namespace GinClientLibrary
 
         private static readonly StringBuilder Output = new StringBuilder("");
 
-
         private Dictionary<string, FileStatus> _scache;
         private Dictionary<string, string[]> _translatedFileNameCache = new Dictionary<string, string[]>();
 
@@ -131,19 +130,14 @@ namespace GinClientLibrary
             {
                 var output = GetCommandLineOutput("cmd.exe", "/c gin.exe ls --json", PhysicalDirectory.FullName,
                     out var error);
-
                 if (!string.IsNullOrEmpty(error))
                 {
                     OnFileOperationError(error);
                     return;
                 }
-
                 var statusCollection = JsonConvert.DeserializeObject<List<Filestatus>>(output);
-
                 if (statusCollection == null) return;
-
                 StatusCache.Clear();
-
                 foreach (var fstatus in statusCollection)
                 {
                     var filePath =
@@ -192,7 +186,6 @@ namespace GinClientLibrary
         {
             OnFileOperationStarted(new FileOperationEventArgs { File = filePath });
             GetActualFilename(filePath, out var directoryName, out var filename);
-
             lock (this)
             {
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe get-content --json \"" + filename + "\"",
@@ -200,15 +193,10 @@ namespace GinClientLibrary
                     out var error);
                 ReadRepoStatus();
                 var result = string.IsNullOrEmpty(error);
-
                 if (result)
-                {
                     OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
-                }
                 else
-                {
                     OnFileOperationError(error);
-                }
                 return result;
             }
         }
@@ -221,28 +209,21 @@ namespace GinClientLibrary
         public bool UploadFile(string filePath)
         {
             string directoryName = PhysicalDirectory.FullName, filename;
-
             if (string.Compare(filePath, "%EMPTYSTRING%", StringComparison.InvariantCulture) != 0)
             {
                 GetActualFilename(filePath, out directoryName, out filename);
                 filename = '"' + filename + '"';
             }
             else
-            {
                 filename = ".";
-            }
 
             lock (this)
             {
                 OnFileOperationStarted(new FileOperationEventArgs { File = filename });
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,
                     out var error);
-
-
                 ReadRepoStatus();
-
                 var result = string.IsNullOrEmpty(error);
-
                 if (result)
                     OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
                 else
@@ -260,7 +241,6 @@ namespace GinClientLibrary
         public bool UploadFileWithMessage(string filePath, string message)
         {
             string directoryName = PhysicalDirectory.FullName, filename;
-
             if (string.Compare(filePath, "%EMPTYSTRING%", StringComparison.InvariantCulture) != 0)
             {
                 GetActualFilename(filePath, out directoryName, out filename);
@@ -268,25 +248,20 @@ namespace GinClientLibrary
             }
             else
                 filename = ".";
- 
+
             lock (this)
             {
                 OnFileOperationStarted(new FileOperationEventArgs { File = filename });
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m \"" + CheckMessage(message) + "\" " + filename, directoryName,
                     out var cError);
-
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,
                     out var error);
-
                 ReadRepoStatus();
-
                 var result = string.IsNullOrEmpty(error);
-
                 if (result)
                     OnFileOperationCompleted(new FileOperationEventArgs { File = filePath, Success = true });
                 else
                     OnFileOperationError(error);
-
                 return result;
             }
 
@@ -298,9 +273,7 @@ namespace GinClientLibrary
             {
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json", PhysicalDirectory.FullName,
                     out var error);
-
                 ReadRepoStatus();
-
                 if (!string.IsNullOrEmpty(error))
                     OnFileOperationError(error);
             }
@@ -315,7 +288,7 @@ namespace GinClientLibrary
             lock (this)
             {
                 message = CheckMessage(message);
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m "+ "\""+message+"\"", PhysicalDirectory.FullName,
+                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m " + "\"" + message + "\"", PhysicalDirectory.FullName,
                     out var cError);
                 if (!string.IsNullOrEmpty(cError))
                 {
@@ -324,9 +297,7 @@ namespace GinClientLibrary
                 }
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json", PhysicalDirectory.FullName,
                     out var error);
-
                 ReadRepoStatus();
-
                 if (!string.IsNullOrEmpty(error))
                     OnFileOperationError(error);
             }
@@ -338,7 +309,7 @@ namespace GinClientLibrary
         /// <returns>edited string</returns>
         private string CheckMessage(string message)
         {
-            return message.Replace("\""," ");
+            return message.Replace("\"", " ");
         }
 
         /// <summary>
@@ -361,11 +332,11 @@ namespace GinClientLibrary
                 Output.Clear();
                 ReadRepoStatus();
                 return
-                    string.IsNullOrEmpty(error); 
+                    string.IsNullOrEmpty(error);
                 /// If an error happens here, it's most likely due to trying to remove-content on a file already removed
             }
         }
-        
+
         /// <summary>
         /// method for retrieving older version of file 
         /// </summary>
@@ -379,7 +350,7 @@ namespace GinClientLibrary
             {
                 var message = GetCommandLineOutput("cmd.exe", "/C gin.exe version --id " + versInfo.hash + " --copy-to \"" + dirName + "\" " + filename,
                     dirName, out var error);
-                MessageBox.Show(message,"Version checkout result",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(message, "Version checkout result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Output.Clear();
                 string err = "fatal";
                 if (message.ToUpper().Contains(err.ToUpper()))
@@ -395,7 +366,7 @@ namespace GinClientLibrary
         /// <returns>true for success</returns>
         public bool GetFileHistory(string filePath)
         {
-            GetActualFilename(filePath, out var directoryName, out var filename);           
+            GetActualFilename(filePath, out var directoryName, out var filename);
             lock (this)
             {
                 ///get all available versions for the specified file in json
@@ -437,7 +408,7 @@ namespace GinClientLibrary
                         ///version selection canceled or no version selected
                         return true;
                 }
-                catch 
+                catch
                 {
                     return false;
                 }
@@ -474,15 +445,12 @@ namespace GinClientLibrary
 
             if (PhysicalDirectory.IsEmpty())
             {
-                OnFileOperationStarted(new FileOperationEventArgs {File = Address});
-
+                OnFileOperationStarted(new FileOperationEventArgs { File = Address });
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe get --json " + Address,
                     PhysicalDirectory.Parent.FullName, out var error);
-
                 var result = string.IsNullOrEmpty(error);
-
                 if (result)
-                    OnFileOperationCompleted(new FileOperationEventArgs {File = Address, Success = true});
+                    OnFileOperationCompleted(new FileOperationEventArgs { File = Address, Success = true });
                 else
                 {
                     OnFileOperationError(error);
@@ -492,22 +460,18 @@ namespace GinClientLibrary
 
             if (performFullCheckout)
             {
-                OnFileOperationStarted(new FileOperationEventArgs {File = Address});
-
+                OnFileOperationStarted(new FileOperationEventArgs { File = Address });
                 GetCommandLineOutputEvent("cmd.exe", "/C gin.exe download --json --content",
                     PhysicalDirectory.FullName, out var error);
-
                 var result = string.IsNullOrEmpty(error);
-
                 if (result)
-                    OnFileOperationCompleted(new FileOperationEventArgs {File = Address, Success = true});
+                    OnFileOperationCompleted(new FileOperationEventArgs { File = Address, Success = true });
                 else
                 {
                     OnFileOperationError(error);
                     return false;
                 }
             }
-
             return true;
         }
 
@@ -518,7 +482,6 @@ namespace GinClientLibrary
                 PhysicalDirectory.Empty();
                 Directory.Delete(PhysicalDirectory.FullName);
             }
-
             if (Directory.Exists(Mountpoint.FullName))
             {
                 Mountpoint.Empty();
@@ -531,10 +494,6 @@ namespace GinClientLibrary
             public string filename { get; set; }
             public string status { get; set; }
         }
-
-        #region Properties
-
-        #endregion
 
         #region Dokan Interface Events
 
@@ -579,7 +538,7 @@ namespace GinClientLibrary
         private void OnFileOperationError(string message)
         {
             FileOperationError?.Invoke(this,
-                new FileOperationErrorEventArgs {RepositoryName = Name, Message = message});
+                new FileOperationErrorEventArgs { RepositoryName = Name, Message = message });
         }
 
         #endregion
@@ -629,9 +588,9 @@ namespace GinClientLibrary
             lock (this)
             {
                 if (!_translatedFileNameCache.ContainsKey(filePath))
-                    _translatedFileNameCache.Add(filePath, new[] {directoryName, filename});
+                    _translatedFileNameCache.Add(filePath, new[] { directoryName, filename });
                 else
-                    _translatedFileNameCache[filePath] = new[] {directoryName, filename};
+                    _translatedFileNameCache[filePath] = new[] { directoryName, filename };
             }
         }
 
@@ -741,7 +700,7 @@ namespace GinClientLibrary
 
         #endregion
 
-        #region VersionJson
+        #region Version Json
         public struct FileVersion
         {
             public string hash { get; set; }
@@ -753,16 +712,17 @@ namespace GinClientLibrary
             public string body { get; set; }
             public DiffStat filestats { get; set; }
 
-            public DateTime getDateTime() {
+            public DateTime getDateTime()
+            {
                 return Convert.ToDateTime(date);
             }
         }
 
         public struct DiffStat
         {
-            public string [] newFiles { get; set; }
-            public string [] deletedFiles { get; set; }
-            public string [] modifiedFiles { get; set; }
+            public string[] newFiles { get; set; }
+            public string[] deletedFiles { get; set; }
+            public string[] modifiedFiles { get; set; }
         }
         #endregion
 
