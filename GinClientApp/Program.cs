@@ -26,6 +26,15 @@ namespace GinClientApp
         /// Link to AppVeyor project json; used to check latest released version: version.subversion.build
         /// </summary>
         private static readonly string AppVeyorProjectUrl = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/build.json";
+
+        #region Forms Strings
+        private const string dokanApp = "Dokan Library 1.1.0.2000 Bundle";
+        private const string connectionError = "Cannot connect to G-Node server.";
+        private const string dokanNotInstalled = "Dokan library is missing! Please install Dokan. Do you want to install Dokan now?";
+        private const string ginNotInstalled = "GIN binary is missing. Please reinstall application.";
+        private const string winginIsRunning = "WinGIN is already running.";
+        #endregion
+
         /// <summary>
         ///     The main entry point for the application.
         /// </summary>
@@ -42,7 +51,7 @@ namespace GinClientApp
             }
             if (!Mutex.WaitOne(TimeSpan.Zero, true))
             {
-                MessageBox.Show("WinGIN is already running.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(winginIsRunning, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             var wb = new WebClient();
@@ -84,16 +93,14 @@ namespace GinClientApp
             catch
             {
                 ///connection issue; location change;
-                MessageBox.Show("Cannot connect to G-Node server.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(connectionError, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             var curPath = AppDomain.CurrentDomain.BaseDirectory;
             ///check if dokan is installed
-            if (!CheckInstalled("Dokan Library 1.1.0.2000 Bundle"))
+            if (!CheckInstalled(dokanApp))
             {
-                var result = MessageBox.Show(
-                       "Dokan library is missing! Please install Dokan. Do you want to install Dokan now?",
-                        "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                var result = MessageBox.Show(dokanNotInstalled, "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 ///try to install dokan
                 if (result == MessageBoxResult.Yes)
                 {
@@ -114,11 +121,9 @@ namespace GinClientApp
                 }
             }
             ///check if gin-cli is present
-            if (!File.Exists(curPath+@"gin-cli/bin/gin.exe"))
+            if (!File.Exists(curPath + @"gin-cli/bin/gin.exe"))
             {
-                var result = MessageBox.Show(
-                       "GIN binary is missing. Please reinstall application.",
-                        "WinGIN", MessageBoxButton.OK, MessageBoxImage.Warning);
+                var result = MessageBox.Show(ginNotInstalled, "WinGIN", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             ///add gin-cli to path
@@ -150,9 +155,7 @@ namespace GinClientApp
                 {
                     displayName = subkey.GetValue("DisplayName") as string;
                     if (displayName != null && displayName.Contains(c_name))
-                    {
                         return true;
-                    }
                 }
                 key.Close();
             }
@@ -165,9 +168,7 @@ namespace GinClientApp
                 {
                     displayName = subkey.GetValue("DisplayName") as string;
                     if (displayName != null && displayName.Contains(c_name))
-                    {
                         return true;
-                    }
                 }
                 key.Close();
             }

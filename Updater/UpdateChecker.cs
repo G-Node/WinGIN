@@ -18,7 +18,7 @@ namespace Updater
         /// <summary>
         /// url for nevest released version of WinGIN msi
         /// </summary>
-        private static readonly string UpdatedMsi = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/Setup.msi";
+        private const string UpdatedMsi = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/Setup.msi";
         /// <summary>
         /// downloads latest WinGIN, uninstalls old version and install new version
         /// </summary>
@@ -28,7 +28,7 @@ namespace Updater
             {
                 Directory.CreateDirectory(UpdaterBaseDirectory.ToString());
                 var wb = new WebClient();
-                wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");               
+                wb.DownloadFile(new Uri(UpdatedMsi), UpdaterBaseDirectory + @"\setup.msi");
             }
             catch
             {
