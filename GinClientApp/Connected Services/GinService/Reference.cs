@@ -212,6 +212,8 @@ namespace GinClientApp.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/IsAlive", ReplyAction="http://tempuri.org/IGinService/IsAliveResponse")]
         System.Threading.Tasks.Task<bool> IsAliveAsync();
+
+        [System.ServiceModel.OperationContractAttribute(IsOneWay = true, Action = "http://tempuri.org/IGinService/GetServers", ReplyAction = "http://tempuri.org/IGinService/GetServersResponse")]
         string GetServers();
     }
     

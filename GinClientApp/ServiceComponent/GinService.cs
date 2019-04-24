@@ -19,10 +19,6 @@ namespace GinService
         {
         }
 
-        string IGinService.GetServers()
-        {
-            return RepositoryManager.Instance.GetServers();
-        }
 
         bool IGinService.AddRepository(string physicalDirectory, string mountpoint, string name, string commandline,
             bool performFullCheckout, bool createNew)
@@ -30,6 +26,10 @@ namespace GinService
             RepositoryManager.Instance.AddRepository(new DirectoryInfo(physicalDirectory),
                 new DirectoryInfo(mountpoint), name, commandline, performFullCheckout, createNew);
             return true;
+        }
+        string IGinService.GetServers()
+        {
+            return RepositoryManager.Instance.GetServers();
         }
 
         bool IGinService.CreateNewRepository(string repoName)
