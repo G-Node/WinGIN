@@ -17,7 +17,7 @@ namespace GinClientLibrary.Custom_Controls
             ///show loaded files history versions ins listView
             foreach (var history in fileHistory)
             {
-                listView1.Items.Add(new ListViewItem(new[] { history.getDateTime().ToString("dd/MM/yyyy HH:mm:ss"), history.authorname, history.subject, history.body, history.abbrevhash }));
+                listView1.Items.Add(new ListViewItem(new[] { history.getDateTime().ToString("dd MMMM yyyy HH:mm:ss"), history.authorname, history.subject, history.body, history.abbrevhash }));
             }
             listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }

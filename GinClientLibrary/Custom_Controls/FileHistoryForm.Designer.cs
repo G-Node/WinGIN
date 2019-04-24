@@ -75,7 +75,7 @@
             // 
             // bodyColumn
             // 
-            this.bodyColumn.Text = "Body";
+            this.bodyColumn.Text = "Description";
             // 
             // hashColumn
             // 
