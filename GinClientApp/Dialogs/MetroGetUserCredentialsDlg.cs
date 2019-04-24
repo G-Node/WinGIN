@@ -12,6 +12,7 @@ namespace GinClientApp.Dialogs
         public MetroGetUserCredentialsDlg(GinApplicationContext parentContext)
         {
             InitializeComponent();
+            string serverJson = _parentContext.ServiceClient.GetServers();
             metroLabel1.TabStop = false;
             metroLabel2.TabStop = false;
 
@@ -21,6 +22,7 @@ namespace GinClientApp.Dialogs
 
             mTxBUsername.Text = UserCredentials.Instance.Username;
             mTxBPassword.Text = UserCredentials.Instance.Password;
+            mCBxServerAlias.Text = UserCredentials.Instance.Server;
         }
 
         private bool AttemptLogin()
@@ -40,7 +42,7 @@ namespace GinClientApp.Dialogs
             {
                 UserCredentials.Instance.Password = mTxBPassword.Text;
                 UserCredentials.Instance.Username = mTxBUsername.Text;
-
+                UserCredentials.Instance.Server = mCBxServerAlias.Text;
                 UserCredentials.Save();
 
                 DialogResult = DialogResult.OK;

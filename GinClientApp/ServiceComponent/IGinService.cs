@@ -58,6 +58,14 @@ namespace GinService
         [OperationContract]
         bool UnmmountAllRepositories();
 
+
+        /// <summary>
+        ///     Reads all available servers
+        /// </summary>
+        /// <returns>json with servers</returns>
+        [OperationContract]
+        string GetServers();
+
         /// <summary>
         ///     Logs a user into GIN
         /// </summary>
@@ -65,7 +73,7 @@ namespace GinService
         /// <param name="password"></param>
         /// <returns></returns>
         [OperationContract]
-        bool Login(string username, string password);
+        bool Login(string username, string password, string serverAlias);
 
         [OperationContract(IsOneWay = true)]
         void Logout();

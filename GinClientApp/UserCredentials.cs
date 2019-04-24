@@ -23,10 +23,12 @@ namespace GinClientApp
 
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Server { get; set; }
+
 
         public object Clone()
         {
-            return new UserCredentials {Username = Username, Password = Password};
+            return new UserCredentials {Server = Server, Username = Username, Password = Password};
         }
 
         public static bool Load()

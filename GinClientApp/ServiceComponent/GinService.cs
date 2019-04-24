@@ -19,6 +19,10 @@ namespace GinService
         {
         }
 
+        string IGinService.GetServers()
+        {
+            return RepositoryManager.Instance.GetServers();
+        }
 
         bool IGinService.AddRepository(string physicalDirectory, string mountpoint, string name, string commandline,
             bool performFullCheckout, bool createNew)
@@ -46,7 +50,7 @@ namespace GinService
         {
             var repo = RepositoryManager.Instance.GetRepoByName(repoName);
             if (repo.DownloadUpdateInfo())
-                RepositoryManager.Instance.AppIcon.ShowBalloonTip(500, "WinGIN","Repository "+repoName+" is up to date.", System.Windows.Forms.ToolTipIcon.Info);
+                RepositoryManager.Instance.AppIcon.ShowBalloonTip(500, "WinGIN", "Repository " + repoName + " is up to date.", System.Windows.Forms.ToolTipIcon.Info);
         }
 
         string IGinService.GetRepositoryList()
@@ -62,9 +66,9 @@ namespace GinService
         }
 
 
-        bool IGinService.Login(string username, string password)
+        bool IGinService.Login(string username, string password, string serverAlias)
         {
-            return RepositoryManager.Instance.Login(username, password);
+            return RepositoryManager.Instance.Login(username, password, serverAlias);
         }
 
 
@@ -83,7 +87,7 @@ namespace GinService
         void IGinService.UploadFile(string repoName, string filepath)
         {
             var repo = string.Compare(repoName, "%EMPTYSTRING%", StringComparison.Ordinal) == 0 ? RepositoryManager.Instance.GetRepoByPath(filepath) : RepositoryManager.Instance.GetRepoByName(repoName);
-            
+
             repo?.UploadFile(filepath);
         }
 
@@ -120,7 +124,7 @@ namespace GinService
         string IGinService.GetFileInfo(string path)
         {
             var repo = RepositoryManager.Instance.GetRepoByPath(path);
-            
+
             repo.GetActualFilename(path, out var directoryName, out var filename);
             path = directoryName + Path.DirectorySeparatorChar + filename;
 
@@ -235,7 +239,7 @@ namespace GinService
 
         public void UploadRepositoriesWithMessage(IEnumerable<string> filePaths, string message)
         {
-            foreach(var filePath in filePaths)
+            foreach (var filePath in filePaths)
             {
                 var repo = RepositoryManager.Instance.GetRepoByPath(filePath);
 

@@ -112,7 +112,11 @@ namespace GinClientLibrary
             return true;
         }
 
-        public bool Login(string username, string password)
+        /// <summary>
+        /// Get all configured servers
+        /// </summary>
+        /// <returns>json with configured servers</returns>
+        public string GetServers()
         {
             lock (this)
             {
@@ -123,7 +127,37 @@ namespace GinClientLibrary
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "cmd.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = @"/C gin.exe login " + username,
+                        Arguments = @"/C gin.exe server --json " ,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        RedirectStandardInput = true,
+                        UseShellExecute = false
+                    }
+                };
+                process.OutputDataReceived += Process_OutputDataReceived;
+                Output.Clear();
+                process.Start();
+                process.BeginOutputReadLine();
+                var error = process.StandardError.ReadToEnd();
+
+                return Output.ToString();
+            }
+        }
+
+
+        public bool Login(string username, string password, string serverAlias)
+        {
+            lock (this)
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        FileName = "cmd.exe",
+                        WorkingDirectory = @"C:\",
+                        Arguments = @"/C gin.exe login " + username +" --server "+serverAlias,
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
