@@ -90,7 +90,7 @@ namespace GinClientApp
                     return;
                 }
             }
-            else if (!ServiceClient.Login(UserCredentials.Instance.loginList.First().Username, UserCredentials.Instance.loginList.First().Password, UserCredentials.Instance.loginList.First().Server))
+            else if (!ServiceClient.Login(UserCredentials.Instance.loginList.First().Username, UserCredentials.Instance.loginList.First().Password))
             {
                 MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
                     Resources.GinApplicationContext_Gin_Client_Error,

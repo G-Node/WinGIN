@@ -54,9 +54,9 @@ namespace GinClientApp.GinService {
         System.Threading.Tasks.Task<bool> UnmmountAllRepositoriesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/Login", ReplyAction="http://tempuri.org/IGinService/LoginResponse")]
-        bool Login(string username, string password, string server);
+        bool Login(string username, string password);
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/Login", ReplyAction="http://tempuri.org/IGinService/LoginResponse")]
-        System.Threading.Tasks.Task<bool> LoginAsync(string username, string password, string server);
+        System.Threading.Tasks.Task<bool> LoginAsync(string username, string password);
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IGinService/GetServers", ReplyAction = "http://tempuri.org/IGinService/GetServersResponse")]
         string GetServers();
@@ -296,12 +296,12 @@ namespace GinClientApp.GinService {
             return base.Channel.UnmmountAllRepositoriesAsync();
         }
         
-        public bool Login(string username, string password, string server) {
-            return base.Channel.Login(username, password, server);
+        public bool Login(string username, string password ) {
+            return base.Channel.Login(username, password);
         }
         
-        public System.Threading.Tasks.Task<bool> LoginAsync(string username, string password, string server) {
-            return base.Channel.LoginAsync(username, password, server);
+        public System.Threading.Tasks.Task<bool> LoginAsync(string username, string password) {
+            return base.Channel.LoginAsync(username, password);
         }
         
         public void Logout() {

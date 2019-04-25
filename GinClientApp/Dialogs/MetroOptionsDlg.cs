@@ -311,7 +311,8 @@ namespace GinClientApp.Dialogs
             if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text)) return false;
             _parentContext.ServiceClient.Logout();
 
-            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mTBAlias.Text);
+            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mTBAlias.Text);
+            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
         }
 
         private void mTxBPassword_Leave(object sender, EventArgs e)
