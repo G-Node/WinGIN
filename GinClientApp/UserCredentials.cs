@@ -15,6 +15,8 @@ namespace GinClientApp
 
         private UserCredentials()
         {
+            this.loginList = new List<LoginSettings>();
+            loginList.Add(new LoginSettings());
         }
 
         public static UserCredentials Instance
