@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Windows.Data;
 using System.Windows.Forms;
 using GinClientApp.Properties;
+using System.Windows;
 using GinClientLibrary;
 using MetroFramework;
 using MetroFramework.Controls;
@@ -29,6 +32,12 @@ namespace GinClientApp.Dialogs
         {
             RepoListingChanged?.Invoke(this, EventArgs.Empty);
         }
+        private void serverChanged(object sender, EventArgs e)
+        {
+            var serv = (GinServerInfo)mCBxServer.SelectedItem;
+            mTxBUsername.Text = ;
+            mTxBPassword.Text= ;
+        }
 
         public MetroOptionsDlg(GinApplicationContext parentContext, Page startPage)
         {
@@ -41,9 +50,14 @@ namespace GinClientApp.Dialogs
             mLblStatus.Visible = false;
             mLblWorking.Visible = false;
             mProgWorking.Visible = false;
+            var servers = GetServers();
+            mCBxServer.DataSource = servers;
+            mCBxServer.DisplayMember = "Alias";
+
 
             mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance, "Username");
             mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance, "Password");
+            mTBAlias.DataBindings.Add("Text", UserCredentials.Instance, "Server");
 
             mTxBDefaultCheckout.Text = GlobalOptions.Instance.DefaultCheckoutDir.FullName;
             mTxBDefaultMountpoint.Text = GlobalOptions.Instance.DefaultMountpointDir.FullName;
@@ -83,6 +97,12 @@ namespace GinClientApp.Dialogs
         public void SetTab(Page page)
         {
             mTabCtrl.SelectTab((int) page);
+        }
+
+        private List<GinServerInfo> GetServers()
+        {
+            return JsonConvert.DeserializeObject<List<GinServerInfo>>(_parentContext.ServiceClient
+                .GetServers());
         }
 
         private void FillRepoList()
@@ -280,7 +300,7 @@ namespace GinClientApp.Dialogs
             if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text)) return false;
             _parentContext.ServiceClient.Logout();
 
-            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
+            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mTBAlias.Text);
         }
 
         private void mTxBPassword_Leave(object sender, EventArgs e)

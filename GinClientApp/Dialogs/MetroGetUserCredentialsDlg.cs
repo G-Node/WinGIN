@@ -31,7 +31,7 @@ namespace GinClientApp.Dialogs
 
             _parentContext.ServiceClient.Logout();
 
-            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, "gin");
+            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mCBxServerAlias.SelectedText);
         }
 
         private void mBtnOk_Click(object sender, EventArgs e)
@@ -42,7 +42,7 @@ namespace GinClientApp.Dialogs
             {
                 UserCredentials.Instance.Password = mTxBPassword.Text;
                 UserCredentials.Instance.Username = mTxBUsername.Text;
-                UserCredentials.Instance.Server = mCBxServerAlias.Text;
+                UserCredentials.Instance.Server = mCBxServerAlias.SelectedText;
                 UserCredentials.Save();
 
                 DialogResult = DialogResult.OK;
