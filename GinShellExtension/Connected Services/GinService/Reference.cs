@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Threading.Tasks;
+
 namespace GinShellExtension.GinService {
     
     
@@ -55,7 +57,7 @@ namespace GinShellExtension.GinService {
         bool Login(string username, string password, string server);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/Login", ReplyAction="http://tempuri.org/IGinService/LoginResponse")]
-        System.Threading.Tasks.Task<bool> LoginAsync(string username, string password);
+        System.Threading.Tasks.Task<bool> LoginAsync(string username, string password, string server);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGinService/Logout")]
         void Logout();
@@ -213,6 +215,7 @@ namespace GinShellExtension.GinService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/IsAlive", ReplyAction="http://tempuri.org/IGinService/IsAliveResponse")]
         System.Threading.Tasks.Task<bool> IsAliveAsync();
         string GetServers();
+        Task GetServersAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -226,8 +229,14 @@ namespace GinShellExtension.GinService {
         public GinServiceClient() {
         }
 
-        public string GetServers() {
+        public string GetServers()
+        {
             return base.Channel.GetServers();
+        }
+
+        public Task GetServersAsync()
+        {
+            return base.Channel.GetServersAsync();
         }
         public GinServiceClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
@@ -297,8 +306,8 @@ namespace GinShellExtension.GinService {
             return base.Channel.Login(username, password,server);
         }
         
-        public System.Threading.Tasks.Task<bool> LoginAsync(string username, string password) {
-            return base.Channel.LoginAsync(username, password);
+        public System.Threading.Tasks.Task<bool> LoginAsync(string username, string password, string server) {
+            return base.Channel.LoginAsync(username, password, server);
         }
         
         public void Logout() {

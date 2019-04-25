@@ -13,7 +13,7 @@ namespace GinService
     ///     RepositoryManager functionality.
     /// </summary>
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.PerSession)]
-    public class GinService : ServiceHost, IGinService
+    public class GinService : IGinService
     {
         public GinService()
         {
