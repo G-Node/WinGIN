@@ -13,11 +13,12 @@ namespace GinClientApp.Dialogs
         public MetroGetUserCredentialsDlg(GinApplicationContext parentContext)
         {
             InitializeComponent();
-            string serverJson = _parentContext.ServiceClient.GetServers();
+            //string serverJson = _parentContext.ServiceClient.GetServers();
             metroLabel1.TabStop = false;
             metroLabel2.TabStop = false;
 
             mLblWarning.Visible = false;
+            mCBxServerAlias.Text = "gin";
 
             _parentContext = parentContext;
 
@@ -28,12 +29,12 @@ namespace GinClientApp.Dialogs
 
         private bool AttemptLogin()
         {
-            if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text)) return false;
+            if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text) || string.IsNullOrEmpty(mCBxServerAlias.Text)) return false;
 
             _parentContext.ServiceClient.Logout();
 
-            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mCBxServerAlias.SelectedText);
-            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
+            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mCBxServerAlias.Text);
+            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
         }
 
         private void mBtnOk_Click(object sender, EventArgs e)
@@ -42,9 +43,16 @@ namespace GinClientApp.Dialogs
 
             if (AttemptLogin())
             {
+                
                 var login = UserCredentials.Instance.loginList.Find(x => x.Server == mCBxServerAlias.SelectedText);
+                if (login == null) {
+                    login = (new UserCredentials.LoginSettings());
+                    UserCredentials.Instance.loginList.Add(login);
+                }
                 login.Username = mTxBUsername.Text;
                 login.Password = mTxBPassword.Text;
+                login.Server = mCBxServerAlias.Text;
+                MessageBox.Show(" usr "+ login.Username + " srv "+ login.Server);
                 UserCredentials.Save();
 
                 DialogResult = DialogResult.OK;

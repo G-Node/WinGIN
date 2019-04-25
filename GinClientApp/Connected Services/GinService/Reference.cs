@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Threading.Tasks;
-
 namespace GinClientApp.GinService {
     
     
@@ -54,16 +52,11 @@ namespace GinClientApp.GinService {
         System.Threading.Tasks.Task<bool> UnmmountAllRepositoriesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/Login", ReplyAction="http://tempuri.org/IGinService/LoginResponse")]
-        bool Login(string username, string password);
+        bool Login(string username, string password, string serverAlias);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/Login", ReplyAction="http://tempuri.org/IGinService/LoginResponse")]
-        System.Threading.Tasks.Task<bool> LoginAsync(string username, string password);
-
-        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IGinService/GetServers", ReplyAction = "http://tempuri.org/IGinService/GetServersResponse")]
-        string GetServers();
-
-        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IGinService/GetServers", ReplyAction = "http://tempuri.org/IGinService/GetServersResponse")]
-        System.Threading.Tasks.Task GetServersAsync();
-
+        System.Threading.Tasks.Task<bool> LoginAsync(string username, string password, string serverAlias);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGinService/Logout")]
         void Logout();
         
@@ -296,12 +289,12 @@ namespace GinClientApp.GinService {
             return base.Channel.UnmmountAllRepositoriesAsync();
         }
         
-        public bool Login(string username, string password ) {
-            return base.Channel.Login(username, password);
+        public bool Login(string username, string password, string serverAlias) {
+            return base.Channel.Login(username, password, serverAlias);
         }
         
-        public System.Threading.Tasks.Task<bool> LoginAsync(string username, string password) {
-            return base.Channel.LoginAsync(username, password);
+        public System.Threading.Tasks.Task<bool> LoginAsync(string username, string password, string serverAlias) {
+            return base.Channel.LoginAsync(username, password, serverAlias);
         }
         
         public void Logout() {
@@ -510,16 +503,6 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task<bool> IsAliveAsync() {
             return base.Channel.IsAliveAsync();
-        }
-
-        public string GetServers()
-        {
-            return base.Channel.GetServers();
-        }
-
-        public Task GetServersAsync()
-        {
-            return base.Channel.GetServersAsync();
         }
     }
 }

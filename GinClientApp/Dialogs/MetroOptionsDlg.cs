@@ -112,8 +112,9 @@ namespace GinClientApp.Dialogs
 
         private List<GinServerInfo> GetServers()
         {
-            return JsonConvert.DeserializeObject<List<GinServerInfo>>(_parentContext.ServiceClient
-                .GetServers());
+            /* return JsonConvert.DeserializeObject<List<GinServerInfo>>(_parentContext.ServiceClient
+                 .GetServers());*/
+            return null;
         }
 
         private void FillRepoList()
@@ -311,8 +312,8 @@ namespace GinClientApp.Dialogs
             if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text)) return false;
             _parentContext.ServiceClient.Logout();
 
-            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mTBAlias.Text);
-            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
+            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mTBAlias.Text);
+            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
         }
 
         private void mTxBPassword_Leave(object sender, EventArgs e)

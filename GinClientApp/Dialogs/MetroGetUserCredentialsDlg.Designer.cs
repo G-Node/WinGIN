@@ -191,11 +191,7 @@
             this.mCBxServerAlias.FormattingEnabled = true;
             this.mCBxServerAlias.ItemHeight = 23;
             this.mCBxServerAlias.Items.AddRange(new object[] {
-            "Never",
-            "Every 5 minutes",
-            "Every 15 minutes",
-            "Every 30 minutes",
-            "Every 60 minutes"});
+            "gin"});
             this.mCBxServerAlias.Location = new System.Drawing.Point(186, 211);
             this.mCBxServerAlias.Margin = new System.Windows.Forms.Padding(6);
             this.mCBxServerAlias.Name = "mCBxServerAlias";
