@@ -33,6 +33,8 @@ namespace GinService
         [OperationContract]
         bool CreateNewRepository(string repoName);
 
+
+     
         /// <summary>
         ///     Unmounts a repository.
         /// </summary>
@@ -58,13 +60,6 @@ namespace GinService
         [OperationContract]
         bool UnmmountAllRepositories();
 
-
-        /// <summary>
-        ///     Reads all available servers
-        /// </summary>
-        /// <returns>json with servers</returns>
-        [OperationContract]
-        string GetServers();
 
         /// <summary>
         ///     Logs a user into GIN
@@ -263,5 +258,6 @@ namespace GinService
         /// <returns>true if it is, wcf error otherwise</returns>
         [OperationContract]
         bool IsAlive();
+        string GetServers();
     }
 }

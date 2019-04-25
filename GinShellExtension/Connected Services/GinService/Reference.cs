@@ -52,7 +52,7 @@ namespace GinShellExtension.GinService {
         System.Threading.Tasks.Task<bool> UnmmountAllRepositoriesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/Login", ReplyAction="http://tempuri.org/IGinService/LoginResponse")]
-        bool Login(string username, string password);
+        bool Login(string username, string password, string server);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/Login", ReplyAction="http://tempuri.org/IGinService/LoginResponse")]
         System.Threading.Tasks.Task<bool> LoginAsync(string username, string password);
@@ -212,6 +212,7 @@ namespace GinShellExtension.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/IsAlive", ReplyAction="http://tempuri.org/IGinService/IsAliveResponse")]
         System.Threading.Tasks.Task<bool> IsAliveAsync();
+        string GetServers();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -224,7 +225,10 @@ namespace GinShellExtension.GinService {
         
         public GinServiceClient() {
         }
-        
+
+        public string GetServers() {
+            return base.Channel.GetServers();
+        }
         public GinServiceClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
@@ -289,8 +293,8 @@ namespace GinShellExtension.GinService {
             return base.Channel.UnmmountAllRepositoriesAsync();
         }
         
-        public bool Login(string username, string password) {
-            return base.Channel.Login(username, password);
+        public bool Login(string username, string password, string server) {
+            return base.Channel.Login(username, password,server);
         }
         
         public System.Threading.Tasks.Task<bool> LoginAsync(string username, string password) {

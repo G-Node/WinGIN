@@ -13,7 +13,7 @@ namespace GinService
     ///     RepositoryManager functionality.
     /// </summary>
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.PerSession)]
-    public class GinService : IGinService
+    public class GinService : ServiceHost, IGinService
     {
         public GinService()
         {
@@ -27,7 +27,7 @@ namespace GinService
                 new DirectoryInfo(mountpoint), name, commandline, performFullCheckout, createNew);
             return true;
         }
-        string IGinService.GetServers()
+       string IGinService.GetServers()
         {
             return RepositoryManager.Instance.GetServers();
         }
