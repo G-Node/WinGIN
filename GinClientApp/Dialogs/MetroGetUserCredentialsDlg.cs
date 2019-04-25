@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using GinClientApp.Properties;
 using MetroFramework.Forms;
@@ -20,9 +21,9 @@ namespace GinClientApp.Dialogs
 
             _parentContext = parentContext;
 
-            mTxBUsername.Text = UserCredentials.Instance.Username;
-            mTxBPassword.Text = UserCredentials.Instance.Password;
-            mCBxServerAlias.Text = UserCredentials.Instance.Server;
+            mTxBUsername.Text = UserCredentials.Instance.loginList.First().Username;
+            mTxBPassword.Text = UserCredentials.Instance.loginList.First().Password;
+            mCBxServerAlias.Text = UserCredentials.Instance.loginList.First().Server;
         }
 
         private bool AttemptLogin()
@@ -40,9 +41,9 @@ namespace GinClientApp.Dialogs
 
             if (AttemptLogin())
             {
-                UserCredentials.Instance.Password = mTxBPassword.Text;
-                UserCredentials.Instance.Username = mTxBUsername.Text;
-                UserCredentials.Instance.Server = mCBxServerAlias.SelectedText;
+                var login = UserCredentials.Instance.loginList.Find(x => x.Server == mCBxServerAlias.SelectedText);
+                login.Username = mTxBUsername.Text;
+                login.Password = mTxBPassword.Text;
                 UserCredentials.Save();
 
                 DialogResult = DialogResult.OK;

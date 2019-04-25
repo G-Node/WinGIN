@@ -35,8 +35,19 @@ namespace GinClientApp.Dialogs
         private void serverChanged(object sender, EventArgs e)
         {
             var serv = (GinServerInfo)mCBxServer.SelectedItem;
-            mTxBUsername.Text = ;
-            mTxBPassword.Text= ;
+            var logins = UserCredentials.Instance.loginList;
+            var selectedLogin = logins.Find(x => x.Server == serv.Alias);
+            mTBAlias.Text = selectedLogin.Server;
+            mTxBUsername.Text = selectedLogin.Username;
+            mTxBPassword.Text= selectedLogin.Password;
+        }
+
+        private void userOrPassChanged()
+        {
+            var logins = UserCredentials.Instance.loginList;
+            var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
+            selectedLogin.Password = mTxBPassword.Text;
+            selectedLogin.Username = mTxBUsername.Text;
         }
 
         public MetroOptionsDlg(GinApplicationContext parentContext, Page startPage)
@@ -305,8 +316,9 @@ namespace GinClientApp.Dialogs
 
         private void mTxBPassword_Leave(object sender, EventArgs e)
         {
+            userOrPassChanged();
             mLblStatus.Visible = false;
-
+            
             if (AttemptLogin()) return;
 
             mLblStatus.Text = Resources.GetUserCredentials_The_entered_Username_Password_combination_is_invalid;
@@ -316,6 +328,7 @@ namespace GinClientApp.Dialogs
         private void mTxBUsername_Leave(object sender, EventArgs e)
         {
             mLblStatus.Visible = false;
+            userOrPassChanged();
 
             if (AttemptLogin()) return;
 

@@ -34,12 +34,18 @@ namespace GinClientApp.Dialogs
             this.mTabCtrl = new MetroFramework.Controls.MetroTabControl();
             this.tpUser = new System.Windows.Forms.TabPage();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.mCBxServer = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lServer = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.mTBAlias = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+            this.mTxBUsername = new MetroFramework.Controls.MetroTextBox();
             this.mLblStatus = new MetroFramework.Controls.MetroLabel();
             this.mTxBPassword = new MetroFramework.Controls.MetroTextBox();
-            this.mTxBUsername = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.tpGlobalOptions = new System.Windows.Forms.TabPage();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
             this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
@@ -74,22 +80,16 @@ namespace GinClientApp.Dialogs
             this.mProgWorking = new MetroFramework.Controls.MetroProgressSpinner();
             this.mLblWorking = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
-            this.mTBAlias = new MetroFramework.Controls.MetroTextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lServer = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.mCBxServer = new System.Windows.Forms.ComboBox();
             this.mTabCtrl.SuspendLayout();
             this.tpUser.SuspendLayout();
             this.metroPanel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tpGlobalOptions.SuspendLayout();
             this.metroPanel2.SuspendLayout();
             this.tpRepositories.SuspendLayout();
             this.metroPanel3.SuspendLayout();
             this.About.SuspendLayout();
             this.metroPanel4.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mTabCtrl
@@ -140,54 +140,124 @@ namespace GinClientApp.Dialogs
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 20;
             // 
-            // mLblStatus
+            // mCBxServer
             // 
-            this.mLblStatus.AutoSize = true;
-            this.mLblStatus.ForeColor = System.Drawing.Color.DarkRed;
-            this.mLblStatus.Location = new System.Drawing.Point(14, 223);
-            this.mLblStatus.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.mLblStatus.Name = "mLblStatus";
-            this.mLblStatus.Size = new System.Drawing.Size(250, 19);
-            this.mLblStatus.TabIndex = 8;
-            this.mLblStatus.Text = "This place is reserved for status messages";
-            this.mLblStatus.UseCustomForeColor = true;
+            this.mCBxServer.FormattingEnabled = true;
+            this.mCBxServer.Location = new System.Drawing.Point(156, 42);
+            this.mCBxServer.Name = "mCBxServer";
+            this.mCBxServer.Size = new System.Drawing.Size(397, 33);
+            this.mCBxServer.TabIndex = 14;
+            this.mCBxServer.SelectedIndexChanged += new System.EventHandler(this.serverChanged);
             // 
-            // mTxBPassword
+            // button2
             // 
-            this.mTxBPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.button2.Location = new System.Drawing.Point(723, 28);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(139, 51);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Edit Server";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(588, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(129, 51);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Add Server";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // lServer
+            // 
+            this.lServer.AutoSize = true;
+            this.lServer.BackColor = System.Drawing.SystemColors.Window;
+            this.lServer.Location = new System.Drawing.Point(10, 42);
+            this.lServer.Name = "lServer";
+            this.lServer.Size = new System.Drawing.Size(75, 25);
+            this.lServer.TabIndex = 11;
+            this.lServer.Text = "Server";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox1.Controls.Add(this.mTBAlias);
+            this.groupBox1.Controls.Add(this.metroLabel1);
+            this.groupBox1.Controls.Add(this.metroLabel2);
+            this.groupBox1.Controls.Add(this.metroLabel3);
+            this.groupBox1.Controls.Add(this.mTxBUsername);
+            this.groupBox1.Controls.Add(this.mLblStatus);
+            this.groupBox1.Controls.Add(this.mTxBPassword);
+            this.groupBox1.Location = new System.Drawing.Point(15, 123);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1011, 429);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            // 
+            // mTBAlias
+            // 
+            this.mTBAlias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
-            this.mTxBPassword.CustomButton.Image = null;
-            this.mTxBPassword.CustomButton.Location = new System.Drawing.Point(819, 2);
-            this.mTxBPassword.CustomButton.Margin = new System.Windows.Forms.Padding(12);
-            this.mTxBPassword.CustomButton.Name = "";
-            this.mTxBPassword.CustomButton.Size = new System.Drawing.Size(39, 39);
-            this.mTxBPassword.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.mTxBPassword.CustomButton.TabIndex = 1;
-            this.mTxBPassword.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.mTxBPassword.CustomButton.UseSelectable = true;
-            this.mTxBPassword.CustomButton.Visible = false;
-            this.mTxBPassword.Lines = new string[] {
-        "metroTextBox3"};
-            this.mTxBPassword.Location = new System.Drawing.Point(268, 154);
-            this.mTxBPassword.Margin = new System.Windows.Forms.Padding(6);
-            this.mTxBPassword.MaxLength = 32767;
-            this.mTxBPassword.Name = "mTxBPassword";
-            this.mTxBPassword.PasswordChar = '*';
-            this.mTxBPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.mTxBPassword.SelectedText = "";
-            this.mTxBPassword.SelectionLength = 0;
-            this.mTxBPassword.SelectionStart = 0;
-            this.mTxBPassword.ShortcutsEnabled = true;
-            this.mTxBPassword.Size = new System.Drawing.Size(861, 44);
-            this.mTxBPassword.TabIndex = 7;
-            this.mTxBPassword.Text = "metroTextBox3";
-            this.mTxBPassword.UseSelectable = true;
-            this.mTxBPassword.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.mTxBPassword.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            this.mTxBPassword.Leave += new System.EventHandler(this.mTxBPassword_Leave);
+            this.mTBAlias.CustomButton.Image = null;
+            this.mTBAlias.CustomButton.Location = new System.Drawing.Point(678, 2);
+            this.mTBAlias.CustomButton.Margin = new System.Windows.Forms.Padding(12);
+            this.mTBAlias.CustomButton.Name = "";
+            this.mTBAlias.CustomButton.Size = new System.Drawing.Size(39, 39);
+            this.mTBAlias.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mTBAlias.CustomButton.TabIndex = 1;
+            this.mTBAlias.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mTBAlias.CustomButton.UseSelectable = true;
+            this.mTBAlias.CustomButton.Visible = false;
+            this.mTBAlias.Lines = new string[] {
+        "metroTextBox2"};
+            this.mTBAlias.Location = new System.Drawing.Point(268, 42);
+            this.mTBAlias.Margin = new System.Windows.Forms.Padding(6);
+            this.mTBAlias.MaxLength = 32767;
+            this.mTBAlias.Name = "mTBAlias";
+            this.mTBAlias.PasswordChar = '\0';
+            this.mTBAlias.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mTBAlias.SelectedText = "";
+            this.mTBAlias.SelectionLength = 0;
+            this.mTBAlias.SelectionStart = 0;
+            this.mTBAlias.ShortcutsEnabled = true;
+            this.mTBAlias.Size = new System.Drawing.Size(720, 44);
+            this.mTBAlias.TabIndex = 9;
+            this.mTBAlias.Text = "metroTextBox2";
+            this.mTBAlias.UseSelectable = true;
+            this.mTBAlias.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mTBAlias.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(14, 42);
+            this.metroLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(101, 19);
+            this.metroLabel1.TabIndex = 2;
+            this.metroLabel1.Text = "Gin Server Alias";
+            // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(14, 98);
+            this.metroLabel2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(68, 19);
+            this.metroLabel2.TabIndex = 3;
+            this.metroLabel2.Text = "Username";
+            // 
+            // metroLabel3
+            // 
+            this.metroLabel3.AutoSize = true;
+            this.metroLabel3.Location = new System.Drawing.Point(14, 154);
+            this.metroLabel3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.metroLabel3.Name = "metroLabel3";
+            this.metroLabel3.Size = new System.Drawing.Size(63, 19);
+            this.metroLabel3.TabIndex = 4;
+            this.metroLabel3.Text = "Password";
             // 
             // mTxBUsername
             // 
@@ -197,7 +267,7 @@ namespace GinClientApp.Dialogs
             // 
             // 
             this.mTxBUsername.CustomButton.Image = null;
-            this.mTxBUsername.CustomButton.Location = new System.Drawing.Point(819, 2);
+            this.mTxBUsername.CustomButton.Location = new System.Drawing.Point(678, 2);
             this.mTxBUsername.CustomButton.Margin = new System.Windows.Forms.Padding(12);
             this.mTxBUsername.CustomButton.Name = "";
             this.mTxBUsername.CustomButton.Size = new System.Drawing.Size(39, 39);
@@ -218,7 +288,7 @@ namespace GinClientApp.Dialogs
             this.mTxBUsername.SelectionLength = 0;
             this.mTxBUsername.SelectionStart = 0;
             this.mTxBUsername.ShortcutsEnabled = true;
-            this.mTxBUsername.Size = new System.Drawing.Size(861, 44);
+            this.mTxBUsername.Size = new System.Drawing.Size(720, 44);
             this.mTxBUsername.TabIndex = 6;
             this.mTxBUsername.Text = "metroTextBox2";
             this.mTxBUsername.UseSelectable = true;
@@ -226,35 +296,54 @@ namespace GinClientApp.Dialogs
             this.mTxBUsername.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             this.mTxBUsername.Leave += new System.EventHandler(this.mTxBUsername_Leave);
             // 
-            // metroLabel3
+            // mLblStatus
             // 
-            this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(14, 154);
-            this.metroLabel3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(63, 19);
-            this.metroLabel3.TabIndex = 4;
-            this.metroLabel3.Text = "Password";
+            this.mLblStatus.AutoSize = true;
+            this.mLblStatus.ForeColor = System.Drawing.Color.DarkRed;
+            this.mLblStatus.Location = new System.Drawing.Point(14, 223);
+            this.mLblStatus.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.mLblStatus.Name = "mLblStatus";
+            this.mLblStatus.Size = new System.Drawing.Size(250, 19);
+            this.mLblStatus.TabIndex = 8;
+            this.mLblStatus.Text = "This place is reserved for status messages";
+            this.mLblStatus.UseCustomForeColor = true;
             // 
-            // metroLabel2
+            // mTxBPassword
             // 
-            this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(14, 98);
-            this.metroLabel2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(68, 19);
-            this.metroLabel2.TabIndex = 3;
-            this.metroLabel2.Text = "Username";
+            this.mTxBPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
-            // metroLabel1
             // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(14, 42);
-            this.metroLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(101, 19);
-            this.metroLabel1.TabIndex = 2;
-            this.metroLabel1.Text = "Gin Server Alias";
+            // 
+            this.mTxBPassword.CustomButton.Image = null;
+            this.mTxBPassword.CustomButton.Location = new System.Drawing.Point(678, 2);
+            this.mTxBPassword.CustomButton.Margin = new System.Windows.Forms.Padding(12);
+            this.mTxBPassword.CustomButton.Name = "";
+            this.mTxBPassword.CustomButton.Size = new System.Drawing.Size(39, 39);
+            this.mTxBPassword.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mTxBPassword.CustomButton.TabIndex = 1;
+            this.mTxBPassword.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mTxBPassword.CustomButton.UseSelectable = true;
+            this.mTxBPassword.CustomButton.Visible = false;
+            this.mTxBPassword.Lines = new string[] {
+        "metroTextBox3"};
+            this.mTxBPassword.Location = new System.Drawing.Point(268, 154);
+            this.mTxBPassword.Margin = new System.Windows.Forms.Padding(6);
+            this.mTxBPassword.MaxLength = 32767;
+            this.mTxBPassword.Name = "mTxBPassword";
+            this.mTxBPassword.PasswordChar = '*';
+            this.mTxBPassword.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mTxBPassword.SelectedText = "";
+            this.mTxBPassword.SelectionLength = 0;
+            this.mTxBPassword.SelectionStart = 0;
+            this.mTxBPassword.ShortcutsEnabled = true;
+            this.mTxBPassword.Size = new System.Drawing.Size(720, 44);
+            this.mTxBPassword.TabIndex = 7;
+            this.mTxBPassword.Text = "metroTextBox3";
+            this.mTxBPassword.UseSelectable = true;
+            this.mTxBPassword.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mTxBPassword.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.mTxBPassword.Leave += new System.EventHandler(this.mTxBPassword_Leave);
             // 
             // tpGlobalOptions
             // 
@@ -763,94 +852,6 @@ namespace GinClientApp.Dialogs
             this.metroLabel5.TabIndex = 19;
             this.metroLabel5.Text = "Options";
             // 
-            // mTBAlias
-            // 
-            this.mTBAlias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            // 
-            // 
-            // 
-            this.mTBAlias.CustomButton.Image = null;
-            this.mTBAlias.CustomButton.Location = new System.Drawing.Point(819, 2);
-            this.mTBAlias.CustomButton.Margin = new System.Windows.Forms.Padding(12);
-            this.mTBAlias.CustomButton.Name = "";
-            this.mTBAlias.CustomButton.Size = new System.Drawing.Size(39, 39);
-            this.mTBAlias.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.mTBAlias.CustomButton.TabIndex = 1;
-            this.mTBAlias.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.mTBAlias.CustomButton.UseSelectable = true;
-            this.mTBAlias.CustomButton.Visible = false;
-            this.mTBAlias.Lines = new string[] {
-        "metroTextBox2"};
-            this.mTBAlias.Location = new System.Drawing.Point(268, 42);
-            this.mTBAlias.Margin = new System.Windows.Forms.Padding(6);
-            this.mTBAlias.MaxLength = 32767;
-            this.mTBAlias.Name = "mTBAlias";
-            this.mTBAlias.PasswordChar = '\0';
-            this.mTBAlias.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.mTBAlias.SelectedText = "";
-            this.mTBAlias.SelectionLength = 0;
-            this.mTBAlias.SelectionStart = 0;
-            this.mTBAlias.ShortcutsEnabled = true;
-            this.mTBAlias.Size = new System.Drawing.Size(861, 44);
-            this.mTBAlias.TabIndex = 9;
-            this.mTBAlias.Text = "metroTextBox2";
-            this.mTBAlias.UseSelectable = true;
-            this.mTBAlias.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.mTBAlias.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.groupBox1.Controls.Add(this.mTBAlias);
-            this.groupBox1.Controls.Add(this.metroLabel1);
-            this.groupBox1.Controls.Add(this.metroLabel2);
-            this.groupBox1.Controls.Add(this.metroLabel3);
-            this.groupBox1.Controls.Add(this.mTxBUsername);
-            this.groupBox1.Controls.Add(this.mLblStatus);
-            this.groupBox1.Controls.Add(this.mTxBPassword);
-            this.groupBox1.Location = new System.Drawing.Point(15, 123);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1011, 429);
-            this.groupBox1.TabIndex = 11;
-            this.groupBox1.TabStop = false;
-            // 
-            // lServer
-            // 
-            this.lServer.AutoSize = true;
-            this.lServer.BackColor = System.Drawing.SystemColors.Window;
-            this.lServer.Location = new System.Drawing.Point(10, 42);
-            this.lServer.Name = "lServer";
-            this.lServer.Size = new System.Drawing.Size(75, 25);
-            this.lServer.TabIndex = 11;
-            this.lServer.Text = "Server";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(588, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(129, 51);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Add Server";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(723, 28);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(139, 51);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "Edit Server";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // mCBxServer
-            // 
-            this.mCBxServer.FormattingEnabled = true;
-            this.mCBxServer.Location = new System.Drawing.Point(156, 42);
-            this.mCBxServer.Name = "mCBxServer";
-            this.mCBxServer.Size = new System.Drawing.Size(397, 33);
-            this.mCBxServer.TabIndex = 14;
-            // 
             // MetroOptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -871,6 +872,8 @@ namespace GinClientApp.Dialogs
             this.tpUser.ResumeLayout(false);
             this.metroPanel1.ResumeLayout(false);
             this.metroPanel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tpGlobalOptions.ResumeLayout(false);
             this.metroPanel2.ResumeLayout(false);
             this.metroPanel2.PerformLayout();
@@ -880,8 +883,6 @@ namespace GinClientApp.Dialogs
             this.About.ResumeLayout(false);
             this.metroPanel4.ResumeLayout(false);
             this.metroPanel4.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
