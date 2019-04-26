@@ -40,12 +40,12 @@
             this.cBxWebProtocol = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cBxGitPort = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cBxGitUser = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tBxGitHostname = new System.Windows.Forms.TextBox();
-            this.cBxGitUser = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cBxGitPort = new System.Windows.Forms.ComboBox();
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
@@ -99,6 +99,8 @@
             this.cBxWebPort.Name = "cBxWebPort";
             this.cBxWebPort.Size = new System.Drawing.Size(121, 33);
             this.cBxWebPort.TabIndex = 8;
+            this.cBxWebPort.Validating += new System.ComponentModel.CancelEventHandler(this.Port_Validating);
+            this.cBxWebPort.Validated += new System.EventHandler(this.cBxWebPort_Validated);
             // 
             // label4
             // 
@@ -124,6 +126,8 @@
             this.tBxWebHostname.Name = "tBxWebHostname";
             this.tBxWebHostname.Size = new System.Drawing.Size(289, 31);
             this.tBxWebHostname.TabIndex = 5;
+            this.tBxWebHostname.Validating += new System.ComponentModel.CancelEventHandler(this.tBxWebHostname_Validating);
+            this.tBxWebHostname.Validated += new System.EventHandler(this.tBxWebHostname_Validated);
             // 
             // cBxWebProtocol
             // 
@@ -138,6 +142,7 @@
             this.cBxWebProtocol.Size = new System.Drawing.Size(147, 33);
             this.cBxWebProtocol.TabIndex = 4;
             this.cBxWebProtocol.Validating += new System.ComponentModel.CancelEventHandler(this.cBxWebProtocol_Validating);
+            this.cBxWebProtocol.Validated += new System.EventHandler(this.cBxWebProtocol_Validated);
             // 
             // label1
             // 
@@ -163,6 +168,53 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Git";
             // 
+            // cBxGitPort
+            // 
+            this.cBxGitPort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cBxGitPort.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cBxGitPort.FormattingEnabled = true;
+            this.cBxGitPort.Items.AddRange(new object[] {
+            "22",
+            "2222"});
+            this.cBxGitPort.Location = new System.Drawing.Point(146, 118);
+            this.cBxGitPort.Name = "cBxGitPort";
+            this.cBxGitPort.Size = new System.Drawing.Size(121, 33);
+            this.cBxGitPort.TabIndex = 10;
+            this.cBxGitPort.Validating += new System.ComponentModel.CancelEventHandler(this.cBxGitPort_Validating);
+            this.cBxGitPort.Validated += new System.EventHandler(this.cBxGitPort_Validated);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(21, 118);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 25);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Port";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(21, 81);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(109, 25);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Hostname";
+            // 
+            // cBxGitUser
+            // 
+            this.cBxGitUser.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cBxGitUser.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cBxGitUser.FormattingEnabled = true;
+            this.cBxGitUser.Items.AddRange(new object[] {
+            "git"});
+            this.cBxGitUser.Location = new System.Drawing.Point(146, 30);
+            this.cBxGitUser.Name = "cBxGitUser";
+            this.cBxGitUser.Size = new System.Drawing.Size(121, 33);
+            this.cBxGitUser.TabIndex = 4;
+            this.cBxGitUser.Validating += new System.ComponentModel.CancelEventHandler(this.cBxGitUser_Validating);
+            this.cBxGitUser.Validated += new System.EventHandler(this.cBxGitUser_Validated);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -178,49 +230,8 @@
             this.tBxGitHostname.Name = "tBxGitHostname";
             this.tBxGitHostname.Size = new System.Drawing.Size(525, 31);
             this.tBxGitHostname.TabIndex = 0;
-            // 
-            // cBxGitUser
-            // 
-            this.cBxGitUser.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cBxGitUser.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cBxGitUser.FormattingEnabled = true;
-            this.cBxGitUser.Items.AddRange(new object[] {
-            "git"});
-            this.cBxGitUser.Location = new System.Drawing.Point(146, 30);
-            this.cBxGitUser.Name = "cBxGitUser";
-            this.cBxGitUser.Size = new System.Drawing.Size(121, 33);
-            this.cBxGitUser.TabIndex = 4;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 81);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(109, 25);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Hostname";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(21, 118);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 25);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Port";
-            // 
-            // cBxGitPort
-            // 
-            this.cBxGitPort.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cBxGitPort.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cBxGitPort.FormattingEnabled = true;
-            this.cBxGitPort.Items.AddRange(new object[] {
-            "22",
-            "2222"});
-            this.cBxGitPort.Location = new System.Drawing.Point(146, 118);
-            this.cBxGitPort.Name = "cBxGitPort";
-            this.cBxGitPort.Size = new System.Drawing.Size(121, 33);
-            this.cBxGitPort.TabIndex = 10;
+            this.tBxGitHostname.Validating += new System.ComponentModel.CancelEventHandler(this.tBxGitHostname_Validating);
+            this.tBxGitHostname.Validated += new System.EventHandler(this.tBxGitHostname_Validated);
             // 
             // SaveButton
             // 
