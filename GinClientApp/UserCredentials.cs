@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace GinClientApp
@@ -15,8 +16,10 @@ namespace GinClientApp
 
         private UserCredentials()
         {
-            this.loginList = new List<LoginSettings>();
-            loginList.Add(new LoginSettings());
+            loginList = new List<LoginSettings>
+            {
+                //new LoginSettings()
+            };
         }
 
         public static UserCredentials Instance
@@ -50,7 +53,6 @@ namespace GinClientApp
                     var text = freader.ReadToEnd();
                     _instance = JsonConvert.DeserializeObject<UserCredentials>(text);
                 }
-
                 if (string.IsNullOrEmpty(_instance.loginList.First().Username) || string.IsNullOrEmpty(_instance.loginList.First().Password) || string.IsNullOrEmpty(_instance.loginList.First().Server))
                     return false;
 
@@ -58,6 +60,7 @@ namespace GinClientApp
             }
             catch
             {
+                MessageBox.Show("Parse fails");
                 _instance = new UserCredentials();
                 return false;
             }

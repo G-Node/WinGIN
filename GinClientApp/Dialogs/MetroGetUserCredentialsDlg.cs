@@ -19,12 +19,21 @@ namespace GinClientApp.Dialogs
 
             mLblWarning.Visible = false;
             mCBxServerAlias.Text = "gin";
+            mCBxServerAlias.SelectedText = "gin";
 
             _parentContext = parentContext;
-
-            mTxBUsername.Text = UserCredentials.Instance.loginList.First().Username;
-            mTxBPassword.Text = UserCredentials.Instance.loginList.First().Password;
-            mCBxServerAlias.Text = UserCredentials.Instance.loginList.First().Server;
+            if (UserCredentials.Instance.loginList.First() != null)
+            {
+                mTxBUsername.Text = UserCredentials.Instance.loginList.First().Username;
+                mTxBPassword.Text = UserCredentials.Instance.loginList.First().Password;
+                mCBxServerAlias.Text = UserCredentials.Instance.loginList.First().Server;
+            }
+            else
+            {
+                mTxBUsername.Text = "";
+                mTxBPassword.Text = "";
+                mCBxServerAlias.Text = "gin";
+            }
         }
 
         private bool AttemptLogin()
@@ -42,17 +51,20 @@ namespace GinClientApp.Dialogs
             mLblWarning.Visible = false;
 
             if (AttemptLogin())
-            {
-                
+            {              
                 var login = UserCredentials.Instance.loginList.Find(x => x.Server == mCBxServerAlias.SelectedText);
                 if (login == null) {
+                    login = UserCredentials.Instance.loginList.Find(x => x.Server == null);
+                    if (login == null)
+                    {
                     login = (new UserCredentials.LoginSettings());
                     UserCredentials.Instance.loginList.Add(login);
+
+                    }
                 }
                 login.Username = mTxBUsername.Text;
                 login.Password = mTxBPassword.Text;
                 login.Server = mCBxServerAlias.Text;
-                MessageBox.Show(" usr "+ login.Username + " srv "+ login.Server);
                 UserCredentials.Save();
 
                 DialogResult = DialogResult.OK;
