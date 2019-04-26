@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Windows.Data;
 using System.Windows.Forms;
 using GinClientApp.Properties;
-using System.Windows;
 using GinClientLibrary;
 using MetroFramework;
 using MetroFramework.Controls;
@@ -66,9 +64,9 @@ namespace GinClientApp.Dialogs
             mCBxServer.DisplayMember = "Alias";
 
 
-            mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance, "Username");
-            mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance, "Password");
-            mTBAlias.DataBindings.Add("Text", UserCredentials.Instance, "Server");
+            mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Username");
+            mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Password");
+            mTBAlias.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Server");
 
             mTxBDefaultCheckout.Text = GlobalOptions.Instance.DefaultCheckoutDir.FullName;
             mTxBDefaultMountpoint.Text = GlobalOptions.Instance.DefaultMountpointDir.FullName;

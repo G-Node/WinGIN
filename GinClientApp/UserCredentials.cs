@@ -60,7 +60,6 @@ namespace GinClientApp
             }
             catch
             {
-                MessageBox.Show("Parse fails");
                 _instance = new UserCredentials();
                 return false;
             }

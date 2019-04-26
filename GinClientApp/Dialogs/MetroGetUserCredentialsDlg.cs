@@ -22,18 +22,21 @@ namespace GinClientApp.Dialogs
             mCBxServerAlias.SelectedText = "gin";
 
             _parentContext = parentContext;
-            if (UserCredentials.Instance.loginList.First() != null)
+            try
             {
-                mTxBUsername.Text = UserCredentials.Instance.loginList.First().Username;
-                mTxBPassword.Text = UserCredentials.Instance.loginList.First().Password;
-                mCBxServerAlias.Text = UserCredentials.Instance.loginList.First().Server;
+                var login = UserCredentials.Instance.loginList.First();
+                mTxBUsername.Text = login.Username;
+                mTxBPassword.Text = login.Password;
+                mCBxServerAlias.Text = login.Server;
             }
-            else
+            catch
             {
                 mTxBUsername.Text = "";
                 mTxBPassword.Text = "";
                 mCBxServerAlias.Text = "gin";
             }
+            
+            
         }
 
         private bool AttemptLogin()
