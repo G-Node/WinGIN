@@ -212,6 +212,12 @@ namespace GinClientApp.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/IsAlive", ReplyAction="http://tempuri.org/IGinService/IsAliveResponse")]
         System.Threading.Tasks.Task<bool> IsAliveAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetServers", ReplyAction="http://tempuri.org/IGinService/GetServersResponse")]
+        string GetServers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetServers", ReplyAction="http://tempuri.org/IGinService/GetServersResponse")]
+        System.Threading.Tasks.Task<string> GetServersAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -503,6 +509,14 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task<bool> IsAliveAsync() {
             return base.Channel.IsAliveAsync();
+        }
+        
+        public string GetServers() {
+            return base.Channel.GetServers();
+        }
+        
+        public System.Threading.Tasks.Task<string> GetServersAsync() {
+            return base.Channel.GetServersAsync();
         }
     }
 }

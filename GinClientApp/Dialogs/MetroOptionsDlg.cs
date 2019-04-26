@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using GinClientApp.Properties;
@@ -110,9 +111,9 @@ namespace GinClientApp.Dialogs
 
         private List<GinServerInfo> GetServers()
         {
-            /* return JsonConvert.DeserializeObject<List<GinServerInfo>>(_parentContext.ServiceClient
-                 .GetServers());*/
-            return null;
+            var serverJson = _parentContext.ServiceClient.GetServers();
+            MessageBox.Show(serverJson);
+            return JsonConvert.DeserializeObject<List<GinServerInfo>>(serverJson);
         }
 
         private void FillRepoList()
@@ -162,6 +163,16 @@ namespace GinClientApp.Dialogs
             var directory = GlobalOptions.Instance.DefaultCheckoutDir;
             UpdateDefaultdir(ref directory, mTxBDefaultCheckout);
             GlobalOptions.Instance.DefaultCheckoutDir = directory;
+        }
+
+        private void ClickEditServer(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not implemented!");
+        }
+
+        private void ClickAddServer(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not implemented!");
         }
 
         private void mBtnPickDefaultMountpointDir_Click(object sender, EventArgs e)

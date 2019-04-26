@@ -258,6 +258,7 @@ namespace GinService
         /// <returns>true if it is, wcf error otherwise</returns>
         [OperationContract]
         bool IsAlive();
+        [OperationContract]
         string GetServers();
     }
 }

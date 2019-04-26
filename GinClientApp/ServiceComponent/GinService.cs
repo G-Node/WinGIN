@@ -237,7 +237,7 @@ namespace GinService
             return "";
         }
 
-        public void UploadRepositoriesWithMessage(IEnumerable<string> filePaths, string message)
+        void IGinService.UploadRepositoriesWithMessage(IEnumerable<string> filePaths, string message)
         {
             foreach (var filePath in filePaths)
             {
@@ -247,7 +247,7 @@ namespace GinService
             }
         }
 
-        public void UploadFileWithMessage(string repoName, string filepath, string message)
+        void IGinService.UploadFileWithMessage(string repoName, string filepath, string message)
         {
             var repo = string.Compare(repoName, "%EMPTYSTRING%", StringComparison.Ordinal) == 0 ? RepositoryManager.Instance.GetRepoByPath(filepath) : RepositoryManager.Instance.GetRepoByName(repoName);
 
