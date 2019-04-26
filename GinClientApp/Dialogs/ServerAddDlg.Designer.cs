@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ServerForm));
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tBxAlias = new System.Windows.Forms.TextBox();
             this.serverAlias = new System.Windows.Forms.Label();
             this.webGBx = new System.Windows.Forms.GroupBox();
             this.cBxWebPort = new System.Windows.Forms.ComboBox();
@@ -47,16 +48,20 @@
             this.cBxGitPort = new System.Windows.Forms.ComboBox();
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.webGBx.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // tBxAlias
             // 
-            this.textBox1.Location = new System.Drawing.Point(198, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(217, 31);
-            this.textBox1.TabIndex = 0;
+            this.tBxAlias.Location = new System.Drawing.Point(198, 42);
+            this.tBxAlias.Name = "tBxAlias";
+            this.tBxAlias.Size = new System.Drawing.Size(217, 31);
+            this.tBxAlias.TabIndex = 0;
+            this.tBxAlias.Validating += new System.ComponentModel.CancelEventHandler(this.tBxAlias_Validating);
+            this.tBxAlias.Validated += new System.EventHandler(this.tBxAlias_Validated);
             // 
             // serverAlias
             // 
@@ -132,6 +137,7 @@
             this.cBxWebProtocol.Name = "cBxWebProtocol";
             this.cBxWebProtocol.Size = new System.Drawing.Size(147, 33);
             this.cBxWebProtocol.TabIndex = 4;
+            this.cBxWebProtocol.Validating += new System.ComponentModel.CancelEventHandler(this.cBxWebProtocol_Validating);
             // 
             // label1
             // 
@@ -224,6 +230,7 @@
             this.SaveButton.TabIndex = 5;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // CancelButton
             // 
@@ -233,6 +240,11 @@
             this.CancelButton.TabIndex = 6;
             this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // ServerForm
             // 
@@ -244,7 +256,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.webGBx);
             this.Controls.Add(this.serverAlias);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tBxAlias);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ServerForm";
             this.Text = "Add Gin Server ";
@@ -253,6 +265,7 @@
             this.webGBx.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,7 +273,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tBxAlias;
         private System.Windows.Forms.Label serverAlias;
         private System.Windows.Forms.GroupBox webGBx;
         private System.Windows.Forms.Label label1;
@@ -278,5 +291,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

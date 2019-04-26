@@ -199,6 +199,9 @@ namespace GinClientApp.Dialogs
         private void ClickAddServer(object sender, EventArgs e)
         {
             MessageBox.Show("Not implemented!");
+            var svrForm = new ServerForm();
+            svrForm.Show();
+            var result = svrForm.DialogResult;
         }
 
         private void mBtnPickDefaultMountpointDir_Click(object sender, EventArgs e)
