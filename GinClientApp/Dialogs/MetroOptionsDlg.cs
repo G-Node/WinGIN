@@ -33,20 +33,41 @@ namespace GinClientApp.Dialogs
         }
         private void serverChanged(object sender, EventArgs e)
         {
-            var serv = (ServerConf)mCBxServer.SelectedItem;
+           
+            var serv = mCBxServer.Text;
             var logins = UserCredentials.Instance.loginList;
-            /*var selectedLogin = logins.Find(x => x.Server == serv.Alias);
-            mTBAlias.Text = selectedLogin.Server;
-            mTxBUsername.Text = selectedLogin.Username;
-            mTxBPassword.Text= selectedLogin.Password*/
+            var selectedLogin = logins.Find(x => x.Server.Equals(serv));
+
+            mTBAlias.Text = serv;
+            if (selectedLogin != null)
+            {
+                mTxBUsername.Text = selectedLogin.Username;
+                mTxBPassword.Text = selectedLogin.Password;
+            }
+            else
+            {
+                mTxBUsername.Text = "";
+                mTxBPassword.Text = "";
+            }
         }
 
         private void userOrPassChanged()
         {
             var logins = UserCredentials.Instance.loginList;
             var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
-            selectedLogin.Password = mTxBPassword.Text;
-            selectedLogin.Username = mTxBUsername.Text;
+            if (selectedLogin != null)
+            {
+                selectedLogin.Password = mTxBPassword.Text;
+                selectedLogin.Username = mTxBUsername.Text;
+            }
+            else
+            {
+                var login = new UserCredentials.LoginSettings();
+                login.Server = mTBAlias.Text;
+                login.Password = mTxBPassword.Text;
+                login.Username = mTxBUsername.Text;
+                UserCredentials.Instance.loginList.Add(login);
+            }
         }
 
         public MetroOptionsDlg(GinApplicationContext parentContext, Page startPage)
@@ -63,10 +84,16 @@ namespace GinClientApp.Dialogs
             var serverMap = GetServers();
             mCBxServer.DataSource = new BindingSource(serverMap, null);
             mCBxServer.DisplayMember = "Key";
-
+            /*
             mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Username");
             mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Password");
             mTBAlias.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Server");
+            */
+            mTBAlias.Text = mCBxServer.Text;
+            var logins = UserCredentials.Instance.loginList;
+            var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
+            mTxBPassword.Text = selectedLogin.Password;
+            mTxBUsername.Text = selectedLogin.Username;
 
             mTxBDefaultCheckout.Text = GlobalOptions.Instance.DefaultCheckoutDir.FullName;
             mTxBDefaultMountpoint.Text = GlobalOptions.Instance.DefaultMountpointDir.FullName;
