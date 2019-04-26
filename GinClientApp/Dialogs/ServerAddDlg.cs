@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GinClientApp.Dialogs
@@ -28,11 +22,13 @@ namespace GinClientApp.Dialogs
             web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text+":"+ cBxWebPort.Text;
             alias = tBxAlias.Text;
             git = cBxGitUser.Text+"@"+tBxGitHostname+":"+cBxWebPort;
+            Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+            Close();
         }
 
         private void tBxAlias_Validating(object sender, CancelEventArgs e)
