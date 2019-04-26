@@ -33,12 +33,12 @@ namespace GinClientApp.Dialogs
         }
         private void serverChanged(object sender, EventArgs e)
         {
-            var serv = (GinServerInfo)mCBxServer.SelectedItem;
+            var serv = (ServerConf)mCBxServer.SelectedItem;
             var logins = UserCredentials.Instance.loginList;
-            var selectedLogin = logins.Find(x => x.Server == serv.Alias);
+            /*var selectedLogin = logins.Find(x => x.Server == serv.Alias);
             mTBAlias.Text = selectedLogin.Server;
             mTxBUsername.Text = selectedLogin.Username;
-            mTxBPassword.Text= selectedLogin.Password;
+            mTxBPassword.Text= selectedLogin.Password*/
         }
 
         private void userOrPassChanged()
@@ -55,15 +55,14 @@ namespace GinClientApp.Dialogs
 
             _parentContext = parentContext;
 
-            mTabCtrl.SelectTab((int) startPage);
+            mTabCtrl.SelectTab((int)startPage);
 
             mLblStatus.Visible = false;
             mLblWorking.Visible = false;
             mProgWorking.Visible = false;
-            var servers = GetServers();
-            mCBxServer.DataSource = servers;
-            mCBxServer.DisplayMember = "Alias";
-
+            var serverMap = GetServers();
+            mCBxServer.DataSource = new BindingSource(serverMap, null);
+            mCBxServer.DisplayMember = "Key";
 
             mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Username");
             mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Password");
@@ -109,11 +108,11 @@ namespace GinClientApp.Dialogs
             mTabCtrl.SelectTab((int) page);
         }
 
-        private List<GinServerInfo> GetServers()
+        private Dictionary<string, ServerConf> GetServers()
         {
-            var serverJson = _parentContext.ServiceClient.GetServers();
-            MessageBox.Show(serverJson);
-            return JsonConvert.DeserializeObject<List<GinServerInfo>>(serverJson);
+            string serverJson = _parentContext.ServiceClient.GetServers();
+            var map = JsonConvert.DeserializeObject<Dictionary<string,ServerConf>>(serverJson);
+            return map;
         }
 
         private void FillRepoList()

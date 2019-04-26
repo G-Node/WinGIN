@@ -125,23 +125,26 @@ namespace GinClientLibrary
                     StartInfo = new ProcessStartInfo
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        FileName = "cmd.exe",
+                        FileName = "gin.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = @"/C gin.exe servers --json " ,
+                        Arguments = "servers --json ",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
-                        RedirectStandardInput = true,
                         UseShellExecute = false
                     }
                 };
-                process.OutputDataReceived += Process_OutputDataReceived;
-                Output.Clear();
+                StringBuilder output = new StringBuilder();
+                process.OutputDataReceived += (sender, args) => { output.AppendLine(args.Data); };
+
                 process.Start();
                 process.BeginOutputReadLine();
                 var error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
 
-                return Output.ToString();
+                if (!IsNullOrEmpty(error) || process.ExitCode != 0)
+                    return "Error getting servers info!";
+                return output.ToString();
             }
         }
 
