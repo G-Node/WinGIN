@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using GinClientApp.Properties;
@@ -29,6 +31,44 @@ namespace GinClientApp.Dialogs
         {
             RepoListingChanged?.Invoke(this, EventArgs.Empty);
         }
+        private void serverChanged(object sender, EventArgs e)
+        {
+           
+            var serv = mCBxServer.Text;
+            var logins = UserCredentials.Instance.loginList;
+            var selectedLogin = logins.Find(x => x.Server.Equals(serv));
+
+            mTBAlias.Text = serv;
+            if (selectedLogin != null)
+            {
+                mTxBUsername.Text = selectedLogin.Username;
+                mTxBPassword.Text = selectedLogin.Password;
+            }
+            else
+            {
+                mTxBUsername.Text = "";
+                mTxBPassword.Text = "";
+            }
+        }
+
+        private void userOrPassChanged()
+        {
+            var logins = UserCredentials.Instance.loginList;
+            var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
+            if (selectedLogin != null)
+            {
+                selectedLogin.Password = mTxBPassword.Text;
+                selectedLogin.Username = mTxBUsername.Text;
+            }
+            else
+            {
+                var login = new UserCredentials.LoginSettings();
+                login.Server = mTBAlias.Text;
+                login.Password = mTxBPassword.Text;
+                login.Username = mTxBUsername.Text;
+                UserCredentials.Instance.loginList.Add(login);
+            }
+        }
 
         public MetroOptionsDlg(GinApplicationContext parentContext, Page startPage)
         {
@@ -36,14 +76,24 @@ namespace GinClientApp.Dialogs
 
             _parentContext = parentContext;
 
-            mTabCtrl.SelectTab((int) startPage);
+            mTabCtrl.SelectTab((int)startPage);
 
             mLblStatus.Visible = false;
             mLblWorking.Visible = false;
             mProgWorking.Visible = false;
-
-            mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance, "Username");
-            mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance, "Password");
+            var serverMap = GetServers();
+            mCBxServer.DataSource = new BindingSource(serverMap, null);
+            mCBxServer.DisplayMember = "Key";
+            /*
+            mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Username");
+            mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Password");
+            mTBAlias.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Server");
+            */
+            mTBAlias.Text = mCBxServer.Text;
+            var logins = UserCredentials.Instance.loginList;
+            var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
+            mTxBPassword.Text = selectedLogin.Password;
+            mTxBUsername.Text = selectedLogin.Username;
 
             mTxBDefaultCheckout.Text = GlobalOptions.Instance.DefaultCheckoutDir.FullName;
             mTxBDefaultMountpoint.Text = GlobalOptions.Instance.DefaultMountpointDir.FullName;
@@ -83,6 +133,13 @@ namespace GinClientApp.Dialogs
         public void SetTab(Page page)
         {
             mTabCtrl.SelectTab((int) page);
+        }
+
+        private Dictionary<string, ServerConf> GetServers()
+        {
+            string serverJson = _parentContext.ServiceClient.GetServers();
+            var map = JsonConvert.DeserializeObject<Dictionary<string,ServerConf>>(serverJson);
+            return map;
         }
 
         private void FillRepoList()
@@ -132,6 +189,19 @@ namespace GinClientApp.Dialogs
             var directory = GlobalOptions.Instance.DefaultCheckoutDir;
             UpdateDefaultdir(ref directory, mTxBDefaultCheckout);
             GlobalOptions.Instance.DefaultCheckoutDir = directory;
+        }
+
+        private void ClickEditServer(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not implemented!");
+        }
+
+        private void ClickAddServer(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not implemented!");
+            var svrForm = new ServerForm();
+            svrForm.Show();
+            var result = svrForm.DialogResult;
         }
 
         private void mBtnPickDefaultMountpointDir_Click(object sender, EventArgs e)
@@ -280,13 +350,15 @@ namespace GinClientApp.Dialogs
             if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text)) return false;
             _parentContext.ServiceClient.Logout();
 
-            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
+            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mTBAlias.Text);
+            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
         }
 
         private void mTxBPassword_Leave(object sender, EventArgs e)
         {
+            userOrPassChanged();
             mLblStatus.Visible = false;
-
+            
             if (AttemptLogin()) return;
 
             mLblStatus.Text = Resources.GetUserCredentials_The_entered_Username_Password_combination_is_invalid;
@@ -296,6 +368,7 @@ namespace GinClientApp.Dialogs
         private void mTxBUsername_Leave(object sender, EventArgs e)
         {
             mLblStatus.Visible = false;
+            userOrPassChanged();
 
             if (AttemptLogin()) return;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using GinClientApp.Properties;
 using MetroFramework.Forms;
@@ -12,24 +13,40 @@ namespace GinClientApp.Dialogs
         public MetroGetUserCredentialsDlg(GinApplicationContext parentContext)
         {
             InitializeComponent();
+            //string serverJson = _parentContext.ServiceClient.GetServers();
             metroLabel1.TabStop = false;
             metroLabel2.TabStop = false;
 
             mLblWarning.Visible = false;
+            mCBxServerAlias.Text = "gin";
+            mCBxServerAlias.SelectedText = "gin";
 
             _parentContext = parentContext;
-
-            mTxBUsername.Text = UserCredentials.Instance.Username;
-            mTxBPassword.Text = UserCredentials.Instance.Password;
+            try
+            {
+                var login = UserCredentials.Instance.loginList.First();
+                mTxBUsername.Text = login.Username;
+                mTxBPassword.Text = login.Password;
+                mCBxServerAlias.Text = login.Server;
+            }
+            catch
+            {
+                mTxBUsername.Text = "";
+                mTxBPassword.Text = "";
+                mCBxServerAlias.Text = "gin";
+            }
+            
+            
         }
 
         private bool AttemptLogin()
         {
-            if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text)) return false;
+            if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text) || string.IsNullOrEmpty(mCBxServerAlias.Text)) return false;
 
             _parentContext.ServiceClient.Logout();
 
-            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
+            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mCBxServerAlias.Text);
+            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
         }
 
         private void mBtnOk_Click(object sender, EventArgs e)
@@ -37,10 +54,20 @@ namespace GinClientApp.Dialogs
             mLblWarning.Visible = false;
 
             if (AttemptLogin())
-            {
-                UserCredentials.Instance.Password = mTxBPassword.Text;
-                UserCredentials.Instance.Username = mTxBUsername.Text;
+            {              
+                var login = UserCredentials.Instance.loginList.Find(x => x.Server == mCBxServerAlias.SelectedText);
+                if (login == null) {
+                    login = UserCredentials.Instance.loginList.Find(x => x.Server == null);
+                    if (login == null)
+                    {
+                    login = (new UserCredentials.LoginSettings());
+                    UserCredentials.Instance.loginList.Add(login);
 
+                    }
+                }
+                login.Username = mTxBUsername.Text;
+                login.Password = mTxBPassword.Text;
+                login.Server = mCBxServerAlias.Text;
                 UserCredentials.Save();
 
                 DialogResult = DialogResult.OK;

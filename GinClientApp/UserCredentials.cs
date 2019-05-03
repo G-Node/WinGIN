@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace GinClientApp
@@ -13,6 +16,10 @@ namespace GinClientApp
 
         private UserCredentials()
         {
+            loginList = new List<LoginSettings>
+            {
+                //new LoginSettings()
+            };
         }
 
         public static UserCredentials Instance
@@ -21,12 +28,12 @@ namespace GinClientApp
             set => _instance = value;
         }
 
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public List<LoginSettings> loginList;
+
 
         public object Clone()
         {
-            return new UserCredentials {Username = Username, Password = Password};
+            return new UserCredentials { loginList = loginList };
         }
 
         public static bool Load()
@@ -46,8 +53,7 @@ namespace GinClientApp
                     var text = freader.ReadToEnd();
                     _instance = JsonConvert.DeserializeObject<UserCredentials>(text);
                 }
-
-                if (string.IsNullOrEmpty(_instance.Username) || string.IsNullOrEmpty(_instance.Password))
+                if (string.IsNullOrEmpty(_instance.loginList.First().Username) || string.IsNullOrEmpty(_instance.loginList.First().Password) || string.IsNullOrEmpty(_instance.loginList.First().Server))
                     return false;
 
                 return true;
@@ -71,6 +77,13 @@ namespace GinClientApp
             {
                 fwriter.Write(JsonConvert.SerializeObject(_instance));
             }
+        }
+
+        public class LoginSettings
+        {
+            public string Username { get; set; }
+            public string Password { get; set; }
+            public string Server { get; set; }
         }
     }
 }

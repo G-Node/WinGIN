@@ -112,7 +112,44 @@ namespace GinClientLibrary
             return true;
         }
 
-        public bool Login(string username, string password)
+        /// <summary>
+        /// Get all configured servers
+        /// </summary>
+        /// <returns>json with configured servers</returns>
+        public string GetServers()
+        {
+            lock (this)
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        FileName = "gin.exe",
+                        WorkingDirectory = @"C:\",
+                        Arguments = "servers --json ",
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false
+                    }
+                };
+                StringBuilder output = new StringBuilder();
+                process.OutputDataReceived += (sender, args) => { output.AppendLine(args.Data); };
+
+                process.Start();
+                process.BeginOutputReadLine();
+                var error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                if (!IsNullOrEmpty(error) || process.ExitCode != 0)
+                    return "Error getting servers info!";
+                return output.ToString();
+            }
+        }
+
+
+        public bool Login(string username, string password, string serverAlias)
         {
             lock (this)
             {
@@ -123,7 +160,7 @@ namespace GinClientLibrary
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "cmd.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = @"/C gin.exe login " + username,
+                        Arguments = @"/C gin.exe login " + username +" --server "+serverAlias,
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
