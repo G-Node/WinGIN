@@ -57,7 +57,7 @@
             // tBxAlias
             // 
             this.tBxAlias.Location = new System.Drawing.Point(99, 22);
-            this.tBxAlias.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tBxAlias.Margin = new System.Windows.Forms.Padding(2);
             this.tBxAlias.Name = "tBxAlias";
             this.tBxAlias.Size = new System.Drawing.Size(110, 20);
             this.tBxAlias.TabIndex = 0;
@@ -67,10 +67,11 @@
             // serverAlias
             // 
             this.serverAlias.AutoSize = true;
+            this.serverAlias.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.serverAlias.Location = new System.Drawing.Point(17, 22);
             this.serverAlias.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.serverAlias.Name = "serverAlias";
-            this.serverAlias.Size = new System.Drawing.Size(63, 13);
+            this.serverAlias.Size = new System.Drawing.Size(75, 13);
             this.serverAlias.TabIndex = 1;
             this.serverAlias.Text = "Server Alias";
             // 
@@ -83,10 +84,10 @@
             this.webGBx.Controls.Add(this.cBxWebProtocol);
             this.webGBx.Controls.Add(this.label1);
             this.webGBx.Location = new System.Drawing.Point(20, 45);
-            this.webGBx.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.webGBx.Margin = new System.Windows.Forms.Padding(2);
             this.webGBx.Name = "webGBx";
-            this.webGBx.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.webGBx.Size = new System.Drawing.Size(374, 84);
+            this.webGBx.Padding = new System.Windows.Forms.Padding(2);
+            this.webGBx.Size = new System.Drawing.Size(374, 96);
             this.webGBx.TabIndex = 2;
             this.webGBx.TabStop = false;
             this.webGBx.Text = "Web";
@@ -99,8 +100,8 @@
             this.cBxWebPort.Items.AddRange(new object[] {
             "80",
             "443"});
-            this.cBxWebPort.Location = new System.Drawing.Point(73, 54);
-            this.cBxWebPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cBxWebPort.Location = new System.Drawing.Point(73, 59);
+            this.cBxWebPort.Margin = new System.Windows.Forms.Padding(2);
             this.cBxWebPort.Name = "cBxWebPort";
             this.cBxWebPort.Size = new System.Drawing.Size(62, 21);
             this.cBxWebPort.TabIndex = 8;
@@ -110,7 +111,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 54);
+            this.label4.Location = new System.Drawing.Point(10, 62);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 13);
@@ -120,7 +121,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 36);
+            this.label3.Location = new System.Drawing.Point(10, 40);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
@@ -129,8 +130,8 @@
             // 
             // tBxWebHostname
             // 
-            this.tBxWebHostname.Location = new System.Drawing.Point(73, 34);
-            this.tBxWebHostname.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tBxWebHostname.Location = new System.Drawing.Point(73, 37);
+            this.tBxWebHostname.Margin = new System.Windows.Forms.Padding(2);
             this.tBxWebHostname.Name = "tBxWebHostname";
             this.tBxWebHostname.Size = new System.Drawing.Size(146, 20);
             this.tBxWebHostname.TabIndex = 5;
@@ -146,7 +147,7 @@
             "http",
             "https"});
             this.cBxWebProtocol.Location = new System.Drawing.Point(73, 14);
-            this.cBxWebProtocol.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cBxWebProtocol.Margin = new System.Windows.Forms.Padding(2);
             this.cBxWebProtocol.Name = "cBxWebProtocol";
             this.cBxWebProtocol.Size = new System.Drawing.Size(76, 21);
             this.cBxWebProtocol.TabIndex = 4;
@@ -156,7 +157,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 18);
+            this.label1.Location = new System.Drawing.Point(10, 17);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
@@ -172,9 +173,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.tBxGitHostname);
             this.groupBox1.Location = new System.Drawing.Point(20, 163);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(374, 107);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
@@ -189,7 +190,7 @@
             "22",
             "2222"});
             this.cBxGitPort.Location = new System.Drawing.Point(73, 61);
-            this.cBxGitPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cBxGitPort.Margin = new System.Windows.Forms.Padding(2);
             this.cBxGitPort.Name = "cBxGitPort";
             this.cBxGitPort.Size = new System.Drawing.Size(62, 21);
             this.cBxGitPort.TabIndex = 10;
@@ -199,7 +200,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 61);
+            this.label6.Location = new System.Drawing.Point(10, 64);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(26, 13);
@@ -224,7 +225,7 @@
             this.cBxGitUser.Items.AddRange(new object[] {
             "git"});
             this.cBxGitUser.Location = new System.Drawing.Point(73, 16);
-            this.cBxGitUser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cBxGitUser.Margin = new System.Windows.Forms.Padding(2);
             this.cBxGitUser.Name = "cBxGitUser";
             this.cBxGitUser.Size = new System.Drawing.Size(62, 21);
             this.cBxGitUser.TabIndex = 4;
@@ -234,7 +235,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 18);
+            this.label2.Location = new System.Drawing.Point(10, 19);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
@@ -243,8 +244,8 @@
             // 
             // tBxGitHostname
             // 
-            this.tBxGitHostname.Location = new System.Drawing.Point(73, 41);
-            this.tBxGitHostname.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tBxGitHostname.Location = new System.Drawing.Point(73, 39);
+            this.tBxGitHostname.Margin = new System.Windows.Forms.Padding(2);
             this.tBxGitHostname.Name = "tBxGitHostname";
             this.tBxGitHostname.Size = new System.Drawing.Size(264, 20);
             this.tBxGitHostname.TabIndex = 0;
@@ -254,7 +255,7 @@
             // SaveButton
             // 
             this.SaveButton.Location = new System.Drawing.Point(20, 305);
-            this.SaveButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.SaveButton.Margin = new System.Windows.Forms.Padding(2);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(74, 32);
             this.SaveButton.TabIndex = 5;
@@ -267,7 +268,7 @@
             this.CancelButton.CausesValidation = false;
             this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.CancelButton.Location = new System.Drawing.Point(120, 305);
-            this.CancelButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.CancelButton.Margin = new System.Windows.Forms.Padding(2);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(74, 32);
             this.CancelButton.TabIndex = 6;
@@ -284,7 +285,6 @@
             this.AcceptButton = this.SaveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(440, 358);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SaveButton);
@@ -293,7 +293,7 @@
             this.Controls.Add(this.serverAlias);
             this.Controls.Add(this.tBxAlias);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ServerForm";
             this.Text = "Add Gin Server ";
             this.TopMost = true;
