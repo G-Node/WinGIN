@@ -4,14 +4,14 @@ using System.Windows.Forms;
 
 namespace GinClientApp.Dialogs
 {
-    public partial class ServerForm : Form
+    public partial class EditServerForm : Form
     {
 
         public string web;
         public string git;
         public string alias;
 
-        public ServerForm()
+        public EditServerForm()
         {
             InitializeComponent();
             AutoValidate = AutoValidate.Disable;

@@ -194,6 +194,9 @@ namespace GinClientApp.Dialogs
         private void ClickEditServer(object sender, EventArgs e)
         {
             MessageBox.Show("Not implemented!");
+            var editSvrForm = new EditServerForm();
+            editSvrForm.Show();
+            var result = editSvrForm.DialogResult;
         }
 
         private void ClickAddServer(object sender, EventArgs e)
