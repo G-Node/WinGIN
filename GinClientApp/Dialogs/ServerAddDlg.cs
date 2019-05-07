@@ -14,15 +14,35 @@ namespace GinClientApp.Dialogs
         public ServerForm()
         {
             InitializeComponent();
+            AutoValidate = AutoValidate.Disable;
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.OK;
-            web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text+":"+ cBxWebPort.Text;
-            alias = tBxAlias.Text;
-            git = cBxGitUser.Text+"@"+tBxGitHostname+":"+cBxWebPort;
-            Close();
+            if (ValidateChildren())
+            {
+                alias = tBxAlias.Text;
+                web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
+                git = cBxGitUser.Text + "@" + tBxGitHostname + ":" + cBxWebPort;
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Validation failed.");
+            }
+        }
+        private bool tBxAlias_Validate()
+        {
+            if (string.IsNullOrWhiteSpace(tBxAlias.Text))
+            {
+                errorProvider1.SetError(tBxAlias, "Server alias cannot be empty!");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
