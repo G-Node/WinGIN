@@ -198,13 +198,38 @@ namespace GinClientApp.Dialogs
             editSvrForm.Show();
             var result = editSvrForm.DialogResult;
         }
-
+        /// <summary>
+        /// open ServerAddDlg to get necessary information about server
+        /// all informations are saved in public strings alias, web, git
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClickAddServer(object sender, EventArgs e)
         {
             MessageBox.Show("Not implemented!");
             var svrForm = new ServerForm();
             svrForm.Show();
             var result = svrForm.DialogResult;
+            if (result == DialogResult.OK)
+            {
+                AddServer(svrForm.alias, svrForm.web, svrForm.git);
+            }
+        }
+
+        private bool AddServer(string serverAlias, string webConfiguration, string gitConfiguration)
+        {
+            ///get dictionary with servers
+            var serverDic = GetServers();
+            ///check if alias exists
+            if (serverDic.ContainsKey(serverAlias))
+            {
+                MessageBox.Show("Server with this alias already exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            _parentContext.ServiceClient.AddServer(serverAlias, webConfiguration, gitConfiguration);
+
+
+            return true;
         }
 
         private void mBtnPickDefaultMountpointDir_Click(object sender, EventArgs e)

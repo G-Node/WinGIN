@@ -37,6 +37,11 @@ namespace GinService
             return RepositoryManager.Instance.CreateNewRepository(repoName);
         }
 
+        bool IGinService.AddServer(string alias, string web, string git)
+        {
+            return RepositoryManager.Instance.AddServer(alias,web,git);
+        }
+
         void IGinService.DownloadAllUpdateInfo()
         {
             lock (this)

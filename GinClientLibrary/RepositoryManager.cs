@@ -147,6 +147,44 @@ namespace GinClientLibrary
                 return output.ToString();
             }
         }
+        /// <summary>
+        /// add new server configuration to gin-cli
+        /// </summary>
+        /// <param name="alias">new server alias</param>
+        /// <param name="web">new web configuration string http[s]://hostname:port</param>
+        /// <param name="git">new git configuration gituser@hostname:port</param>
+        /// <returns>true for succes</returns>
+        public bool AddServer(string alias, string web, string git)
+        {
+            lock (this)
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        FileName = "gin.exe",
+                        WorkingDirectory = @"C:\",
+                        Arguments = "add-server --web "+ web + " --git "+git+" "+alias ,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false
+                    }
+                };
+                StringBuilder output = new StringBuilder();
+                process.OutputDataReceived += (sender, args) => { output.AppendLine(args.Data); };
+
+                process.Start();
+                process.BeginOutputReadLine();
+                var error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                if (!IsNullOrEmpty(error) || process.ExitCode != 0)
+                    return false;
+                return true;
+            }
+        }
 
 
         public bool Login(string username, string password, string serverAlias)

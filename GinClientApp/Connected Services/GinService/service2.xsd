@@ -120,6 +120,22 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="AddServer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="alias" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="web" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="git" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddServerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddServerResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetRepositoryInfo">
     <xs:complexType>
       <xs:sequence>

@@ -80,6 +80,18 @@ namespace GinService
         [OperationContract]
         string GetRepositoryList();
 
+
+        /// <summary>
+        /// add new server configuration to gin-cli
+        /// </summary>
+        /// <param name="alias">new server alias</param>
+        /// <param name="web">new web configuration string http[s]://hostname:port</param>
+        /// <param name="git">new git configuration gituser@hostname:port</param>
+        /// <returns>true for succes</returns>
+        /// 
+        [OperationContract]
+        bool AddServer(string alias, string web, string git);
+
         /// <summary>
         ///     Get the RepoData for the repo specified by name
         /// </summary>
