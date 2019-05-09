@@ -194,9 +194,13 @@ namespace GinClientApp.Dialogs
         private void ClickEditServer(object sender, EventArgs e)
         {
             MessageBox.Show("Not implemented!");
-            var editSvrForm = new EditServerForm();
+            var svrDic = GetServers();
+            var editSvrForm = new EditServerForm
+            {
+                ServerDic = svrDic
+            };
             editSvrForm.Show();
-            var result = editSvrForm.DialogResult;
+            
         }
         /// <summary>
         /// open ServerAddDlg to get necessary information about server
@@ -212,11 +216,11 @@ namespace GinClientApp.Dialogs
             var result = svrForm.DialogResult;
             if (result == DialogResult.OK)
             {
-                AddServer(svrForm.alias, svrForm.web, svrForm.git);
+                AddNewServer(svrForm.alias, svrForm.web, svrForm.git);
             }
         }
 
-        private bool AddServer(string serverAlias, string webConfiguration, string gitConfiguration)
+        private bool AddNewServer(string serverAlias, string webConfiguration, string gitConfiguration)
         {
             ///get dictionary with servers
             var serverDic = GetServers();

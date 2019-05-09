@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GinClientLibrary;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -7,9 +9,12 @@ namespace GinClientApp.Dialogs
     public partial class EditServerForm : Form
     {
 
-        public string web;
-        public string git;
-        public string alias;
+        public string Web { get; set; }
+        public string Git { get; set; }
+        public string SelectedServer { get; set; }
+
+        public Dictionary<string, ServerConf> ServerDic { get; set; }
+        public string Alias { get; set; }
 
         public EditServerForm()
         {
@@ -21,10 +26,11 @@ namespace GinClientApp.Dialogs
         {
             if (ValidateChildren())
             {
-                alias = tBxAlias.Text;
-                web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
-                git = cBxGitUser.Text + "@" + tBxGitHostname + ":" + cBxWebPort;
+                Alias = tBxAlias.Text;
+                Web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
+                Git = cBxGitUser.Text + "@" + tBxGitHostname + ":" + cBxWebPort;
                 DialogResult = DialogResult.OK;
+                SelectedServer = tBxAlias.SelectedText;
                 Close();
             }
             else
