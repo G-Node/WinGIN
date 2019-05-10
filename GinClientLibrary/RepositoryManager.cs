@@ -169,6 +169,7 @@ namespace GinClientLibrary
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
+                        RedirectStandardInput = true,
                         UseShellExecute = false
                     }
                 };
@@ -177,6 +178,7 @@ namespace GinClientLibrary
 
                 process.Start();
                 process.BeginOutputReadLine();
+                process.StandardInput.WriteLine("yes");
                 var error = process.StandardError.ReadToEnd();
                 process.WaitForExit();
 
