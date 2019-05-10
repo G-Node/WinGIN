@@ -237,7 +237,14 @@ namespace GinClientApp.Dialogs
             }
             else
             {
-                _parentContext.ServiceClient.NewServer(serverAlias, webConfiguration, gitConfiguration);
+                if (_parentContext.ServiceClient.NewServer(serverAlias, webConfiguration, gitConfiguration))
+                {
+                    MessageBox.Show("Server added.");
+                }
+                else
+                {
+                    MessageBox.Show("Error.");
+                }
             }
 
 

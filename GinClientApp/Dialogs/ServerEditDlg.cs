@@ -37,7 +37,7 @@ namespace GinClientApp.Dialogs
             {
                 
                 Web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
-                Git = cBxGitUser.Text + "@" + tBxGitHostname + ":" + cBxWebPort;
+                Git = cBxGitUser.Text + "@" + tBxGitHostname.Text + ":" + cBxGitPort.Text;
                 SelectedServer = tBxAlias.SelectedText;
                 ServiceClient.NewServer(SelectedServer, Web, Git);
                 DialogResult = DialogResult.OK;
