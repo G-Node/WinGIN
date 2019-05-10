@@ -258,5 +258,10 @@ namespace GinService
 
             repo?.UploadFileWithMessage(filepath, message);
         }
+
+        public bool DeleteServer(string alias)
+        {
+            return RepositoryManager.Instance.DeleteServer(alias);
+        }
     }
 }

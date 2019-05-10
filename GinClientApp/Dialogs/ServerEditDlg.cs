@@ -1,4 +1,5 @@
-﻿using GinClientLibrary;
+﻿using GinClientApp.GinService;
+using GinClientLibrary;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,8 @@ namespace GinClientApp.Dialogs
 
         public Dictionary<string, ServerConf> ServerDic { get; set; }
         public string Alias { get; set; }
+
+        public IGinService ServiceClient { get; set; }
 
         public EditServerForm()
         {
@@ -161,6 +164,21 @@ namespace GinClientApp.Dialogs
         private void cBxGitPort_Validated(object sender, EventArgs e)
         {
             errorProvider1.SetError(cBxGitPort, "");
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Do you want to really delete "+ tBxAlias.SelectedText + " server configuration?","Warning!",MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                ///delete configuration
+                ServiceClient.DeleteServer(tBxAlias.SelectedText);
+
+            }
+            else
+            {
+                ///dont delete
+            }
         }
     }
 }

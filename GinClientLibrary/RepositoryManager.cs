@@ -186,6 +186,43 @@ namespace GinClientLibrary
             }
         }
 
+        /// <summary>
+        /// remove server configuration to gin-cli
+        /// </summary>
+        /// <param name="alias">delete server alias</param>
+        /// <returns>true for succes</returns>
+        public bool DeleteServer(string alias)
+        {
+            lock (this)
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        FileName = "gin.exe",
+                        WorkingDirectory = @"C:\",
+                        Arguments = "remove-server "  + alias,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false
+                    }
+                };
+                StringBuilder output = new StringBuilder();
+                process.OutputDataReceived += (sender, args) => { output.AppendLine(args.Data); };
+
+                process.Start();
+                process.BeginOutputReadLine();
+                var error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                if (!IsNullOrEmpty(error) || process.ExitCode != 0)
+                    return false;
+                return true;
+            }
+        }
+
 
         public bool Login(string username, string password, string serverAlias)
         {

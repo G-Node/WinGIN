@@ -71,7 +71,9 @@ namespace GinClientApp.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/AddServer", ReplyAction="http://tempuri.org/IGinService/AddServerResponse")]
         bool AddServer(string alias, string web, string git);
-        
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IGinService/DeleteServer", ReplyAction = "http://tempuri.org/IGinService/DeleteServerResponse")]
+        bool DeleteServer(string selectedText);
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/AddServer", ReplyAction="http://tempuri.org/IGinService/AddServerResponse")]
         System.Threading.Tasks.Task<bool> AddServerAsync(string alias, string web, string git);
         
@@ -531,6 +533,11 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task<string> GetServersAsync() {
             return base.Channel.GetServersAsync();
+        }
+
+        public bool DeleteServer(string alias)
+        {
+            return base.Channel.DeleteServer(alias);
         }
     }
 }

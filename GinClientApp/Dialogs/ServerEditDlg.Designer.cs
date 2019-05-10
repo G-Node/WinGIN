@@ -49,6 +49,7 @@
             this.CancelButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tBxAlias = new System.Windows.Forms.ComboBox();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.webGBx.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -278,12 +279,24 @@
             this.tBxAlias.Size = new System.Drawing.Size(121, 21);
             this.tBxAlias.TabIndex = 7;
             // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DeleteButton.Location = new System.Drawing.Point(299, 305);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(95, 32);
+            this.DeleteButton.TabIndex = 8;
+            this.DeleteButton.Text = "Delete Server";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            // 
             // EditServerForm
             // 
             this.AcceptButton = this.SaveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 358);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.tBxAlias);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SaveButton);
@@ -325,5 +338,6 @@
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ComboBox tBxAlias;
+        private System.Windows.Forms.Button DeleteButton;
     }
 }

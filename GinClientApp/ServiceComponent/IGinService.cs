@@ -54,6 +54,13 @@ namespace GinService
         void DeleteRepository(string repoName);
 
         /// <summary>
+        ///     Removes server configuration from gin-cli
+        /// </summary>
+        /// <param name="alias"></param>
+        [OperationContract()]
+        bool DeleteServer(string alias);
+
+        /// <summary>
         ///     Unmounts all currently managed repositories
         /// </summary>
         /// <returns></returns>

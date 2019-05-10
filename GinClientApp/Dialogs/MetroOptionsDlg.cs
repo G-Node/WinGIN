@@ -197,7 +197,8 @@ namespace GinClientApp.Dialogs
             var svrDic = GetServers();
             var editSvrForm = new EditServerForm
             {
-                ServerDic = svrDic
+                ServerDic = svrDic,
+                ServiceClient = _parentContext.ServiceClient
             };
             editSvrForm.Show();
             
