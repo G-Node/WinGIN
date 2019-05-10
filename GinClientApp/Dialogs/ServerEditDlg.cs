@@ -22,13 +22,13 @@ namespace GinClientApp.Dialogs
 
         public EditServerForm()
         {
+            InitializeComponent();
             var text = ServiceClient.GetServers();
             ServerDic  = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(text);
             AutoValidate = AutoValidate.Disable;
             tBxAlias.DisplayMember = "Key";
             tBxAlias.ValueMember = "Key";
             tBxAlias.DataSource = new BindingSource(ServerDic, null);
-            InitializeComponent();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)

@@ -202,7 +202,7 @@ namespace GinClientApp.Dialogs
 
             };
             editSvrForm.ShowDialog();
-            
+            serverMap = GetServers();
         }
         /// <summary>
         /// open ServerAddDlg to get necessary information about server
@@ -218,6 +218,7 @@ namespace GinClientApp.Dialogs
             if (result == DialogResult.OK)
             {
                 AddNewServer(svrForm.alias, svrForm.web, svrForm.git);
+                serverMap = GetServers();
             }
             else
             {
