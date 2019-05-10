@@ -1,5 +1,6 @@
 ﻿using GinClientApp.GinService;
 using GinClientLibrary;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,20 +22,25 @@ namespace GinClientApp.Dialogs
 
         public EditServerForm()
         {
-            InitializeComponent();
+            var text = ServiceClient.GetServers();
+            ServerDic  = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(text);
             AutoValidate = AutoValidate.Disable;
+            tBxAlias.DisplayMember = "Key";
+            tBxAlias.ValueMember = "Key";
+            tBxAlias.DataSource = new BindingSource(ServerDic, null);
+            InitializeComponent();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
             if (ValidateChildren())
             {
-                Alias = tBxAlias.Text;
+                
                 Web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
                 Git = cBxGitUser.Text + "@" + tBxGitHostname + ":" + cBxWebPort;
-                DialogResult = DialogResult.OK;
                 SelectedServer = tBxAlias.SelectedText;
-                Close();
+                ServiceClient.NewServer(SelectedServer, Web, Git);
+                DialogResult = DialogResult.OK;
             }
             else
             {
@@ -179,6 +185,20 @@ namespace GinClientApp.Dialogs
             {
                 ///dont delete
             }
+        }
+
+        private void tBxAlias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ///selected different server
+            ServerDic.TryGetValue(tBxAlias.SelectedText, out ServerConf selectedServer);
+            cBxWebProtocol.Text = selectedServer.Web.Protocol;
+            tBxWebHostname.Text = selectedServer.Web.Host;
+            cBxWebPort.Text = selectedServer.Web.Port;
+            cBxGitPort.Text = selectedServer.Git.Port;
+            cBxGitUser.Text = selectedServer.Git.User;
+            tBxGitHostname.Text = selectedServer.Git.Host;
+
+
         }
     }
 }

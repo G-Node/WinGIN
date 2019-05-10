@@ -97,7 +97,7 @@ namespace GinService
         /// <returns>true for succes</returns>
         /// 
         [OperationContract]
-        bool AddServer(string alias, string web, string git);
+        bool NewServer(string alias, string web, string git);
 
         /// <summary>
         ///     Get the RepoData for the repo specified by name

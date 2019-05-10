@@ -278,6 +278,7 @@
             this.tBxAlias.Name = "tBxAlias";
             this.tBxAlias.Size = new System.Drawing.Size(121, 21);
             this.tBxAlias.TabIndex = 7;
+            this.tBxAlias.SelectedIndexChanged += new System.EventHandler(this.tBxAlias_SelectedIndexChanged);
             // 
             // DeleteButton
             // 

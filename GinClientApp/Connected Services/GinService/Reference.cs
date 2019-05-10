@@ -75,11 +75,9 @@ namespace GinClientApp.GinService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetRepositoryList", ReplyAction="http://tempuri.org/IGinService/GetRepositoryListResponse")]
         System.Threading.Tasks.Task<string> GetRepositoryListAsync();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/AddServer", ReplyAction="http://tempuri.org/IGinService/AddServerResponse")]
-        bool AddServer(string alias, string web, string git);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/NewServer", ReplyAction="http://tempuri.org/IGinService/NewServerResponse")]
+        bool NewServer(string alias, string web, string git);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/AddServer", ReplyAction="http://tempuri.org/IGinService/AddServerResponse")]
-        System.Threading.Tasks.Task<bool> AddServerAsync(string alias, string web, string git);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetRepositoryInfo", ReplyAction="http://tempuri.org/IGinService/GetRepositoryInfoResponse")]
         string GetRepositoryInfo(string name);
@@ -339,13 +337,11 @@ namespace GinClientApp.GinService {
             return base.Channel.GetRepositoryListAsync();
         }
         
-        public bool AddServer(string alias, string web, string git) {
-            return base.Channel.AddServer(alias, web, git);
+        public bool NewServer(string alias, string web, string git) {
+            return base.Channel.NewServer(alias, web, git);
         }
         
-        public System.Threading.Tasks.Task<bool> AddServerAsync(string alias, string web, string git) {
-            return base.Channel.AddServerAsync(alias, web, git);
-        }
+       
         
         public string GetRepositoryInfo(string name) {
             return base.Channel.GetRepositoryInfo(name);

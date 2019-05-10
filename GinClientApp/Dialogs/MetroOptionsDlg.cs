@@ -26,6 +26,7 @@ namespace GinClientApp.Dialogs
         private readonly GinApplicationContext _parentContext;
         private readonly UserCredentials _storedCredentials;
         private readonly GlobalOptions _storedOptions;
+        private Dictionary<string, ServerConf> serverMap;
 
         protected virtual void OnRepoListingChanged()
         {
@@ -81,7 +82,7 @@ namespace GinClientApp.Dialogs
             mLblStatus.Visible = false;
             mLblWorking.Visible = false;
             mProgWorking.Visible = false;
-            var serverMap = GetServers();
+            serverMap = GetServers();
             mCBxServer.DataSource = new BindingSource(serverMap, null);
             mCBxServer.DisplayMember = "Key";
             /*
@@ -194,13 +195,13 @@ namespace GinClientApp.Dialogs
         private void ClickEditServer(object sender, EventArgs e)
         {
             MessageBox.Show("Not implemented!");
-            var svrDic = GetServers();
             var editSvrForm = new EditServerForm
             {
-                ServerDic = svrDic,
-                ServiceClient = _parentContext.ServiceClient
+                ServiceClient = _parentContext.ServiceClient,
+                ServerDic = serverMap
+
             };
-            editSvrForm.Show();
+            editSvrForm.ShowDialog();
             
         }
         /// <summary>
@@ -211,27 +212,33 @@ namespace GinClientApp.Dialogs
         /// <param name="e"></param>
         private void ClickAddServer(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented!");
             var svrForm = new ServerForm();
-            svrForm.Show();
+            svrForm.ShowDialog();
             var result = svrForm.DialogResult;
             if (result == DialogResult.OK)
             {
                 AddNewServer(svrForm.alias, svrForm.web, svrForm.git);
+            }
+            else
+            {
+                MessageBox.Show("Result not OK");
             }
         }
 
         private bool AddNewServer(string serverAlias, string webConfiguration, string gitConfiguration)
         {
             ///get dictionary with servers
-            var serverDic = GetServers();
+            serverMap = GetServers();
             ///check if alias exists
-            if (serverDic.ContainsKey(serverAlias))
+            if (serverMap.ContainsKey(serverAlias))
             {
                 MessageBox.Show("Server with this alias already exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            _parentContext.ServiceClient.AddServer(serverAlias, webConfiguration, gitConfiguration);
+            else
+            {
+                _parentContext.ServiceClient.NewServer(serverAlias, webConfiguration, gitConfiguration);
+            }
 
 
             return true;
