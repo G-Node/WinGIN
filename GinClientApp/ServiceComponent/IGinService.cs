@@ -57,7 +57,7 @@ namespace GinService
         ///     Removes server configuration from gin-cli
         /// </summary>
         /// <param name="alias"></param>
-        [OperationContract()]
+        [OperationContract]
         bool DeleteServer(string alias);
 
         /// <summary>

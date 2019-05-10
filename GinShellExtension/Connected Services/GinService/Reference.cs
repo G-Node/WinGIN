@@ -45,6 +45,12 @@ namespace GinShellExtension.GinService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/DeleteRepository", ReplyAction="http://tempuri.org/IGinService/DeleteRepositoryResponse")]
         System.Threading.Tasks.Task DeleteRepositoryAsync(string repoName);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/DeleteServer", ReplyAction="http://tempuri.org/IGinService/DeleteServerResponse")]
+        bool DeleteServer(string alias);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/DeleteServer", ReplyAction="http://tempuri.org/IGinService/DeleteServerResponse")]
+        System.Threading.Tasks.Task<bool> DeleteServerAsync(string alias);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/UnmmountAllRepositories", ReplyAction="http://tempuri.org/IGinService/UnmmountAllRepositoriesResponse")]
         bool UnmmountAllRepositories();
         
@@ -291,6 +297,14 @@ namespace GinShellExtension.GinService {
         
         public System.Threading.Tasks.Task DeleteRepositoryAsync(string repoName) {
             return base.Channel.DeleteRepositoryAsync(repoName);
+        }
+        
+        public bool DeleteServer(string alias) {
+            return base.Channel.DeleteServer(alias);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteServerAsync(string alias) {
+            return base.Channel.DeleteServerAsync(alias);
         }
         
         public bool UnmmountAllRepositories() {

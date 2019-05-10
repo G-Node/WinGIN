@@ -45,6 +45,12 @@ namespace GinClientApp.GinService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/DeleteRepository", ReplyAction="http://tempuri.org/IGinService/DeleteRepositoryResponse")]
         System.Threading.Tasks.Task DeleteRepositoryAsync(string repoName);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/DeleteServer", ReplyAction="http://tempuri.org/IGinService/DeleteServerResponse")]
+        bool DeleteServer(string alias);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/DeleteServer", ReplyAction="http://tempuri.org/IGinService/DeleteServerResponse")]
+        System.Threading.Tasks.Task<bool> DeleteServerAsync(string alias);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/UnmmountAllRepositories", ReplyAction="http://tempuri.org/IGinService/UnmmountAllRepositoriesResponse")]
         bool UnmmountAllRepositories();
         
@@ -71,9 +77,7 @@ namespace GinClientApp.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/AddServer", ReplyAction="http://tempuri.org/IGinService/AddServerResponse")]
         bool AddServer(string alias, string web, string git);
-
-        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IGinService/DeleteServer", ReplyAction = "http://tempuri.org/IGinService/DeleteServerResponse")]
-        bool DeleteServer(string selectedText);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/AddServer", ReplyAction="http://tempuri.org/IGinService/AddServerResponse")]
         System.Threading.Tasks.Task<bool> AddServerAsync(string alias, string web, string git);
         
@@ -293,6 +297,14 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task DeleteRepositoryAsync(string repoName) {
             return base.Channel.DeleteRepositoryAsync(repoName);
+        }
+        
+        public bool DeleteServer(string alias) {
+            return base.Channel.DeleteServer(alias);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteServerAsync(string alias) {
+            return base.Channel.DeleteServerAsync(alias);
         }
         
         public bool UnmmountAllRepositories() {
@@ -533,11 +545,6 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task<string> GetServersAsync() {
             return base.Channel.GetServersAsync();
-        }
-
-        public bool DeleteServer(string alias)
-        {
-            return base.Channel.DeleteServer(alias);
         }
     }
 }
