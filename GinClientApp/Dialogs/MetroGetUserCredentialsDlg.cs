@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using GinClientApp.Properties;
+using GinClientLibrary;
 using MetroFramework.Forms;
+using Newtonsoft.Json;
 
 namespace GinClientApp.Dialogs
 {
@@ -13,13 +16,18 @@ namespace GinClientApp.Dialogs
         public MetroGetUserCredentialsDlg(GinApplicationContext parentContext)
         {
             InitializeComponent();
-            //string serverJson = _parentContext.ServiceClient.GetServers();
+            string serverJson = _parentContext.ServiceClient.GetServers();
+            var ServerDic = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(serverJson);
+            mCBxServerAlias.DataSource = new BindingSource(ServerDic, null);
+            mCBxServerAlias.DisplayMember = "Key";
+            mCBxServerAlias.ValueMember = "Key";
+
             metroLabel1.TabStop = false;
             metroLabel2.TabStop = false;
 
             mLblWarning.Visible = false;
-            mCBxServerAlias.Text = "gin";
-            mCBxServerAlias.SelectedText = "gin";
+            //mCBxServerAlias.Text = "gin";
+            //mCBxServerAlias.SelectedText = "gin";
 
             _parentContext = parentContext;
             try
@@ -41,11 +49,11 @@ namespace GinClientApp.Dialogs
 
         private bool AttemptLogin()
         {
-            if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text) || string.IsNullOrEmpty(mCBxServerAlias.Text)) return false;
+            if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text) || string.IsNullOrEmpty((string)mCBxServerAlias.SelectedValue)) return false;
 
             _parentContext.ServiceClient.Logout();
 
-            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mCBxServerAlias.Text);
+            return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, (string)mCBxServerAlias.SelectedValue);
             //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
         }
 
