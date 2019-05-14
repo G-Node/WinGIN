@@ -35,6 +35,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SetDefaultServer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="alias" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDefaultServerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetDefaultServerResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="MountRepository">
     <xs:complexType>
       <xs:sequence>
@@ -134,7 +148,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddServer">
+  <xs:element name="NewServer">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="alias" nillable="true" type="xs:string" />
@@ -143,10 +157,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddServerResponse">
+  <xs:element name="NewServerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="AddServerResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="NewServerResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
