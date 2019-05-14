@@ -36,10 +36,10 @@ namespace GinClientApp.Dialogs
         private void SaveButton_Click(object sender, EventArgs e)
         {
             if (ValidateChildren())
-            {                
+            {
                 Web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
                 Git = cBxGitUser.Text + "@" + tBxGitHostname.Text + ":" + cBxGitPort.Text;
-                SelectedServer = tBxAlias.SelectedText;
+                SelectedServer = (string) tBxAlias.SelectedValue;
                 _parentContext.ServiceClient.NewServer(SelectedServer, Web, Git);
                 DialogResult = DialogResult.OK;
             }
@@ -180,6 +180,8 @@ namespace GinClientApp.Dialogs
             {
                 ///delete configuration
                 _parentContext.ServiceClient.DeleteServer((string)tBxAlias.SelectedValue);
+                var text = _parentContext.ServiceClient.GetServers();
+                ServerDic = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(text);
             }
             else
             {

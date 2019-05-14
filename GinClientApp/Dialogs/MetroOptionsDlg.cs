@@ -193,7 +193,6 @@ namespace GinClientApp.Dialogs
 
         private void ClickEditServer(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented!");
             var editSvrForm = new EditServerForm(_parentContext)
             {
                 ServerDic = serverMap
@@ -245,8 +244,6 @@ namespace GinClientApp.Dialogs
                     MessageBox.Show("Error.");
                 }
             }
-
-
             return true;
         }
 
