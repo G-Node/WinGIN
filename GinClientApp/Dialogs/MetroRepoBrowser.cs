@@ -20,10 +20,11 @@ namespace GinClientApp.Dialogs
             var repoList = JsonConvert.DeserializeObject<RepositoryListing[]>(repoListJson);
 
             if (!repoList.Any()) return;
-
+            ///change it for each server
+            string serverAddress = "gin.g-node.org";
             _repositories = repoList.OrderByDescending(listing => listing.owner.username).ToArray();
             var paths = _repositories.Select(repoListing => repoListing.full_name).ToList();
-            trVwRepositories.Nodes.Add(MakeTreeFromPaths(paths, "gin.g-node.org"));
+            trVwRepositories.Nodes.Add(MakeTreeFromPaths(paths, serverAddress));
 
             mTxBRepoDescription.Text = "";
         }

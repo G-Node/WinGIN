@@ -450,8 +450,9 @@ namespace GinClientApp.Dialogs
 
         private void serverDefaultBtn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented");
+            //MessageBox.Show("Not implemented");
             string defServerAlias = mTBAlias.Text;
+            _parentContext.ServiceClient.SetDefaultServer(defServerAlias);
         }
     }
 }

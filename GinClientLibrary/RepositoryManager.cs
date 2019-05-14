@@ -73,7 +73,7 @@ namespace GinClientLibrary
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "gin.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = "use-server "+alias,
+                        Arguments = "use-server \""+alias+"\"",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
@@ -93,6 +93,8 @@ namespace GinClientLibrary
                 return true;
             }
         }
+
+       
 
         public void Logout()
         {
