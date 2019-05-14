@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using GinClientApp.Properties;
@@ -195,9 +194,8 @@ namespace GinClientApp.Dialogs
         private void ClickEditServer(object sender, EventArgs e)
         {
             MessageBox.Show("Not implemented!");
-            var editSvrForm = new EditServerForm
+            var editSvrForm = new EditServerForm(_parentContext)
             {
-                ServiceClient = _parentContext.ServiceClient,
                 ServerDic = serverMap
 
             };
@@ -222,7 +220,7 @@ namespace GinClientApp.Dialogs
             }
             else
             {
-                MessageBox.Show("Result not OK");
+                ///do nothing
             }
         }
 

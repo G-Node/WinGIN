@@ -18,28 +18,29 @@ namespace GinClientApp.Dialogs
         public Dictionary<string, ServerConf> ServerDic { get; set; }
         public string Alias { get; set; }
 
-        public IGinService ServiceClient { get; set; }
+        private readonly GinApplicationContext _parentContext;
 
-        public EditServerForm()
+        public EditServerForm(GinApplicationContext Context)
         {
             InitializeComponent();
-            var text = ServiceClient.GetServers();
+            _parentContext = Context;
+            var text = _parentContext.ServiceClient.GetServers();          
             ServerDic  = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(text);
             AutoValidate = AutoValidate.Disable;
+            tBxAlias.DataSource = new BindingSource(ServerDic, null);
             tBxAlias.DisplayMember = "Key";
             tBxAlias.ValueMember = "Key";
-            tBxAlias.DataSource = new BindingSource(ServerDic, null);
+            FillServerInfo();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
             if (ValidateChildren())
-            {
-                
+            {                
                 Web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
                 Git = cBxGitUser.Text + "@" + tBxGitHostname.Text + ":" + cBxGitPort.Text;
                 SelectedServer = tBxAlias.SelectedText;
-                ServiceClient.NewServer(SelectedServer, Web, Git);
+                _parentContext.ServiceClient.NewServer(SelectedServer, Web, Git);
                 DialogResult = DialogResult.OK;
             }
             else
@@ -178,8 +179,7 @@ namespace GinClientApp.Dialogs
             if (result == DialogResult.Yes)
             {
                 ///delete configuration
-                ServiceClient.DeleteServer(tBxAlias.SelectedText);
-
+                _parentContext.ServiceClient.DeleteServer(tBxAlias.SelectedText);
             }
             else
             {
@@ -189,16 +189,17 @@ namespace GinClientApp.Dialogs
 
         private void tBxAlias_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ///selected different server
-            ServerDic.TryGetValue(tBxAlias.SelectedText, out ServerConf selectedServer);
+            FillServerInfo();
+        }
+
+        private void FillServerInfo() {
+            var selectedServer = ServerDic[(string)tBxAlias.SelectedValue];
             cBxWebProtocol.Text = selectedServer.Web.Protocol;
             tBxWebHostname.Text = selectedServer.Web.Host;
             cBxWebPort.Text = selectedServer.Web.Port;
             cBxGitPort.Text = selectedServer.Git.Port;
             cBxGitUser.Text = selectedServer.Git.User;
             tBxGitHostname.Text = selectedServer.Git.Host;
-
-
         }
     }
 }
