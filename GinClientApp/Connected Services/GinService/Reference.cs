@@ -195,7 +195,10 @@ namespace GinClientApp.GinService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetGinCliVersion", ReplyAction="http://tempuri.org/IGinService/GetGinCliVersionResponse")]
         string GetGinCliVersion();
-        
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IGinService/SetDefSvr", ReplyAction = "http://tempuri.org/IGinService/SetDefSvrResponse")]
+        bool SetDefaultSvr(string alias);
+
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetGinCliVersion", ReplyAction="http://tempuri.org/IGinService/GetGinCliVersionResponse")]
         System.Threading.Tasks.Task<string> GetGinCliVersionAsync();
         
@@ -541,6 +544,11 @@ namespace GinClientApp.GinService {
         
         public System.Threading.Tasks.Task<string> GetServersAsync() {
             return base.Channel.GetServersAsync();
+        }
+
+        public bool SetDefaultSvr(string alias)
+        {
+            return base.Channel.SetDefaultSvr(alias);
         }
     }
 }
