@@ -75,6 +75,20 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="DeleteServer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="alias" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteServerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteServerResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="UnmmountAllRepositories">
     <xs:complexType>
       <xs:sequence />
@@ -117,6 +131,22 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="GetRepositoryListResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddServer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="alias" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="web" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="git" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddServerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddServerResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using GinClientApp.Properties;
@@ -26,6 +25,7 @@ namespace GinClientApp.Dialogs
         private readonly GinApplicationContext _parentContext;
         private readonly UserCredentials _storedCredentials;
         private readonly GlobalOptions _storedOptions;
+        private Dictionary<string, ServerConf> serverMap;
 
         protected virtual void OnRepoListingChanged()
         {
@@ -81,7 +81,7 @@ namespace GinClientApp.Dialogs
             mLblStatus.Visible = false;
             mLblWorking.Visible = false;
             mProgWorking.Visible = false;
-            var serverMap = GetServers();
+            serverMap = GetServers();
             mCBxServer.DataSource = new BindingSource(serverMap, null);
             mCBxServer.DisplayMember = "Key";
             /*
@@ -193,18 +193,58 @@ namespace GinClientApp.Dialogs
 
         private void ClickEditServer(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented!");
-            var editSvrForm = new EditServerForm();
-            editSvrForm.Show();
-            var result = editSvrForm.DialogResult;
-        }
+            var editSvrForm = new EditServerForm(_parentContext)
+            {
+                ServerDic = serverMap
 
+            };
+            editSvrForm.ShowDialog();
+            serverMap = GetServers();
+        }
+        /// <summary>
+        /// open ServerAddDlg to get necessary information about server
+        /// all informations are saved in public strings alias, web, git
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClickAddServer(object sender, EventArgs e)
         {
-            MessageBox.Show("Not implemented!");
             var svrForm = new ServerForm();
-            svrForm.Show();
+            svrForm.ShowDialog();
             var result = svrForm.DialogResult;
+            if (result == DialogResult.OK)
+            {
+                AddNewServer(svrForm.alias, svrForm.web, svrForm.git);
+                serverMap = GetServers();
+            }
+            else
+            {
+                ///do nothing
+            }
+        }
+
+        private bool AddNewServer(string serverAlias, string webConfiguration, string gitConfiguration)
+        {
+            ///get dictionary with servers
+            serverMap = GetServers();
+            ///check if alias exists
+            if (serverMap.ContainsKey(serverAlias))
+            {
+                MessageBox.Show("Server with this alias already exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                if (_parentContext.ServiceClient.NewServer(serverAlias, webConfiguration, gitConfiguration))
+                {
+                    MessageBox.Show("Server added.");
+                }
+                else
+                {
+                    MessageBox.Show("Error.");
+                }
+            }
+            return true;
         }
 
         private void mBtnPickDefaultMountpointDir_Click(object sender, EventArgs e)

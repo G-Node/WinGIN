@@ -37,6 +37,11 @@ namespace GinService
             return RepositoryManager.Instance.CreateNewRepository(repoName);
         }
 
+        bool IGinService.NewServer(string alias, string web, string git)
+        {
+            return RepositoryManager.Instance.AddServer(alias,web,git);
+        }
+
         void IGinService.DownloadAllUpdateInfo()
         {
             lock (this)
@@ -252,6 +257,11 @@ namespace GinService
             var repo = string.Compare(repoName, "%EMPTYSTRING%", StringComparison.Ordinal) == 0 ? RepositoryManager.Instance.GetRepoByPath(filepath) : RepositoryManager.Instance.GetRepoByName(repoName);
 
             repo?.UploadFileWithMessage(filepath, message);
+        }
+
+        bool IGinService.DeleteServer(string alias)
+        {
+            return RepositoryManager.Instance.DeleteServer(alias);
         }
     }
 }

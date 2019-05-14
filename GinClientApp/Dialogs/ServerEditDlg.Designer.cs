@@ -49,6 +49,7 @@
             this.CancelButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tBxAlias = new System.Windows.Forms.ComboBox();
+            this.DeleteButton = new System.Windows.Forms.Button();
             this.webGBx.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -77,7 +78,7 @@
             this.webGBx.Margin = new System.Windows.Forms.Padding(2);
             this.webGBx.Name = "webGBx";
             this.webGBx.Padding = new System.Windows.Forms.Padding(2);
-            this.webGBx.Size = new System.Drawing.Size(374, 96);
+            this.webGBx.Size = new System.Drawing.Size(337, 96);
             this.webGBx.TabIndex = 2;
             this.webGBx.TabStop = false;
             this.webGBx.Text = "Web";
@@ -123,7 +124,7 @@
             this.tBxWebHostname.Location = new System.Drawing.Point(73, 37);
             this.tBxWebHostname.Margin = new System.Windows.Forms.Padding(2);
             this.tBxWebHostname.Name = "tBxWebHostname";
-            this.tBxWebHostname.Size = new System.Drawing.Size(146, 20);
+            this.tBxWebHostname.Size = new System.Drawing.Size(201, 20);
             this.tBxWebHostname.TabIndex = 5;
             this.tBxWebHostname.Validating += new System.ComponentModel.CancelEventHandler(this.tBxWebHostname_Validating);
             this.tBxWebHostname.Validated += new System.EventHandler(this.tBxWebHostname_Validated);
@@ -166,7 +167,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(374, 107);
+            this.groupBox1.Size = new System.Drawing.Size(337, 107);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Git";
@@ -237,7 +238,7 @@
             this.tBxGitHostname.Location = new System.Drawing.Point(73, 39);
             this.tBxGitHostname.Margin = new System.Windows.Forms.Padding(2);
             this.tBxGitHostname.Name = "tBxGitHostname";
-            this.tBxGitHostname.Size = new System.Drawing.Size(264, 20);
+            this.tBxGitHostname.Size = new System.Drawing.Size(201, 20);
             this.tBxGitHostname.TabIndex = 0;
             this.tBxGitHostname.Validating += new System.ComponentModel.CancelEventHandler(this.tBxGitHostname_Validating);
             this.tBxGitHostname.Validated += new System.EventHandler(this.tBxGitHostname_Validated);
@@ -277,13 +278,27 @@
             this.tBxAlias.Name = "tBxAlias";
             this.tBxAlias.Size = new System.Drawing.Size(121, 21);
             this.tBxAlias.TabIndex = 7;
+            this.tBxAlias.SelectedIndexChanged += new System.EventHandler(this.tBxAlias_SelectedIndexChanged);
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.DeleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DeleteButton.Location = new System.Drawing.Point(262, 305);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(95, 32);
+            this.DeleteButton.TabIndex = 8;
+            this.DeleteButton.Text = "Delete Server";
+            this.DeleteButton.UseVisualStyleBackColor = true;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // EditServerForm
             // 
             this.AcceptButton = this.SaveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 358);
+            this.ClientSize = new System.Drawing.Size(370, 358);
+            this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.tBxAlias);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SaveButton);
@@ -293,7 +308,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EditServerForm";
-            this.Text = "Add Gin Server ";
+            this.Text = "Edit Gin Server ";
             this.TopMost = true;
             this.webGBx.ResumeLayout(false);
             this.webGBx.PerformLayout();
@@ -325,5 +340,6 @@
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ComboBox tBxAlias;
+        private System.Windows.Forms.Button DeleteButton;
     }
 }

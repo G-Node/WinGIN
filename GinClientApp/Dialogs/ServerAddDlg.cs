@@ -23,7 +23,7 @@ namespace GinClientApp.Dialogs
             {
                 alias = tBxAlias.Text;
                 web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
-                git = cBxGitUser.Text + "@" + tBxGitHostname + ":" + cBxWebPort;
+                git =cBxGitUser.Text + "@" + tBxGitHostname.Text + ":" + cBxGitPort.Text;
                 DialogResult = DialogResult.OK;
                 Close();
             }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GinClientApp.GinService;
+using GinClientLibrary;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -7,25 +11,37 @@ namespace GinClientApp.Dialogs
     public partial class EditServerForm : Form
     {
 
-        public string web;
-        public string git;
-        public string alias;
+        public string Web { get; set; }
+        public string Git { get; set; }
+        public string SelectedServer { get; set; }
 
-        public EditServerForm()
+        public Dictionary<string, ServerConf> ServerDic { get; set; }
+        public string Alias { get; set; }
+
+        private readonly GinApplicationContext _parentContext;
+
+        public EditServerForm(GinApplicationContext Context)
         {
             InitializeComponent();
+            _parentContext = Context;
+            var text = _parentContext.ServiceClient.GetServers();          
+            ServerDic  = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(text);
             AutoValidate = AutoValidate.Disable;
+            tBxAlias.DataSource = new BindingSource(ServerDic, null);
+            tBxAlias.DisplayMember = "Key";
+            tBxAlias.ValueMember = "Key";
+            FillServerInfo();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
             if (ValidateChildren())
             {
-                alias = tBxAlias.Text;
-                web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
-                git = cBxGitUser.Text + "@" + tBxGitHostname + ":" + cBxWebPort;
+                Web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
+                Git = cBxGitUser.Text + "@" + tBxGitHostname.Text + ":" + cBxGitPort.Text;
+                SelectedServer = (string) tBxAlias.SelectedValue;
+                _parentContext.ServiceClient.NewServer(SelectedServer, Web, Git);
                 DialogResult = DialogResult.OK;
-                Close();
             }
             else
             {
@@ -155,6 +171,37 @@ namespace GinClientApp.Dialogs
         private void cBxGitPort_Validated(object sender, EventArgs e)
         {
             errorProvider1.SetError(cBxGitPort, "");
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Do you want to really delete "+ (string)tBxAlias.SelectedValue + " server configuration?","Warning!",MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                ///delete configuration
+                _parentContext.ServiceClient.DeleteServer((string)tBxAlias.SelectedValue);
+                var text = _parentContext.ServiceClient.GetServers();
+                ServerDic = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(text);
+            }
+            else
+            {
+                ///dont delete
+            }
+        }
+
+        private void tBxAlias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FillServerInfo();
+        }
+
+        private void FillServerInfo() {
+            var selectedServer = ServerDic[(string)tBxAlias.SelectedValue];
+            cBxWebProtocol.Text = selectedServer.Web.Protocol;
+            tBxWebHostname.Text = selectedServer.Web.Host;
+            cBxWebPort.Text = selectedServer.Web.Port;
+            cBxGitPort.Text = selectedServer.Git.Port;
+            cBxGitUser.Text = selectedServer.Git.User;
+            tBxGitHostname.Text = selectedServer.Git.Host;
         }
     }
 }
