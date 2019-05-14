@@ -105,6 +105,7 @@
             this.cBxWebPort.Name = "cBxWebPort";
             this.cBxWebPort.Size = new System.Drawing.Size(62, 21);
             this.cBxWebPort.TabIndex = 8;
+            this.cBxWebPort.Text = "443";
             this.cBxWebPort.Validating += new System.ComponentModel.CancelEventHandler(this.Port_Validating);
             this.cBxWebPort.Validated += new System.EventHandler(this.cBxWebPort_Validated);
             // 
@@ -151,6 +152,7 @@
             this.cBxWebProtocol.Name = "cBxWebProtocol";
             this.cBxWebProtocol.Size = new System.Drawing.Size(76, 21);
             this.cBxWebProtocol.TabIndex = 4;
+            this.cBxWebProtocol.Text = "https";
             this.cBxWebProtocol.Validating += new System.ComponentModel.CancelEventHandler(this.cBxWebProtocol_Validating);
             this.cBxWebProtocol.Validated += new System.EventHandler(this.cBxWebProtocol_Validated);
             // 
@@ -194,6 +196,7 @@
             this.cBxGitPort.Name = "cBxGitPort";
             this.cBxGitPort.Size = new System.Drawing.Size(62, 21);
             this.cBxGitPort.TabIndex = 10;
+            this.cBxGitPort.Text = "22";
             this.cBxGitPort.Validating += new System.ComponentModel.CancelEventHandler(this.cBxGitPort_Validating);
             this.cBxGitPort.Validated += new System.EventHandler(this.cBxGitPort_Validated);
             // 
@@ -229,6 +232,7 @@
             this.cBxGitUser.Name = "cBxGitUser";
             this.cBxGitUser.Size = new System.Drawing.Size(62, 21);
             this.cBxGitUser.TabIndex = 4;
+            this.cBxGitUser.Text = "git";
             this.cBxGitUser.Validating += new System.ComponentModel.CancelEventHandler(this.cBxGitUser_Validating);
             this.cBxGitUser.Validated += new System.EventHandler(this.cBxGitUser_Validated);
             // 

@@ -237,7 +237,7 @@ namespace GinClientLibrary
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "cmd.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = @"/C gin.exe login " + username +" --server "+serverAlias,
+                        Arguments = @"/C gin.exe login " + username +" --server "+ "\""+serverAlias+"\"",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
