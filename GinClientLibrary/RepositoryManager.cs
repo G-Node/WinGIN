@@ -165,7 +165,7 @@ namespace GinClientLibrary
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "gin.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = "add-server --web "+ web + " --git "+git+" "+alias ,
+                        Arguments = "add-server --web "+ web + " --git "+git+" "+ "\""+alias+"\"" ,
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
