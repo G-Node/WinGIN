@@ -175,11 +175,11 @@ namespace GinClientApp.Dialogs
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Do you want to really delete "+ tBxAlias.SelectedText + " server configuration?","Warning!",MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var result = MessageBox.Show("Do you want to really delete "+ (string)tBxAlias.SelectedValue + " server configuration?","Warning!",MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
                 ///delete configuration
-                _parentContext.ServiceClient.DeleteServer(tBxAlias.SelectedText);
+                _parentContext.ServiceClient.DeleteServer((string)tBxAlias.SelectedValue);
             }
             else
             {
