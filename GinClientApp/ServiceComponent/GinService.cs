@@ -32,6 +32,11 @@ namespace GinService
             return RepositoryManager.Instance.GetServers();
         }
 
+        bool IGinService.SetDefaultServer(string alias)
+        {
+            return RepositoryManager.Instance.SetDefaultSvr(alias);
+        }
+
         bool IGinService.CreateNewRepository(string repoName)
         {
             return RepositoryManager.Instance.CreateNewRepository(repoName);
