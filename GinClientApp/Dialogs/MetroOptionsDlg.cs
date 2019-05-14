@@ -26,6 +26,7 @@ namespace GinClientApp.Dialogs
         private readonly UserCredentials _storedCredentials;
         private readonly GlobalOptions _storedOptions;
         private Dictionary<string, ServerConf> serverMap;
+        private BindingSource bs;
 
         protected virtual void OnRepoListingChanged()
         {
@@ -82,7 +83,8 @@ namespace GinClientApp.Dialogs
             mLblWorking.Visible = false;
             mProgWorking.Visible = false;
             serverMap = GetServers();
-            mCBxServer.DataSource = new BindingSource(serverMap, null);
+            bs = new BindingSource(serverMap, null);
+            mCBxServer.DataSource = bs;
             mCBxServer.DisplayMember = "Key";
             /*
             mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Username");
@@ -200,6 +202,7 @@ namespace GinClientApp.Dialogs
             };
             editSvrForm.ShowDialog();
             serverMap = GetServers();
+            bs.ResetBindings(false);
         }
         /// <summary>
         /// open ServerAddDlg to get necessary information about server
@@ -221,6 +224,7 @@ namespace GinClientApp.Dialogs
             {
                 ///do nothing
             }
+            bs.ResetBindings(false);
         }
 
         private bool AddNewServer(string serverAlias, string webConfiguration, string gitConfiguration)
