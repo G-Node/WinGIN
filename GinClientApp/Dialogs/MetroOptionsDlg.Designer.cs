@@ -80,6 +80,7 @@ namespace GinClientApp.Dialogs
             this.mProgWorking = new MetroFramework.Controls.MetroProgressSpinner();
             this.mLblWorking = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.serverDefaultBtn = new System.Windows.Forms.Button();
             this.mTabCtrl.SuspendLayout();
             this.tpUser.SuspendLayout();
             this.metroPanel1.SuspendLayout();
@@ -120,6 +121,7 @@ namespace GinClientApp.Dialogs
             // 
             // metroPanel1
             // 
+            this.metroPanel1.Controls.Add(this.serverDefaultBtn);
             this.metroPanel1.Controls.Add(this.mCBxServer);
             this.metroPanel1.Controls.Add(this.button2);
             this.metroPanel1.Controls.Add(this.button1);
@@ -141,7 +143,7 @@ namespace GinClientApp.Dialogs
             // 
             this.mCBxServer.FormattingEnabled = true;
             this.mCBxServer.Location = new System.Drawing.Point(78, 22);
-            this.mCBxServer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.mCBxServer.Margin = new System.Windows.Forms.Padding(2);
             this.mCBxServer.Name = "mCBxServer";
             this.mCBxServer.Size = new System.Drawing.Size(200, 21);
             this.mCBxServer.TabIndex = 14;
@@ -149,8 +151,8 @@ namespace GinClientApp.Dialogs
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(366, 18);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Location = new System.Drawing.Point(383, 18);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(70, 27);
             this.button2.TabIndex = 13;
@@ -160,8 +162,8 @@ namespace GinClientApp.Dialogs
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(292, 18);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(457, 18);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(70, 27);
             this.button1.TabIndex = 12;
@@ -191,9 +193,9 @@ namespace GinClientApp.Dialogs
             this.groupBox1.Controls.Add(this.mLblStatus);
             this.groupBox1.Controls.Add(this.mTxBPassword);
             this.groupBox1.Location = new System.Drawing.Point(8, 64);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(506, 223);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
@@ -206,9 +208,9 @@ namespace GinClientApp.Dialogs
             // 
             // 
             this.mTBAlias.CustomButton.Image = null;
-            this.mTBAlias.CustomButton.Location = new System.Drawing.Point(169, 1);
+            this.mTBAlias.CustomButton.Location = new System.Drawing.Point(338, 1);
             this.mTBAlias.CustomButton.Name = "";
-            this.mTBAlias.CustomButton.Size = new System.Drawing.Size(10, 11);
+            this.mTBAlias.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mTBAlias.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTBAlias.CustomButton.TabIndex = 1;
             this.mTBAlias.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -267,9 +269,9 @@ namespace GinClientApp.Dialogs
             // 
             // 
             this.mTxBUsername.CustomButton.Image = null;
-            this.mTxBUsername.CustomButton.Location = new System.Drawing.Point(169, 1);
+            this.mTxBUsername.CustomButton.Location = new System.Drawing.Point(338, 1);
             this.mTxBUsername.CustomButton.Name = "";
-            this.mTxBUsername.CustomButton.Size = new System.Drawing.Size(10, 11);
+            this.mTxBUsername.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mTxBUsername.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBUsername.CustomButton.TabIndex = 1;
             this.mTxBUsername.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -313,9 +315,9 @@ namespace GinClientApp.Dialogs
             // 
             // 
             this.mTxBPassword.CustomButton.Image = null;
-            this.mTxBPassword.CustomButton.Location = new System.Drawing.Point(169, 1);
+            this.mTxBPassword.CustomButton.Location = new System.Drawing.Point(338, 1);
             this.mTxBPassword.CustomButton.Name = "";
-            this.mTxBPassword.CustomButton.Size = new System.Drawing.Size(10, 11);
+            this.mTxBPassword.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mTxBPassword.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBPassword.CustomButton.TabIndex = 1;
             this.mTxBPassword.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -422,9 +424,9 @@ namespace GinClientApp.Dialogs
             // 
             // 
             this.mTxBDefaultMountpoint.CustomButton.Image = null;
-            this.mTxBDefaultMountpoint.CustomButton.Location = new System.Drawing.Point(145, 1);
+            this.mTxBDefaultMountpoint.CustomButton.Location = new System.Drawing.Point(290, 1);
             this.mTxBDefaultMountpoint.CustomButton.Name = "";
-            this.mTxBDefaultMountpoint.CustomButton.Size = new System.Drawing.Size(10, 11);
+            this.mTxBDefaultMountpoint.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mTxBDefaultMountpoint.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBDefaultMountpoint.CustomButton.TabIndex = 1;
             this.mTxBDefaultMountpoint.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -477,9 +479,9 @@ namespace GinClientApp.Dialogs
             // 
             // 
             this.mTxBDefaultCheckout.CustomButton.Image = null;
-            this.mTxBDefaultCheckout.CustomButton.Location = new System.Drawing.Point(145, 1);
+            this.mTxBDefaultCheckout.CustomButton.Location = new System.Drawing.Point(290, 1);
             this.mTxBDefaultCheckout.CustomButton.Name = "";
-            this.mTxBDefaultCheckout.CustomButton.Size = new System.Drawing.Size(10, 11);
+            this.mTxBDefaultCheckout.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mTxBDefaultCheckout.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBDefaultCheckout.CustomButton.TabIndex = 1;
             this.mTxBDefaultCheckout.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -725,9 +727,9 @@ namespace GinClientApp.Dialogs
             // 
             // 
             this.mTxBGinCliVersion.CustomButton.Image = null;
-            this.mTxBGinCliVersion.CustomButton.Location = new System.Drawing.Point(194, 1);
+            this.mTxBGinCliVersion.CustomButton.Location = new System.Drawing.Point(387, 1);
             this.mTxBGinCliVersion.CustomButton.Name = "";
-            this.mTxBGinCliVersion.CustomButton.Size = new System.Drawing.Size(10, 11);
+            this.mTxBGinCliVersion.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mTxBGinCliVersion.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBGinCliVersion.CustomButton.TabIndex = 1;
             this.mTxBGinCliVersion.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -816,6 +818,17 @@ namespace GinClientApp.Dialogs
             this.metroLabel5.TabIndex = 19;
             this.metroLabel5.Text = "Options";
             // 
+            // serverDefaultBtn
+            // 
+            this.serverDefaultBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.serverDefaultBtn.Location = new System.Drawing.Point(284, 21);
+            this.serverDefaultBtn.Name = "serverDefaultBtn";
+            this.serverDefaultBtn.Size = new System.Drawing.Size(80, 24);
+            this.serverDefaultBtn.TabIndex = 15;
+            this.serverDefaultBtn.Text = "Set Default";
+            this.serverDefaultBtn.UseVisualStyleBackColor = true;
+            this.serverDefaultBtn.Click += new System.EventHandler(this.serverDefaultBtn_Click);
+            // 
             // MetroOptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -901,5 +914,6 @@ namespace GinClientApp.Dialogs
         private System.Windows.Forms.Label lServer;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox mCBxServer;
+        private System.Windows.Forms.Button serverDefaultBtn;
     }
 }

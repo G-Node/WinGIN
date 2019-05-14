@@ -447,5 +447,11 @@ namespace GinClientApp.Dialogs
                     break;
             }
         }
+
+        private void serverDefaultBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Not implemented");
+            string defServerAlias = mTBAlias.Text;
+        }
     }
 }
