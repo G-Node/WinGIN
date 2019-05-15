@@ -219,7 +219,7 @@ namespace GinClientApp.Dialogs
 
             };
             editSvrForm.ShowDialog();
-            serverMap = GetServers();
+            
             RefreshBinding();
         }
         /// <summary>
@@ -236,7 +236,6 @@ namespace GinClientApp.Dialogs
             if (result == DialogResult.OK)
             {
                 AddNewServer(svrForm.alias, svrForm.web, svrForm.git);
-                serverMap = GetServers();
             }
             else
             {
@@ -470,13 +469,25 @@ namespace GinClientApp.Dialogs
         {
             defServerAlias = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
             _parentContext.ServiceClient.SetDefaultServer(defServerAlias);
+            RefreshBinding();
         }
 
+        /// <summary>
+        /// refreshes list of servers
+        /// </summary>
         private void RefreshBinding()
         {
-            mCBxServer.Items.Clear();
-            bs.ResetBindings(false);
+            var index = mCBxServer.SelectedIndex;
+            serverMap = GetServers();
+            //bs.ResetBindings(true);
+            bs = new BindingSource(serverMap, null);
             mCBxServer.DataSource = bs;
+            try
+            {
+                mCBxServer.SelectedIndex = index;
+            }
+            catch { }
+
         }
 
         private void mCBxServer_Format(object sender, ListControlConvertEventArgs e)
