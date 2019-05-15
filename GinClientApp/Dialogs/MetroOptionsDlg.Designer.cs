@@ -34,6 +34,7 @@ namespace GinClientApp.Dialogs
             this.mTabCtrl = new MetroFramework.Controls.MetroTabControl();
             this.tpUser = new System.Windows.Forms.TabPage();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.serverDefaultBtn = new System.Windows.Forms.Button();
             this.mCBxServer = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -80,7 +81,6 @@ namespace GinClientApp.Dialogs
             this.mProgWorking = new MetroFramework.Controls.MetroProgressSpinner();
             this.mLblWorking = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
-            this.serverDefaultBtn = new System.Windows.Forms.Button();
             this.mTabCtrl.SuspendLayout();
             this.tpUser.SuspendLayout();
             this.metroPanel1.SuspendLayout();
@@ -139,6 +139,17 @@ namespace GinClientApp.Dialogs
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
             // 
+            // serverDefaultBtn
+            // 
+            this.serverDefaultBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.serverDefaultBtn.Location = new System.Drawing.Point(284, 21);
+            this.serverDefaultBtn.Name = "serverDefaultBtn";
+            this.serverDefaultBtn.Size = new System.Drawing.Size(80, 24);
+            this.serverDefaultBtn.TabIndex = 15;
+            this.serverDefaultBtn.Text = "Set Default";
+            this.serverDefaultBtn.UseVisualStyleBackColor = true;
+            this.serverDefaultBtn.Click += new System.EventHandler(this.serverDefaultBtn_Click);
+            // 
             // mCBxServer
             // 
             this.mCBxServer.FormattingEnabled = true;
@@ -148,6 +159,7 @@ namespace GinClientApp.Dialogs
             this.mCBxServer.Size = new System.Drawing.Size(200, 21);
             this.mCBxServer.TabIndex = 14;
             this.mCBxServer.SelectedIndexChanged += new System.EventHandler(this.serverChanged);
+            this.mCBxServer.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.mCBxServer_Format);
             // 
             // button2
             // 
@@ -817,17 +829,6 @@ namespace GinClientApp.Dialogs
             this.metroLabel5.Size = new System.Drawing.Size(72, 25);
             this.metroLabel5.TabIndex = 19;
             this.metroLabel5.Text = "Options";
-            // 
-            // serverDefaultBtn
-            // 
-            this.serverDefaultBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.serverDefaultBtn.Location = new System.Drawing.Point(284, 21);
-            this.serverDefaultBtn.Name = "serverDefaultBtn";
-            this.serverDefaultBtn.Size = new System.Drawing.Size(80, 24);
-            this.serverDefaultBtn.TabIndex = 15;
-            this.serverDefaultBtn.Text = "Set Default";
-            this.serverDefaultBtn.UseVisualStyleBackColor = true;
-            this.serverDefaultBtn.Click += new System.EventHandler(this.serverDefaultBtn_Click);
             // 
             // MetroOptionsDlg
             // 

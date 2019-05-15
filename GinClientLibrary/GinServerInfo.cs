@@ -10,6 +10,15 @@ namespace GinClientLibrary
         public WebCfg Web { get; set; }
         [DataMember]
         public GitCfg Git { get; set; }
+        [DataMember]
+        public bool Default { get; set; }
+
+        public override string ToString()
+        {
+            if (Default)
+                return " [Default] ";
+            else return null;
+        }
     }
 
     public class WebCfg
@@ -32,4 +41,7 @@ namespace GinClientLibrary
         [DataMember]
         string HostKey { get; set; }
     }
+
+    
+
 }

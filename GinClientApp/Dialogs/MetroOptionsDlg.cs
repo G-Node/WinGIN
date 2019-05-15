@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -27,6 +28,7 @@ namespace GinClientApp.Dialogs
         private readonly GlobalOptions _storedOptions;
         private Dictionary<string, ServerConf> serverMap;
         private BindingSource bs;
+        private string defServerAlias;
 
         protected virtual void OnRepoListingChanged()
         {
@@ -34,8 +36,13 @@ namespace GinClientApp.Dialogs
         }
         private void serverChanged(object sender, EventArgs e)
         {
-           
-            var serv = mCBxServer.Text;
+            /*
+            foreach (KeyValuePair<string, ServerConf> server in bs.List)
+            {
+                if(server.Key.Equals(defServerAlias))
+            }
+            */
+            var serv = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
             var logins = UserCredentials.Instance.loginList;
             var selectedLogin = logins.Find(x => x.Server.Equals(serv));
 
@@ -83,15 +90,22 @@ namespace GinClientApp.Dialogs
             mLblWorking.Visible = false;
             mProgWorking.Visible = false;
             serverMap = GetServers();
+            foreach (var server in serverMap)
+            {
+                if (server.Value.Default)
+                    defServerAlias = server.Key;
+            }
             bs = new BindingSource(serverMap, null);
             mCBxServer.DataSource = bs;
-            mCBxServer.DisplayMember = "Key";
+            //mCBxServer.FormatString = {"","" };
+            //mCBxServer.DisplayMember = "Key";
             /*
             mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Username");
             mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Password");
             mTBAlias.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Server");
             */
-            mTBAlias.Text = mCBxServer.Text;
+            mTBAlias.Text = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
+            
             var logins = UserCredentials.Instance.loginList;
             var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
             mTxBPassword.Text = selectedLogin.Password;
@@ -137,6 +151,10 @@ namespace GinClientApp.Dialogs
             mTabCtrl.SelectTab((int) page);
         }
 
+        /// <summary>
+        /// parse json string with server information into dictionary alias, ServerConf
+        /// </summary>
+        /// <returns>server information in dictionary alias, serverConf</returns>
         private Dictionary<string, ServerConf> GetServers()
         {
             string serverJson = _parentContext.ServiceClient.GetServers();
@@ -202,7 +220,7 @@ namespace GinClientApp.Dialogs
             };
             editSvrForm.ShowDialog();
             serverMap = GetServers();
-            bs.ResetBindings(false);
+            RefreshBinding();
         }
         /// <summary>
         /// open ServerAddDlg to get necessary information about server
@@ -224,7 +242,7 @@ namespace GinClientApp.Dialogs
             {
                 ///do nothing
             }
-            bs.ResetBindings(false);
+            RefreshBinding();
         }
 
         private bool AddNewServer(string serverAlias, string webConfiguration, string gitConfiguration)
@@ -450,9 +468,22 @@ namespace GinClientApp.Dialogs
 
         private void serverDefaultBtn_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Not implemented");
-            string defServerAlias = mTBAlias.Text;
+            defServerAlias = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
             _parentContext.ServiceClient.SetDefaultServer(defServerAlias);
+        }
+
+        private void RefreshBinding()
+        {
+            mCBxServer.Items.Clear();
+            bs.ResetBindings(false);
+            mCBxServer.DataSource = bs;
+        }
+
+        private void mCBxServer_Format(object sender, ListControlConvertEventArgs e)
+        {
+            string alias = ((KeyValuePair<string, ServerConf>)e.ListItem).Key;
+            string def = ((KeyValuePair<string, ServerConf>)e.ListItem).Value.ToString();
+            e.Value = alias + def;
         }
     }
 }
