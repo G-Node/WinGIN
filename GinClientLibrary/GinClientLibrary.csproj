@@ -75,6 +75,7 @@
     <Compile Include="Extensions\DirectoryInfoExtension.cs" />
     <Compile Include="GinRepository.cs" />
     <Compile Include="GinRepositoryData.cs" />
+    <Compile Include="GinServerInfo.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryListing.cs" />

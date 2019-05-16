@@ -34,6 +34,14 @@ namespace GinService
         bool CreateNewRepository(string repoName);
 
         /// <summary>
+        ///     Sets the default server
+        /// </summary>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool SetDefaultServer(string alias);
+
+        /// <summary>
         ///     Unmounts a repository.
         /// </summary>
         /// <param name="repoName"></param>
@@ -52,11 +60,19 @@ namespace GinService
         void DeleteRepository(string repoName);
 
         /// <summary>
+        ///     Removes server configuration from gin-cli
+        /// </summary>
+        /// <param name="alias"></param>
+        [OperationContract]
+        bool DeleteServer(string alias);
+
+        /// <summary>
         ///     Unmounts all currently managed repositories
         /// </summary>
         /// <returns></returns>
         [OperationContract]
         bool UnmmountAllRepositories();
+
 
         /// <summary>
         ///     Logs a user into GIN
@@ -65,7 +81,7 @@ namespace GinService
         /// <param name="password"></param>
         /// <returns></returns>
         [OperationContract]
-        bool Login(string username, string password);
+        bool Login(string username, string password, string serverAlias);
 
         [OperationContract(IsOneWay = true)]
         void Logout();
@@ -76,6 +92,18 @@ namespace GinService
         /// <returns>A JSON representation of a GinRepositoryData array</returns>
         [OperationContract]
         string GetRepositoryList();
+
+
+        /// <summary>
+        /// add new server configuration to gin-cli
+        /// </summary>
+        /// <param name="alias">new server alias</param>
+        /// <param name="web">new web configuration string http[s]://hostname:port</param>
+        /// <param name="git">new git configuration gituser@hostname:port</param>
+        /// <returns>true for succes</returns>
+        /// 
+        [OperationContract]
+        bool NewServer(string alias, string web, string git);
 
         /// <summary>
         ///     Get the RepoData for the repo specified by name
@@ -255,5 +283,7 @@ namespace GinService
         /// <returns>true if it is, wcf error otherwise</returns>
         [OperationContract]
         bool IsAlive();
+        [OperationContract]
+        string GetServers();
     }
 }

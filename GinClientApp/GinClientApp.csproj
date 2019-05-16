@@ -78,6 +78,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Drawing" />
@@ -103,6 +104,18 @@
     </Compile>
     <Compile Include="Dialogs\DeleteDataDlg.Designer.cs">
       <DependentUpon>DeleteDataDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ServerEditDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ServerEditDlg.Designer.cs">
+      <DependentUpon>ServerEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ServerAddDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ServerAddDlg.Designer.cs">
+      <DependentUpon>ServerAddDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\MetroGetUserCredentialsDlg.cs">
       <SubType>Form</SubType>
@@ -149,6 +162,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DeleteDataDlg.resx">
       <DependentUpon>DeleteDataDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ServerEditDlg.resx">
+      <DependentUpon>ServerEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ServerAddDlg.resx">
+      <DependentUpon>ServerAddDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\MetroGetUserCredentialsDlg.resx">
       <DependentUpon>MetroGetUserCredentialsDlg.cs</DependentUpon>
