@@ -47,9 +47,9 @@
             // 
             // 
             this.mTxBUsername.CustomButton.Image = null;
-            this.mTxBUsername.CustomButton.Location = new System.Drawing.Point(118, 1);
+            this.mTxBUsername.CustomButton.Location = new System.Drawing.Point(236, 1);
             this.mTxBUsername.CustomButton.Name = "";
-            this.mTxBUsername.CustomButton.Size = new System.Drawing.Size(10, 11);
+            this.mTxBUsername.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mTxBUsername.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBUsername.CustomButton.TabIndex = 1;
             this.mTxBUsername.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -97,9 +97,9 @@
             // 
             // 
             this.mTxBPassword.CustomButton.Image = null;
-            this.mTxBPassword.CustomButton.Location = new System.Drawing.Point(118, 1);
+            this.mTxBPassword.CustomButton.Location = new System.Drawing.Point(236, 1);
             this.mTxBPassword.CustomButton.Name = "";
-            this.mTxBPassword.CustomButton.Size = new System.Drawing.Size(10, 11);
+            this.mTxBPassword.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mTxBPassword.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.mTxBPassword.CustomButton.TabIndex = 1;
             this.mTxBPassword.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;

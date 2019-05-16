@@ -47,7 +47,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tBxGitHostname = new System.Windows.Forms.TextBox();
             this.SaveButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.CButton = new System.Windows.Forms.Button();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.webGBx.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -105,6 +105,7 @@
             this.cBxWebPort.Name = "cBxWebPort";
             this.cBxWebPort.Size = new System.Drawing.Size(62, 21);
             this.cBxWebPort.TabIndex = 8;
+            this.cBxWebPort.Text = "443";
             this.cBxWebPort.Validating += new System.ComponentModel.CancelEventHandler(this.Port_Validating);
             this.cBxWebPort.Validated += new System.EventHandler(this.cBxWebPort_Validated);
             // 
@@ -151,6 +152,7 @@
             this.cBxWebProtocol.Name = "cBxWebProtocol";
             this.cBxWebProtocol.Size = new System.Drawing.Size(76, 21);
             this.cBxWebProtocol.TabIndex = 4;
+            this.cBxWebProtocol.Text = "https";
             this.cBxWebProtocol.Validating += new System.ComponentModel.CancelEventHandler(this.cBxWebProtocol_Validating);
             this.cBxWebProtocol.Validated += new System.EventHandler(this.cBxWebProtocol_Validated);
             // 
@@ -194,6 +196,7 @@
             this.cBxGitPort.Name = "cBxGitPort";
             this.cBxGitPort.Size = new System.Drawing.Size(62, 21);
             this.cBxGitPort.TabIndex = 10;
+            this.cBxGitPort.Text = "22";
             this.cBxGitPort.Validating += new System.ComponentModel.CancelEventHandler(this.cBxGitPort_Validating);
             this.cBxGitPort.Validated += new System.EventHandler(this.cBxGitPort_Validated);
             // 
@@ -229,6 +232,7 @@
             this.cBxGitUser.Name = "cBxGitUser";
             this.cBxGitUser.Size = new System.Drawing.Size(62, 21);
             this.cBxGitUser.TabIndex = 4;
+            this.cBxGitUser.Text = "git";
             this.cBxGitUser.Validating += new System.ComponentModel.CancelEventHandler(this.cBxGitUser_Validating);
             this.cBxGitUser.Validated += new System.EventHandler(this.cBxGitUser_Validated);
             // 
@@ -265,16 +269,16 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.CausesValidation = false;
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(120, 305);
-            this.CancelButton.Margin = new System.Windows.Forms.Padding(2);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(74, 32);
-            this.CancelButton.TabIndex = 6;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.CButton.CausesValidation = false;
+            this.CButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CButton.Location = new System.Drawing.Point(120, 305);
+            this.CButton.Margin = new System.Windows.Forms.Padding(2);
+            this.CButton.Name = "CancelButton";
+            this.CButton.Size = new System.Drawing.Size(74, 32);
+            this.CButton.TabIndex = 6;
+            this.CButton.Text = "Cancel";
+            this.CButton.UseVisualStyleBackColor = true;
+            this.CButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // errorProvider1
             // 
@@ -286,7 +290,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(440, 358);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.CButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.webGBx);
@@ -326,7 +330,7 @@
         private System.Windows.Forms.ComboBox cBxGitPort;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button CButton;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

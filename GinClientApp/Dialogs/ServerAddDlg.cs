@@ -1,4 +1,7 @@
-﻿using System;
+﻿using GinClientLibrary;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
@@ -7,12 +10,14 @@ namespace GinClientApp.Dialogs
     public partial class ServerForm : Form
     {
 
-        public string web;
-        public string git;
-        public string alias;
+        private string web;
+        private string git;
+        private string alias;
+        private readonly GinApplicationContext _parentContext;
 
-        public ServerForm()
+        public ServerForm(GinApplicationContext parentContext)
         {
+            _parentContext = parentContext;
             InitializeComponent();
             AutoValidate = AutoValidate.Disable;
         }
@@ -25,6 +30,7 @@ namespace GinClientApp.Dialogs
                 web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
                 git =cBxGitUser.Text + "@" + tBxGitHostname.Text + ":" + cBxGitPort.Text;
                 DialogResult = DialogResult.OK;
+                AddNewServer(alias, web, git);
                 Close();
             }
             else
@@ -32,6 +38,59 @@ namespace GinClientApp.Dialogs
                 MessageBox.Show("Validation failed.");
             }
         }
+
+
+        /// <summary>
+        /// add new server
+        /// </summary>
+        /// <param name="serverAlias"></param>
+        /// <param name="webConfiguration"></param>
+        /// <param name="gitConfiguration"></param>
+        /// <returns></returns>
+        private bool AddNewServer(string serverAlias, string webConfiguration, string gitConfiguration)
+        {
+            ///get dictionary with servers
+            Dictionary<string, ServerConf> serverMap = GetServers();
+            ///check if alias exists
+            if (serverMap.ContainsKey(serverAlias))
+            {
+                MessageBox.Show("Server with this alias already exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            else
+            {
+                if (_parentContext.ServiceClient.NewServer(serverAlias, webConfiguration, gitConfiguration))
+                {
+                    MessageBox.Show("Server " + serverAlias + " added.");
+                }
+                else
+                {
+                    MessageBox.Show("Error. Unable to add server " + serverAlias);
+                }
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// parse json string with server information into dictionary alias, ServerConf
+        /// </summary>
+        /// <returns>server information in dictionary alias, serverConf</returns>
+        private Dictionary<string, ServerConf> GetServers()
+        {
+            Dictionary<string, ServerConf> map = null;
+            try
+            {
+                string serverJson = _parentContext.ServiceClient.GetServers();
+                map = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(serverJson);
+            }
+            catch
+            {
+                MessageBox.Show("Cannot load servers information.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return map;
+        }
+
         private bool tBxAlias_Validate()
         {
             if (string.IsNullOrWhiteSpace(tBxAlias.Text))

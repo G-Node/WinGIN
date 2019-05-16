@@ -54,7 +54,11 @@ namespace GinClientApp
                 ReceiveTimeout = TimeSpan.FromHours(1),
                 ReaderQuotas = new XmlDictionaryReaderQuotas
                 {
-                    MaxArrayLength = int.MaxValue, MaxBytesPerRead = int.MaxValue, MaxDepth = int.MaxValue, MaxNameTableCharCount = int.MaxValue, MaxStringContentLength = int.MaxValue
+                    MaxArrayLength = int.MaxValue,
+                    MaxBytesPerRead = int.MaxValue,
+                    MaxDepth = int.MaxValue,
+                    MaxNameTableCharCount = int.MaxValue,
+                    MaxStringContentLength = int.MaxValue
                 }
             };
             var endpointIdentity = EndpointIdentity.CreateDnsIdentity("localhost");
@@ -90,20 +94,52 @@ namespace GinClientApp
                     return;
                 }
             }
-            else if (!ServiceClient.Login(UserCredentials.Instance.loginList.First().Username, UserCredentials.Instance.loginList.First().Password, UserCredentials.Instance.loginList.First().Server) )
+            else
             {
-                MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
-                    Resources.GinApplicationContext_Gin_Client_Error,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                var getUserCreds = new MetroGetUserCredentialsDlg(this);
-                var result = getUserCreds.ShowDialog(); //The Dialog will log us in and save the user credentials
+                var servString = ServiceClient.GetServers();
+                var ServerDic = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(servString);
 
-                if (result == DialogResult.Cancel)
+                /*if (!ServiceClient.Login(UserCredentials.Instance.loginList.First().Username, UserCredentials.Instance.loginList.First().Password, UserCredentials.Instance.loginList.First().Server) )
                 {
-                    Exit(this, EventArgs.Empty);
-                    return;
+                    MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
+                        Resources.GinApplicationContext_Gin_Client_Error,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    var getUserCreds = new MetroGetUserCredentialsDlg(this);
+                    var result = getUserCreds.ShowDialog(); //The Dialog will log us in and save the user credentials
+
+                    if (result == DialogResult.Cancel)
+                    {
+                        Exit(this, EventArgs.Empty);
+                        return;
+                    }
+                }*/
+                foreach (var server in ServerDic)
+                {
+                    var selectedLogin = UserCredentials.Instance.loginList.Find(x => x.Server == server.Key);
+                    if (selectedLogin != null)
+                    {
+                        if(!ServiceClient.Login(selectedLogin.Username, selectedLogin.Password, selectedLogin.Server))
+                        {
+                            MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
+                            Resources.GinApplicationContext_Gin_Client_Error,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            var getUserCreds = new MetroGetUserCredentialsDlg(this);
+                            var result = getUserCreds.ShowDialog(); //The Dialog will log us in and save the user credentials
+
+                            if (result == DialogResult.Cancel)
+                            {
+                                Exit(this, EventArgs.Empty);
+                                return;
+                            }
+
+                        }
+                    }
+
                 }
+
             }
 
             UserCredentials.Save();
@@ -125,7 +161,7 @@ namespace GinClientApp
             if (GlobalOptions.Instance.RepositoryUpdateInterval > 0)
             {
                 _updateIntervalTimer =
-                    new Timer(GlobalOptions.Instance.RepositoryUpdateInterval * 1000 * 60) {AutoReset = true};
+                    new Timer(GlobalOptions.Instance.RepositoryUpdateInterval * 1000 * 60) { AutoReset = true };
                 _updateIntervalTimer.Elapsed += (sender, args) => { ServiceClient.DownloadAllUpdateInfo(); };
             }
 
@@ -164,7 +200,7 @@ namespace GinClientApp
             _trayIcon.ContextMenu = new ContextMenu(BuildContextMenu());
             _trayIcon.Icon = Resources.gin_icon;
             _updateIntervalTimer?.Start();
-            
+
         }
 
         private void SystemEvents_SessionEnded(object sender, SessionEndedEventArgs e)
@@ -173,7 +209,7 @@ namespace GinClientApp
 
             Exit(this, EventArgs.Empty);
         }
-        
+
         private MenuItem[] BuildContextMenu()
         {
             var menuitems = new List<MenuItem>();
@@ -181,7 +217,7 @@ namespace GinClientApp
             var repositories = JsonConvert.DeserializeObject<GinRepositoryData[]>(ServiceClient.GetRepositoryList());
             foreach (var repo in repositories)
             {
-                var mitem = new MenuItem(repo.Name) {Tag = repo};
+                var mitem = new MenuItem(repo.Name) { Tag = repo };
                 mitem.MenuItems.Add(Resources.GinApplicationContext_Upload, UploadRepoMenuItemHandler);
                 mitem.MenuItems.Add(Resources.GinApplicationContext_Update, UpdateRepoMenuItemHandler);
 
@@ -222,14 +258,14 @@ namespace GinClientApp
 
         private void UploadRepoMenuItemHandler(object sender, EventArgs e)
         {
-            var repo = (GinRepositoryData) ((MenuItem) sender).Parent.Tag;
+            var repo = (GinRepositoryData)((MenuItem)sender).Parent.Tag;
             var fstatus = JsonConvert.DeserializeObject<
                 Dictionary<string, GinRepository.FileStatus>>(ServiceClient.GetRepositoryFileInfo(repo.Name));
 
             var alteredFiles = from kvp in fstatus
-                where kvp.Value == GinRepository.FileStatus.OnDiskModified ||
-                      kvp.Value == GinRepository.FileStatus.Unknown || kvp.Value == GinRepository.FileStatus.Removed
-                select kvp;
+                               where kvp.Value == GinRepository.FileStatus.OnDiskModified ||
+                                     kvp.Value == GinRepository.FileStatus.Unknown || kvp.Value == GinRepository.FileStatus.Removed
+                               select kvp;
 
             var files = alteredFiles as KeyValuePair<string, GinRepository.FileStatus>[] ?? alteredFiles.ToArray();
             if (!files.Any())
@@ -242,7 +278,7 @@ namespace GinClientApp
                 catch
                 {
                 }
-                    return; //Nothing to upload here
+                return; //Nothing to upload here
             }
 
             var uploadfiledlg = new MetroUploadFilesDlg(files);
@@ -295,7 +331,7 @@ namespace GinClientApp
 
         private void UpdateRepoMenuItemHandler(object sender, EventArgs e)
         {
-            var repo = (GinRepositoryData) ((MenuItem) sender).Parent.Tag;
+            var repo = (GinRepositoryData)((MenuItem)sender).Parent.Tag;
             //show status dialog
             ServiceClient.DownloadUpdateInfo(repo.Name);
         }

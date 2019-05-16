@@ -27,6 +27,12 @@ namespace GinClientApp.GinService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/CreateNewRepository", ReplyAction="http://tempuri.org/IGinService/CreateNewRepositoryResponse")]
         System.Threading.Tasks.Task<bool> CreateNewRepositoryAsync(string repoName);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/SetDefaultServer", ReplyAction="http://tempuri.org/IGinService/SetDefaultServerResponse")]
+        bool SetDefaultServer(string alias);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/SetDefaultServer", ReplyAction="http://tempuri.org/IGinService/SetDefaultServerResponse")]
+        System.Threading.Tasks.Task<bool> SetDefaultServerAsync(string alias);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/MountRepository", ReplyAction="http://tempuri.org/IGinService/MountRepositoryResponse")]
         bool MountRepository(string repoName);
         
@@ -78,6 +84,8 @@ namespace GinClientApp.GinService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/NewServer", ReplyAction="http://tempuri.org/IGinService/NewServerResponse")]
         bool NewServer(string alias, string web, string git);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/NewServer", ReplyAction="http://tempuri.org/IGinService/NewServerResponse")]
+        System.Threading.Tasks.Task<bool> NewServerAsync(string alias, string web, string git);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGinService/GetRepositoryInfo", ReplyAction="http://tempuri.org/IGinService/GetRepositoryInfoResponse")]
         string GetRepositoryInfo(string name);
@@ -273,6 +281,14 @@ namespace GinClientApp.GinService {
             return base.Channel.CreateNewRepositoryAsync(repoName);
         }
         
+        public bool SetDefaultServer(string alias) {
+            return base.Channel.SetDefaultServer(alias);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetDefaultServerAsync(string alias) {
+            return base.Channel.SetDefaultServerAsync(alias);
+        }
+        
         public bool MountRepository(string repoName) {
             return base.Channel.MountRepository(repoName);
         }
@@ -341,7 +357,9 @@ namespace GinClientApp.GinService {
             return base.Channel.NewServer(alias, web, git);
         }
         
-       
+        public System.Threading.Tasks.Task<bool> NewServerAsync(string alias, string web, string git) {
+            return base.Channel.NewServerAsync(alias, web, git);
+        }
         
         public string GetRepositoryInfo(string name) {
             return base.Channel.GetRepositoryInfo(name);

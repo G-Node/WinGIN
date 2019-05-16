@@ -33,8 +33,14 @@ namespace GinService
         [OperationContract]
         bool CreateNewRepository(string repoName);
 
+        /// <summary>
+        ///     Sets the default server
+        /// </summary>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        [OperationContract]
+        bool SetDefaultServer(string alias);
 
-     
         /// <summary>
         ///     Unmounts a repository.
         /// </summary>

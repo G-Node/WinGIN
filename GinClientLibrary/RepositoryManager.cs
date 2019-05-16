@@ -62,6 +62,40 @@ namespace GinClientLibrary
             return Repositories.Single(r => Compare(r.Name, name, StringComparison.OrdinalIgnoreCase) == 0);
         }
 
+        public bool SetDefaultSvr(string alias)
+        {
+            lock (this)
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        FileName = "gin.exe",
+                        WorkingDirectory = @"C:\",
+                        Arguments = "use-server \""+alias+"\"",
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false
+                    }
+                };
+                StringBuilder output = new StringBuilder();
+                process.OutputDataReceived += (sender, args) => { output.AppendLine(args.Data); };
+
+                process.Start();
+                process.BeginOutputReadLine();
+                var error = process.StandardError.ReadToEnd();
+                process.WaitForExit();
+
+                if (!IsNullOrEmpty(error) || process.ExitCode != 0)
+                    return false;
+                return true;
+            }
+        }
+
+       
+
         public void Logout()
         {
             lock (this)
@@ -147,6 +181,8 @@ namespace GinClientLibrary
                 return output.ToString();
             }
         }
+
+
         /// <summary>
         /// add new server configuration to gin-cli
         /// </summary>
@@ -165,7 +201,7 @@ namespace GinClientLibrary
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "gin.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = "add-server --web "+ web + " --git "+git+" "+alias ,
+                        Arguments = "add-server --web "+ web + " --git "+git+" "+ "\""+alias+"\"" ,
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
@@ -237,7 +273,7 @@ namespace GinClientLibrary
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "cmd.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = @"/C gin.exe login " + username +" --server "+serverAlias,
+                        Arguments = @"/C gin.exe login " + username +" --server "+ "\""+serverAlias+"\"",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,

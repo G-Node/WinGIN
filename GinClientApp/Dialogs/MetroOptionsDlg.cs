@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -26,15 +27,22 @@ namespace GinClientApp.Dialogs
         private readonly UserCredentials _storedCredentials;
         private readonly GlobalOptions _storedOptions;
         private Dictionary<string, ServerConf> serverMap;
+        private BindingSource bs;
+        private string defServerAlias;
 
         protected virtual void OnRepoListingChanged()
         {
             RepoListingChanged?.Invoke(this, EventArgs.Empty);
         }
+
+        /// <summary>
+        /// handles the server change in combobox mCBxServer - fills login details with correct information or leaves it empty
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void serverChanged(object sender, EventArgs e)
         {
-           
-            var serv = mCBxServer.Text;
+            var serv = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
             var logins = UserCredentials.Instance.loginList;
             var selectedLogin = logins.Find(x => x.Server.Equals(serv));
 
@@ -50,7 +58,9 @@ namespace GinClientApp.Dialogs
                 mTxBPassword.Text = "";
             }
         }
-
+        /// <summary>
+        /// handles the change of user name or password - saves new information
+        /// </summary>
         private void userOrPassChanged()
         {
             var logins = UserCredentials.Instance.loginList;
@@ -62,10 +72,12 @@ namespace GinClientApp.Dialogs
             }
             else
             {
-                var login = new UserCredentials.LoginSettings();
-                login.Server = mTBAlias.Text;
-                login.Password = mTxBPassword.Text;
-                login.Username = mTxBUsername.Text;
+                var login = new UserCredentials.LoginSettings
+                {
+                    Server = mTBAlias.Text,
+                    Password = mTxBPassword.Text,
+                    Username = mTxBUsername.Text
+                };
                 UserCredentials.Instance.loginList.Add(login);
             }
         }
@@ -73,28 +85,26 @@ namespace GinClientApp.Dialogs
         public MetroOptionsDlg(GinApplicationContext parentContext, Page startPage)
         {
             InitializeComponent();
-
             _parentContext = parentContext;
-
             mTabCtrl.SelectTab((int)startPage);
-
             mLblStatus.Visible = false;
             mLblWorking.Visible = false;
             mProgWorking.Visible = false;
+            ///load all servers configuration and select default one
             serverMap = GetServers();
-            mCBxServer.DataSource = new BindingSource(serverMap, null);
-            mCBxServer.DisplayMember = "Key";
-            /*
-            mTxBUsername.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Username");
-            mTxBPassword.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Password");
-            mTBAlias.DataBindings.Add("Text", UserCredentials.Instance.loginList, "Server");
-            */
-            mTBAlias.Text = mCBxServer.Text;
+            foreach (var server in serverMap)
+            {
+                if (server.Value.Default)
+                    defServerAlias = server.Key;
+            }
+            bs = new BindingSource(serverMap, null);
+            mCBxServer.DataSource = bs;
+            mTBAlias.Text = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
+            ///fill login informations
             var logins = UserCredentials.Instance.loginList;
             var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
             mTxBPassword.Text = selectedLogin.Password;
             mTxBUsername.Text = selectedLogin.Username;
-
             mTxBDefaultCheckout.Text = GlobalOptions.Instance.DefaultCheckoutDir.FullName;
             mTxBDefaultMountpoint.Text = GlobalOptions.Instance.DefaultMountpointDir.FullName;
             mTglDownloadAnnex.Checked = GlobalOptions.Instance.RepositoryCheckoutOption ==
@@ -135,10 +145,22 @@ namespace GinClientApp.Dialogs
             mTabCtrl.SelectTab((int) page);
         }
 
+        /// <summary>
+        /// parse json string with server information into dictionary alias, ServerConf
+        /// </summary>
+        /// <returns>server information in dictionary alias, serverConf</returns>
         private Dictionary<string, ServerConf> GetServers()
         {
-            string serverJson = _parentContext.ServiceClient.GetServers();
-            var map = JsonConvert.DeserializeObject<Dictionary<string,ServerConf>>(serverJson);
+            Dictionary<string, ServerConf> map =null;
+            try
+            {
+                string serverJson = _parentContext.ServiceClient.GetServers();
+                map = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(serverJson);
+            }
+            catch
+            {
+                MessageBox.Show("Cannot load servers information.","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return map;
         }
 
@@ -160,7 +182,6 @@ namespace GinClientApp.Dialogs
             }
             OnRepoListingChanged();
         }
-
 
         private void mBtnOK_Click(object sender, EventArgs e)
         {
@@ -190,16 +211,19 @@ namespace GinClientApp.Dialogs
             UpdateDefaultdir(ref directory, mTxBDefaultCheckout);
             GlobalOptions.Instance.DefaultCheckoutDir = directory;
         }
-
+        /// <summary>
+        /// opens EditSvrDlg and represhes server combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClickEditServer(object sender, EventArgs e)
         {
             var editSvrForm = new EditServerForm(_parentContext)
             {
                 ServerDic = serverMap
-
             };
-            editSvrForm.ShowDialog();
-            serverMap = GetServers();
+            editSvrForm.ShowDialog();           
+            RefreshBinding();
         }
         /// <summary>
         /// open ServerAddDlg to get necessary information about server
@@ -209,43 +233,12 @@ namespace GinClientApp.Dialogs
         /// <param name="e"></param>
         private void ClickAddServer(object sender, EventArgs e)
         {
-            var svrForm = new ServerForm();
+            var svrForm = new ServerForm(_parentContext);
             svrForm.ShowDialog();
-            var result = svrForm.DialogResult;
-            if (result == DialogResult.OK)
-            {
-                AddNewServer(svrForm.alias, svrForm.web, svrForm.git);
-                serverMap = GetServers();
-            }
-            else
-            {
-                ///do nothing
-            }
+            RefreshBinding();
         }
 
-        private bool AddNewServer(string serverAlias, string webConfiguration, string gitConfiguration)
-        {
-            ///get dictionary with servers
-            serverMap = GetServers();
-            ///check if alias exists
-            if (serverMap.ContainsKey(serverAlias))
-            {
-                MessageBox.Show("Server with this alias already exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else
-            {
-                if (_parentContext.ServiceClient.NewServer(serverAlias, webConfiguration, gitConfiguration))
-                {
-                    MessageBox.Show("Server added.");
-                }
-                else
-                {
-                    MessageBox.Show("Error.");
-                }
-            }
-            return true;
-        }
+       
 
         private void mBtnPickDefaultMountpointDir_Click(object sender, EventArgs e)
         {
@@ -392,9 +385,7 @@ namespace GinClientApp.Dialogs
         {
             if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text)) return false;
             _parentContext.ServiceClient.Logout();
-
             return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, mTBAlias.Text);
-            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
         }
 
         private void mTxBPassword_Leave(object sender, EventArgs e)
@@ -442,6 +433,45 @@ namespace GinClientApp.Dialogs
                     GlobalOptions.Instance.RepositoryUpdateInterval = 0;
                     break;
             }
+        }
+        /// <summary>
+        /// Default button click - sets as default server selected server in mCBxServer and represhes combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void serverDefaultBtn_Click(object sender, EventArgs e)
+        {
+            defServerAlias = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
+            _parentContext.ServiceClient.SetDefaultServer(defServerAlias);
+            RefreshBinding();
+        }
+
+        /// <summary>
+        /// refreshes list of servers in mCBxServer
+        /// </summary>
+        private void RefreshBinding()
+        {
+            var index = mCBxServer.SelectedIndex;
+            serverMap = GetServers();
+            //bs.ResetBindings(true);
+            bs = new BindingSource(serverMap, null);
+            mCBxServer.DataSource = bs;
+            try
+            {
+                mCBxServer.SelectedIndex = index;
+            }
+            catch { }
+        }
+        /// <summary>
+        /// Adjust the displayed format of servers in mCBxServer combobox to format Alias [Default] or Alias
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void mCBxServer_Format(object sender, ListControlConvertEventArgs e)
+        {
+            string alias = ((KeyValuePair<string, ServerConf>)e.ListItem).Key;
+            string def = ((KeyValuePair<string, ServerConf>)e.ListItem).Value.ToString();
+            e.Value = alias + def;
         }
     }
 }
