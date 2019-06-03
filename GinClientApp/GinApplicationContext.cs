@@ -99,43 +99,30 @@ namespace GinClientApp
 
                 var servString = ServiceClient.GetServers();
                 var ServerDic = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(servString);
-
-                /*if (!ServiceClient.Login(UserCredentials.Instance.loginList.First().Username, UserCredentials.Instance.loginList.First().Password, UserCredentials.Instance.loginList.First().Server) )
-                {
-                    MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
-                        Resources.GinApplicationContext_Gin_Client_Error,
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    var getUserCreds = new MetroGetUserCredentialsDlg(this);
-                    var result = getUserCreds.ShowDialog(); //The Dialog will log us in and save the user credentials
-
-                    if (result == DialogResult.Cancel)
-                    {
-                        Exit(this, EventArgs.Empty);
-                        return;
-                    }
-                }*/
                 foreach (var server in ServerDic)
                 {
                     var selectedLogin = UserCredentials.Instance.loginList.Find(x => x.Server == server.Key);
                     if (selectedLogin != null)
                     {
-                        if(!ServiceClient.Login(selectedLogin.Username, selectedLogin.Password, selectedLogin.Server))
+                        ///try login for all servers
+                        if (!ServiceClient.Login(selectedLogin.Username, selectedLogin.Password, selectedLogin.Server))
                         {
-                            MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
-                            Resources.GinApplicationContext_Gin_Client_Error,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                            var getUserCreds = new MetroGetUserCredentialsDlg(this);
-                            var result = getUserCreds.ShowDialog(); //The Dialog will log us in and save the user credentials
-
-                            if (result == DialogResult.Cancel)
+                            if (selectedLogin.Server.Equals("gin"))
                             {
-                                Exit(this, EventArgs.Empty);
-                                return;
+                                //if login fails for gin server, try to get new login info
+                                MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
+                                Resources.GinApplicationContext_Gin_Client_Error,
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                var getUserCreds = new MetroGetUserCredentialsDlg(this);
+                                var result = getUserCreds.ShowDialog(); //The Dialog will log us in and save the user credentials
+                                if (result == DialogResult.Cancel)
+                                {
+                                    Exit(this, EventArgs.Empty);
+                                    return;
+                                }
                             }
-
                         }
+
                     }
 
                 }
