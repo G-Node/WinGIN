@@ -16,6 +16,7 @@ namespace GinClientApp.Dialogs
         public MetroGetUserCredentialsDlg(GinApplicationContext parentContext)
         {
             InitializeComponent();
+            _parentContext = parentContext;
             string serverJson = _parentContext.ServiceClient.GetServers();
             var ServerDic = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(serverJson);
             mCBxServerAlias.DataSource = new BindingSource(ServerDic, null);
@@ -29,7 +30,6 @@ namespace GinClientApp.Dialogs
             //mCBxServerAlias.Text = "gin";
             //mCBxServerAlias.SelectedText = "gin";
 
-            _parentContext = parentContext;
             try
             {
                 var login = UserCredentials.Instance.loginList.First();
