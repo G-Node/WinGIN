@@ -145,7 +145,7 @@ namespace GinClientApp.Properties {
         }
         
         /// <summary>
-        ///   Vyhledá lokalizovaný řetězec podobný Error while trying to log in to GIN.
+        ///   Vyhledá lokalizovaný řetězec podobný Error while trying to log in to defualt GIN server.
         /// </summary>
         internal static string GinApplicationContext_Error_while_trying_to_log_in_to_GIN {
             get {
