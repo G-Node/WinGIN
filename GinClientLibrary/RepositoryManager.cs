@@ -240,7 +240,7 @@ namespace GinClientLibrary
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "gin.exe",
                         WorkingDirectory = @"C:\",
-                        Arguments = "remove-server "  + alias,
+                        Arguments = "remove-server "  + "\""+alias+"\"",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,

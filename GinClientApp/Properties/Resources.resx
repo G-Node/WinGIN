@@ -166,7 +166,7 @@
     <value>Gin Client Warning</value>
   </data>
   <data name="GinApplicationContext_Error_while_trying_to_log_in_to_GIN" xml:space="preserve">
-    <value>Error while trying to log in to GIN</value>
+    <value>Error while trying to log in to defualt GIN server</value>
   </data>
   <data name="GinApplicationContext_Gin_Service_has_stopped_communicating_" xml:space="preserve">
     <value>Gin Service has stopped communicating.</value>

@@ -96,20 +96,20 @@ namespace GinClientApp
             }
             else
             {
-
                 var servString = ServiceClient.GetServers();
                 var ServerDic = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(servString);
                 foreach (var server in ServerDic)
                 {
+                    ///search for login for server
                     var selectedLogin = UserCredentials.Instance.loginList.Find(x => x.Server == server.Key);
                     if (selectedLogin != null)
                     {
-                        ///try login for all servers
+                        ///try login for servers
                         if (!ServiceClient.Login(selectedLogin.Username, selectedLogin.Password, selectedLogin.Server))
                         {
-                            if (selectedLogin.Server.Equals("gin"))
+                            if (server.Value.Default)
                             {
-                                //if login fails for gin server, try to get new login info
+                                //if login fails for default server, try to get new login info
                                 MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
                                 Resources.GinApplicationContext_Gin_Client_Error,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -122,11 +122,8 @@ namespace GinClientApp
                                 }
                             }
                         }
-
                     }
-
                 }
-
             }
 
             UserCredentials.Save();
