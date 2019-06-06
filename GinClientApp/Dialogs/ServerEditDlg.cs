@@ -182,6 +182,7 @@ namespace GinClientApp.Dialogs
                 _parentContext.ServiceClient.DeleteServer((string)tBxAlias.SelectedValue);
                 var text = _parentContext.ServiceClient.GetServers();
                 ServerDic = JsonConvert.DeserializeObject<Dictionary<string, ServerConf>>(text);
+                Close();
             }
             else
             {
