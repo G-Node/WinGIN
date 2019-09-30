@@ -189,7 +189,7 @@ namespace GinClientLibrary
         /// <param name="alias">new server alias</param>
         /// <param name="web">new web configuration string http[s]://hostname:port</param>
         /// <param name="git">new git configuration gituser@hostname:port</param>
-        /// <returns>true for succes</returns>
+        /// <returns>true for success</returns>
         public bool AddServer(string alias, string web, string git)
         {
             lock (this)
@@ -228,7 +228,7 @@ namespace GinClientLibrary
         /// remove server configuration to gin-cli
         /// </summary>
         /// <param name="alias">delete server alias</param>
-        /// <returns>true for succes</returns>
+        /// <returns>true for success</returns>
         public bool DeleteServer(string alias)
         {
             lock (this)

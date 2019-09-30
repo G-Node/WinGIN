@@ -16,7 +16,7 @@ namespace Updater
         /// </summary>
         private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\WinGIN\Updates\");
         /// <summary>
-        /// url for nevest released version of WinGIN msi
+        /// url for latest released version of WinGIN msi
         /// </summary>
         private const string UpdatedMsi = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/Setup.msi";
         /// <summary>
