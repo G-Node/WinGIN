@@ -105,6 +105,12 @@
     <Compile Include="Dialogs\DeleteDataDlg.Designer.cs">
       <DependentUpon>DeleteDataDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\HelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\HelpForm.Designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ServerEditDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\DeleteDataDlg.resx">
       <DependentUpon>DeleteDataDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ServerEditDlg.resx">
       <DependentUpon>ServerEditDlg.cs</DependentUpon>
