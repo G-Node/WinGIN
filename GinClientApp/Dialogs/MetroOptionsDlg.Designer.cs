@@ -72,6 +72,7 @@ namespace GinClientApp.Dialogs
             this.colHdAddress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.About = new System.Windows.Forms.TabPage();
             this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
+            this.helpButton = new System.Windows.Forms.Button();
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.mTxBLicense = new MetroFramework.Controls.MetroTextBox();
             this.mTxBGinCliVersion = new MetroFramework.Controls.MetroTextBox();
@@ -81,7 +82,6 @@ namespace GinClientApp.Dialogs
             this.mProgWorking = new MetroFramework.Controls.MetroProgressSpinner();
             this.mLblWorking = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
-            this.helpButton = new System.Windows.Forms.Button();
             this.mTabCtrl.SuspendLayout();
             this.tpUser.SuspendLayout();
             this.metroPanel1.SuspendLayout();
@@ -669,7 +669,6 @@ namespace GinClientApp.Dialogs
             // 
             // metroPanel4
             // 
-            this.metroPanel4.Controls.Add(this.helpButton);
             this.metroPanel4.Controls.Add(this.metroLabel6);
             this.metroPanel4.Controls.Add(this.mTxBLicense);
             this.metroPanel4.Controls.Add(this.mTxBGinCliVersion);
@@ -685,6 +684,17 @@ namespace GinClientApp.Dialogs
             this.metroPanel4.VerticalScrollbarBarColor = true;
             this.metroPanel4.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel4.VerticalScrollbarSize = 10;
+            // 
+            // helpButton
+            // 
+            this.helpButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.helpButton.Location = new System.Drawing.Point(499, 424);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(75, 23);
+            this.helpButton.TabIndex = 8;
+            this.helpButton.Text = "Help";
+            this.helpButton.UseVisualStyleBackColor = true;
+            this.helpButton.Click += new System.EventHandler(this.HelpButton_Click);
             // 
             // metroLabel6
             // 
@@ -803,7 +813,7 @@ namespace GinClientApp.Dialogs
             // mProgWorking
             // 
             this.mProgWorking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.mProgWorking.Location = new System.Drawing.Point(552, 427);
+            this.mProgWorking.Location = new System.Drawing.Point(458, 428);
             this.mProgWorking.Maximum = 100;
             this.mProgWorking.Name = "mProgWorking";
             this.mProgWorking.Size = new System.Drawing.Size(23, 23);
@@ -815,7 +825,7 @@ namespace GinClientApp.Dialogs
             // 
             this.mLblWorking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.mLblWorking.AutoSize = true;
-            this.mLblWorking.Location = new System.Drawing.Point(479, 427);
+            this.mLblWorking.Location = new System.Drawing.Point(385, 428);
             this.mLblWorking.Name = "mLblWorking";
             this.mLblWorking.Size = new System.Drawing.Size(67, 19);
             this.mLblWorking.TabIndex = 18;
@@ -832,16 +842,6 @@ namespace GinClientApp.Dialogs
             this.metroLabel5.TabIndex = 19;
             this.metroLabel5.Text = "Options";
             // 
-            // helpButton
-            // 
-            this.helpButton.Location = new System.Drawing.Point(467, 35);
-            this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(75, 23);
-            this.helpButton.TabIndex = 8;
-            this.helpButton.Text = "Help";
-            this.helpButton.UseVisualStyleBackColor = true;
-            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
-            // 
             // MetroOptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -849,6 +849,7 @@ namespace GinClientApp.Dialogs
             this.ClientSize = new System.Drawing.Size(603, 461);
             this.Controls.Add(this.metroLabel5);
             this.Controls.Add(this.mLblWorking);
+            this.Controls.Add(this.helpButton);
             this.Controls.Add(this.mBtnCancel);
             this.Controls.Add(this.mProgWorking);
             this.Controls.Add(this.mBtnOK);
@@ -856,6 +857,7 @@ namespace GinClientApp.Dialogs
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MetroOptionsDlg";
             this.Theme = MetroFramework.MetroThemeStyle.Default;
+            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.MetroOptionsDlg_HelpRequested);
             this.mTabCtrl.ResumeLayout(false);
             this.tpUser.ResumeLayout(false);
             this.metroPanel1.ResumeLayout(false);

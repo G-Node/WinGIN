@@ -474,10 +474,36 @@ namespace GinClientApp.Dialogs
             e.Value = alias + def;
         }
 
-        private void helpButton_Click(object sender, EventArgs e)
+        private void HelpButton_Click(object sender, EventArgs e)
         {
-            Form help = new HelpForm();
-            help.Show();
+            OpenHelp();
+        }
+
+        private void MetroOptionsDlg_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            OpenHelp();
+        }
+
+        /// <summary>
+        /// if Help is note open yet. opens it.
+        /// </summary>
+        private void OpenHelp() {
+            bool exists = false;
+            FormCollection openforms = Application.OpenForms;
+            foreach (Form forms in openforms)
+            {
+                if (forms.Name == "HelpForm")
+                {
+                    exists = true;
+                    forms.Activate();
+                    break;
+                }
+            }
+            if (!exists)
+            {
+                Form helpF = new HelpForm();
+                helpF.Show();
+            }
         }
     }
 }
