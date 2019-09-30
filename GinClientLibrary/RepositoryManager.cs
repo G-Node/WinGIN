@@ -36,6 +36,8 @@ namespace GinClientLibrary
 
         private readonly object _thisLock = new object();
 
+        private readonly string GinCliPath = AppDomain.CurrentDomain.BaseDirectory+"gin-cli\\";
+
         private List<GinRepository> _repositories;
 
         private const string ginError= "Gin Error! Error message is: ";
@@ -72,7 +74,7 @@ namespace GinClientLibrary
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "gin.exe",
-                        WorkingDirectory = @"C:\",
+                        WorkingDirectory = GinCliPath,
                         Arguments = "use-server \""+alias+"\"",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
@@ -106,7 +108,7 @@ namespace GinClientLibrary
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "cmd.exe",
-                        WorkingDirectory = @"C:\",
+                        WorkingDirectory = GinCliPath,
                         Arguments = "/C gin.exe logout",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
@@ -130,7 +132,7 @@ namespace GinClientLibrary
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "cmd.exe",
-                        WorkingDirectory = @"C:\",
+                        WorkingDirectory = GinCliPath,
                         Arguments = "/C gin.exe create --no-clone " + repoName,
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
@@ -160,7 +162,7 @@ namespace GinClientLibrary
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "gin.exe",
-                        WorkingDirectory = @"C:\",
+                        WorkingDirectory = GinCliPath,
                         Arguments = "servers --json ",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
@@ -200,7 +202,7 @@ namespace GinClientLibrary
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "gin.exe",
-                        WorkingDirectory = @"C:\",
+                        WorkingDirectory = GinCliPath,
                         Arguments = "add-server --web "+ web + " --git "+git+" "+ "\""+alias+"\"" ,
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
@@ -239,7 +241,7 @@ namespace GinClientLibrary
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "gin.exe",
-                        WorkingDirectory = @"C:\",
+                        WorkingDirectory = GinCliPath,
                         Arguments = "remove-server "  + "\""+alias+"\"",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
@@ -272,7 +274,7 @@ namespace GinClientLibrary
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
                         FileName = "cmd.exe",
-                        WorkingDirectory = @"C:\",
+                        WorkingDirectory = GinCliPath,
                         Arguments = @"/C gin.exe login " + username +" --server "+ "\""+serverAlias+"\"",
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
@@ -334,7 +336,7 @@ namespace GinClientLibrary
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = "cmd.exe",
-                    WorkingDirectory = @"C:\",
+                    WorkingDirectory = GinCliPath,
                     Arguments = @"/C gin.exe --version",
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
@@ -343,7 +345,6 @@ namespace GinClientLibrary
                     UseShellExecute = false
                 }
             };
-
             process.OutputDataReceived += Process_OutputDataReceived;
             lock (_thisLock)
             {
@@ -555,7 +556,7 @@ namespace GinClientLibrary
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = "gin.exe",
-                    WorkingDirectory = @"C:\",
+                    WorkingDirectory = GinCliPath,
                     Arguments = "repos --json --all",
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,
@@ -583,7 +584,7 @@ namespace GinClientLibrary
                 {
                     WindowStyle = ProcessWindowStyle.Hidden,
                     FileName = "gin.exe",
-                    WorkingDirectory = @"C:\",
+                    WorkingDirectory = GinCliPath,
                     Arguments = "repoinfo --json " + path,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,

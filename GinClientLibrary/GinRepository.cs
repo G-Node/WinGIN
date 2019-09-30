@@ -33,6 +33,8 @@ namespace GinClientLibrary
             Removed
         }
 
+        private readonly string GinCliPath = AppDomain.CurrentDomain.BaseDirectory + "gin-cli\\";
+
         private static readonly StringBuilder Output = new StringBuilder("");
 
         private Dictionary<string, FileStatus> _scache;
@@ -60,7 +62,7 @@ namespace GinClientLibrary
         public bool DownloadUpdateInfo()
         {
             bool result = true;
-            GetCommandLineOutput("cmd.exe", "/C gin.exe download", PhysicalDirectory.FullName, out var error);
+            GetCommandLineOutput("cmd.exe", "/C "+ GinCliPath+"gin.exe download", PhysicalDirectory.FullName, out var error);
             if (!string.IsNullOrEmpty(error))
             {
                 OnFileOperationError(error);
@@ -128,7 +130,7 @@ namespace GinClientLibrary
         {
             lock (this)
             {
-                var output = GetCommandLineOutput("cmd.exe", "/c gin.exe ls --json", PhysicalDirectory.FullName,
+                var output = GetCommandLineOutput("cmd.exe", "/c "+ GinCliPath+"gin.exe ls --json", PhysicalDirectory.FullName,
                     out var error);
                 if (!string.IsNullOrEmpty(error))
                 {
@@ -188,7 +190,7 @@ namespace GinClientLibrary
             GetActualFilename(filePath, out var directoryName, out var filename);
             lock (this)
             {
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe get-content --json \"" + filename + "\"",
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe get-content --json \"" + filename + "\"",
                     directoryName,
                     out var error);
                 ReadRepoStatus();
@@ -220,7 +222,7 @@ namespace GinClientLibrary
             lock (this)
             {
                 OnFileOperationStarted(new FileOperationEventArgs { File = filename });
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe upload --json " + filename, directoryName,
                     out var error);
                 ReadRepoStatus();
                 var result = string.IsNullOrEmpty(error);
@@ -252,9 +254,9 @@ namespace GinClientLibrary
             lock (this)
             {
                 OnFileOperationStarted(new FileOperationEventArgs { File = filename });
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m \"" + CheckMessage(message) + "\" " + filename, directoryName,
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe commit --json -m \"" + CheckMessage(message) + "\" " + filename, directoryName,
                     out var cError);
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json " + filename, directoryName,
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe upload --json " + filename, directoryName,
                     out var error);
                 ReadRepoStatus();
                 var result = string.IsNullOrEmpty(error);
@@ -271,7 +273,7 @@ namespace GinClientLibrary
         {
             lock (this)
             {
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json", PhysicalDirectory.FullName,
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe upload --json", PhysicalDirectory.FullName,
                     out var error);
                 ReadRepoStatus();
                 if (!string.IsNullOrEmpty(error))
@@ -288,14 +290,14 @@ namespace GinClientLibrary
             lock (this)
             {
                 message = CheckMessage(message);
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe commit --json -m " + "\"" + message + "\"", PhysicalDirectory.FullName,
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe commit --json -m " + "\"" + message + "\"", PhysicalDirectory.FullName,
                     out var cError);
                 if (!string.IsNullOrEmpty(cError))
                 {
                     OnFileOperationError(cError);
                     return;
                 }
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe upload --json", PhysicalDirectory.FullName,
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe upload --json", PhysicalDirectory.FullName,
                     out var error);
                 ReadRepoStatus();
                 if (!string.IsNullOrEmpty(error))
@@ -327,7 +329,7 @@ namespace GinClientLibrary
 
             lock (this)
             {
-                GetCommandLineOutput("cmd.exe", "/C gin.exe remove-content \"" + filename + "\"" /*+ " -json"*/,
+                GetCommandLineOutput("cmd.exe", "/C "+GinCliPath+"gin.exe remove-content \"" + filename + "\"" /*+ " -json"*/,
                     directoryName, out var error);
                 Output.Clear();
                 ReadRepoStatus();
@@ -348,7 +350,7 @@ namespace GinClientLibrary
         {
             lock (this)
             {
-                var message = GetCommandLineOutput("cmd.exe", "/C gin.exe version --id " + versInfo.hash + " --copy-to \"" + dirName + "\" " + filename,
+                var message = GetCommandLineOutput("cmd.exe", "/C "+ GinCliPath+"gin.exe version --id " + versInfo.hash + " --copy-to \"" + dirName + "\" " + filename,
                     dirName, out var error);
                 MessageBox.Show(message, "Version checkout result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Output.Clear();
@@ -370,7 +372,7 @@ namespace GinClientLibrary
             lock (this)
             {
                 ///get all available versions for the specified file in json
-                var versionJson = GetCommandLineOutput("cmd.exe", "/C gin.exe version --json " + filename,
+                var versionJson = GetCommandLineOutput("cmd.exe", "/C "+ GinCliPath+"gin.exe version --json " + filename,
                      directoryName, out var error);
 
                 Output.Clear();
@@ -446,7 +448,7 @@ namespace GinClientLibrary
             if (PhysicalDirectory.IsEmpty())
             {
                 OnFileOperationStarted(new FileOperationEventArgs { File = Address });
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe get --json " + Address,
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe get --json " + Address,
                     PhysicalDirectory.Parent.FullName, out var error);
                 var result = string.IsNullOrEmpty(error);
                 if (result)
@@ -461,7 +463,7 @@ namespace GinClientLibrary
             if (performFullCheckout)
             {
                 OnFileOperationStarted(new FileOperationEventArgs { File = Address });
-                GetCommandLineOutputEvent("cmd.exe", "/C gin.exe download --json --content",
+                GetCommandLineOutputEvent("cmd.exe", "/C "+ GinCliPath+"gin.exe download --json --content",
                     PhysicalDirectory.FullName, out var error);
                 var result = string.IsNullOrEmpty(error);
                 if (result)
