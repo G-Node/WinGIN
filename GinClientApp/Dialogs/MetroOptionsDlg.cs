@@ -473,5 +473,11 @@ namespace GinClientApp.Dialogs
             string def = ((KeyValuePair<string, ServerConf>)e.ListItem).Value.ToString();
             e.Value = alias + def;
         }
+
+        private void helpButton_Click(object sender, EventArgs e)
+        {
+            Form help = new HelpForm();
+            help.Show();
+        }
     }
 }

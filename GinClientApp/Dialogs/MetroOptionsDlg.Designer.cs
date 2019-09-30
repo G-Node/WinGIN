@@ -81,6 +81,7 @@ namespace GinClientApp.Dialogs
             this.mProgWorking = new MetroFramework.Controls.MetroProgressSpinner();
             this.mLblWorking = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.helpButton = new System.Windows.Forms.Button();
             this.mTabCtrl.SuspendLayout();
             this.tpUser.SuspendLayout();
             this.metroPanel1.SuspendLayout();
@@ -104,7 +105,7 @@ namespace GinClientApp.Dialogs
             this.mTabCtrl.Controls.Add(this.About);
             this.mTabCtrl.Location = new System.Drawing.Point(28, 89);
             this.mTabCtrl.Name = "mTabCtrl";
-            this.mTabCtrl.SelectedIndex = 0;
+            this.mTabCtrl.SelectedIndex = 3;
             this.mTabCtrl.Size = new System.Drawing.Size(554, 336);
             this.mTabCtrl.TabIndex = 0;
             this.mTabCtrl.UseSelectable = true;
@@ -668,6 +669,7 @@ namespace GinClientApp.Dialogs
             // 
             // metroPanel4
             // 
+            this.metroPanel4.Controls.Add(this.helpButton);
             this.metroPanel4.Controls.Add(this.metroLabel6);
             this.metroPanel4.Controls.Add(this.mTxBLicense);
             this.metroPanel4.Controls.Add(this.mTxBGinCliVersion);
@@ -830,6 +832,16 @@ namespace GinClientApp.Dialogs
             this.metroLabel5.TabIndex = 19;
             this.metroLabel5.Text = "Options";
             // 
+            // helpButton
+            // 
+            this.helpButton.Location = new System.Drawing.Point(467, 35);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(75, 23);
+            this.helpButton.TabIndex = 8;
+            this.helpButton.Text = "Help";
+            this.helpButton.UseVisualStyleBackColor = true;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
+            // 
             // MetroOptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -916,5 +928,6 @@ namespace GinClientApp.Dialogs
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox mCBxServer;
         private System.Windows.Forms.Button serverDefaultBtn;
+        private System.Windows.Forms.Button helpButton;
     }
 }
