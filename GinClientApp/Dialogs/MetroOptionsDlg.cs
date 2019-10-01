@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -212,7 +211,7 @@ namespace GinClientApp.Dialogs
             GlobalOptions.Instance.DefaultCheckoutDir = directory;
         }
         /// <summary>
-        /// opens EditSvrDlg and represhes server combobox
+        /// opens EditSvrDlg and refreshes server combobox
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

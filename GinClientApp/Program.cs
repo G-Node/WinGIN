@@ -31,7 +31,7 @@ namespace GinClientApp
         private const string dokanApp = "Dokan Library 1.1.0.2000 Bundle";
         private const string connectionError = "Cannot connect to G-Node server.";
         private const string dokanNotInstalled = "Dokan library is missing! Please install Dokan. Do you want to install Dokan now?";
-        private const string ginNotInstalled = "GIN binary is missing. Please reinstall application.";
+        private const string ginNotInstalled = "Local GIN binary is missing. Please reinstall application.";
         private const string winginIsRunning = "WinGIN is already running.";
         #endregion
 
@@ -120,7 +120,7 @@ namespace GinClientApp
                     return;
                 }
             }
-            ///check if gin-cli is present
+            ///check if local gin-cli is present
             if (!File.Exists(curPath + @"gin-cli/bin/gin.exe"))
             {
                 var result = MessageBox.Show(ginNotInstalled, "WinGIN", MessageBoxButton.OK, MessageBoxImage.Warning);
