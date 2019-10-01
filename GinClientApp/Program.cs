@@ -21,7 +21,7 @@ namespace GinClientApp
         /// <summary>
         /// Directory for updater; latest msi is downloaded there
         /// </summary>
-        private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\GinWindowsClient\Updates\");
+        private static readonly DirectoryInfo UpdaterBaseDirectory = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\g-node\WinGIN\Updates\");
         /// <summary>
         /// Link to AppVeyor project json; used to check latest released version: version.subversion.build
         /// </summary>

@@ -667,9 +667,9 @@ namespace GinClientLibrary
                     StartInfo = new ProcessStartInfo
                     {
                         WindowStyle = ProcessWindowStyle.Hidden,
-                        FileName = program,
-                        WorkingDirectory = workingDirectory,
-                        Arguments = commandline,
+                        FileName = @program,
+                        WorkingDirectory = @workingDirectory,
+                        Arguments = @commandline,
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
