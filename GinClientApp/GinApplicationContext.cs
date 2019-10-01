@@ -68,7 +68,7 @@ namespace GinClientApp
 
             ServiceClient = myChannelFactory.CreateChannel();
             var saveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                @"\g-node\GinWindowsClient";
+                                @"\g-node\WinGIN";
             if (!Directory.Exists(saveFilePath))
                 Directory.CreateDirectory(saveFilePath);
 

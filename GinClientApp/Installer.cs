@@ -35,7 +35,7 @@ namespace GinClientApp
             deleteDlg.ShowDialog();
 
             var configDataPath = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                 @"\g-node\GinWindowsClient\");
+                                 @"\g-node\WinGIN\");
 
             if (!deleteDlg.KeepCheckout)
             {

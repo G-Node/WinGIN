@@ -307,7 +307,7 @@ namespace GinClientApp.Dialogs
                 .GetRepositoryList());
 
             var saveFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                           @"\g-node\GinWindowsClient\SavedRepositories.json";
+                           @"\g-node\WinGIN\SavedRepositories.json";
 
             if (!Directory.Exists(Path.GetDirectoryName(saveFile)))
                 Directory.CreateDirectory(Path.GetDirectoryName(saveFile));

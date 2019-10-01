@@ -23,7 +23,7 @@ namespace GinClientApp
             RepositoryCheckoutOption = CheckoutOption.AnnexCheckout;
             DefaultCheckoutDir =
                 new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                  @"\g-node\GinWindowsClient\Repositories");
+                                  @"\g-node\WinGIN\Repositories");
             DefaultMountpointDir =
                 new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) +
                                   @"\Gin Repositories");
@@ -69,7 +69,7 @@ namespace GinClientApp
         public static void Save()
         {
             var saveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                               @"\g-node\GinWindowsClient\GlobalOptionsDlg.json";
+                               @"\g-node\WinGIN\GlobalOptionsDlg.json";
 
             if (File.Exists(saveFilePath))
                 File.Delete(saveFilePath);
@@ -86,7 +86,7 @@ namespace GinClientApp
         public static bool Load()
         {
             var saveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                               @"\g-node\GinWindowsClient\GlobalOptionsDlg.json";
+                               @"\g-node\WinGIN\GlobalOptionsDlg.json";
             if (!Directory.Exists(Path.GetDirectoryName(saveFilePath)))
                 Directory.CreateDirectory(Path.GetDirectoryName(saveFilePath));
 
