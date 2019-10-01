@@ -36,7 +36,7 @@ namespace GinClientLibrary
 
         private readonly object _thisLock = new object();
 
-        private readonly string GinCliPath = AppDomain.CurrentDomain.BaseDirectory+"gin-cli\\";
+        private readonly string GinCliPath = AppDomain.CurrentDomain.BaseDirectory+"gin-cli\\bin\\";
 
         private List<GinRepository> _repositories;
 
