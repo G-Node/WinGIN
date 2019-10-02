@@ -358,6 +358,7 @@ namespace GinClientApp.Dialogs
             _parentContext.ServiceClient.DeleteRepository(repo);
 
             FillRepoList();
+            SaveRepoList();
         }
 
         private void StartShowProgress()
