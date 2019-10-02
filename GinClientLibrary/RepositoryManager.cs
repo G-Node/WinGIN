@@ -144,6 +144,7 @@ namespace GinClientLibrary
                 };
 
                 process.Start();
+                process.WaitForExit();
             }
 
             return true;
