@@ -33,7 +33,6 @@ namespace GinClientLibrary
             Removed
         }
 
-        private readonly string GinCliPath = AppDomain.CurrentDomain.BaseDirectory + "gin-cli\\bin\\";
         private readonly string GinCliExe = "\""+AppDomain.CurrentDomain.BaseDirectory + "gin-cli\\bin\\gin.exe\"";
 
         private static readonly StringBuilder Output = new StringBuilder("");
@@ -63,7 +62,7 @@ namespace GinClientLibrary
         public bool DownloadUpdateInfo()
         {
             bool result = true;
-            GetCommandLineOutput("cmd.exe", "/C gin.exe download", PhysicalDirectory.FullName, out var error);
+            GetCommandLineOutput(GinCliExe, " download", PhysicalDirectory.FullName, out var error);
             if (!string.IsNullOrEmpty(error))
             {
                 OnFileOperationError(error);
