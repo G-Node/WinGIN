@@ -46,15 +46,16 @@ namespace GinClientApp.Dialogs
             
             
         }
-
+        /// <summary>
+        /// try to login; check name, password, server, logout and then login
+        /// </summary>
+        /// <returns>true for successful login</returns>
         private bool AttemptLogin()
         {
-            if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text) || string.IsNullOrEmpty((string)mCBxServerAlias.SelectedValue)) return false;
-
+            if (string.IsNullOrEmpty(mTxBUsername.Text) || string.IsNullOrEmpty(mTxBPassword.Text) || string.IsNullOrEmpty((string)mCBxServerAlias.SelectedValue))
+                return false;
             _parentContext.ServiceClient.Logout();
-
             return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text, (string)mCBxServerAlias.SelectedValue);
-            //return _parentContext.ServiceClient.Login(mTxBUsername.Text, mTxBPassword.Text);
         }
 
         private void mBtnOk_Click(object sender, EventArgs e)
