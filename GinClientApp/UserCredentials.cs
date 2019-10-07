@@ -39,7 +39,7 @@ namespace GinClientApp
         public static bool Load()
         {
             var saveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                               @"\g-node\GinWindowsClient\UserCredentials.json";
+                               @"\g-node\WinGIN\UserCredentials.json";
 
             if (!Directory.Exists(Path.GetDirectoryName(saveFilePath)))
                 Directory.CreateDirectory(Path.GetDirectoryName(saveFilePath));
@@ -68,7 +68,7 @@ namespace GinClientApp
         public static void Save()
         {
             var saveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                               @"\g-node\GinWindowsClient\UserCredentials.json";
+                               @"\g-node\WinGIN\UserCredentials.json";
 
             if (File.Exists(saveFilePath))
                 File.Delete(saveFilePath);

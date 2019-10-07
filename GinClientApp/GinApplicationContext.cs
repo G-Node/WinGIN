@@ -68,7 +68,7 @@ namespace GinClientApp
 
             ServiceClient = myChannelFactory.CreateChannel();
             var saveFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                @"\g-node\GinWindowsClient";
+                                @"\g-node\WinGIN";
             if (!Directory.Exists(saveFilePath))
                 Directory.CreateDirectory(saveFilePath);
 
@@ -109,12 +109,12 @@ namespace GinClientApp
                         {
                             if (server.Value.Default)
                             {
-                                //if login fails for default server, try to get new login info
+                                ///if login fails for default server, try to get new login info
                                 MessageBox.Show(Resources.GinApplicationContext_Error_while_trying_to_log_in_to_GIN,
                                 Resources.GinApplicationContext_Gin_Client_Error,
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 var getUserCreds = new MetroGetUserCredentialsDlg(this);
-                                var result = getUserCreds.ShowDialog(); //The Dialog will log us in and save the user credentials
+                                var result = getUserCreds.ShowDialog(); ///The Dialog will log us in and save the user credentials
                                 if (result == DialogResult.Cancel)
                                 {
                                     Exit(this, EventArgs.Empty);

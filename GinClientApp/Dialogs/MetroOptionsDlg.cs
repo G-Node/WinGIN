@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -212,7 +211,7 @@ namespace GinClientApp.Dialogs
             GlobalOptions.Instance.DefaultCheckoutDir = directory;
         }
         /// <summary>
-        /// opens EditSvrDlg and represhes server combobox
+        /// opens EditSvrDlg and refreshes server combobox
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -308,7 +307,7 @@ namespace GinClientApp.Dialogs
                 .GetRepositoryList());
 
             var saveFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                           @"\g-node\GinWindowsClient\SavedRepositories.json";
+                           @"\g-node\WinGIN\SavedRepositories.json";
 
             if (!Directory.Exists(Path.GetDirectoryName(saveFile)))
                 Directory.CreateDirectory(Path.GetDirectoryName(saveFile));
@@ -359,6 +358,7 @@ namespace GinClientApp.Dialogs
             _parentContext.ServiceClient.DeleteRepository(repo);
 
             FillRepoList();
+            SaveRepoList();
         }
 
         private void StartShowProgress()
@@ -435,7 +435,7 @@ namespace GinClientApp.Dialogs
             }
         }
         /// <summary>
-        /// Default button click - sets as default server selected server in mCBxServer and represhes combobox
+        /// Default button click - sets as default server selected server in mCBxServer and refreshes combobox
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -490,10 +490,12 @@ namespace GinClientApp.Dialogs
         private void OpenHelp() {
             bool exists = false;
             FormCollection openforms = Application.OpenForms;
+            ///check if help is already open
             foreach (Form forms in openforms)
             {
                 if (forms.Name == "HelpForm")
                 {
+                    ///if help is open bring it to the top
                     exists = true;
                     forms.Activate();
                     break;
@@ -501,6 +503,7 @@ namespace GinClientApp.Dialogs
             }
             if (!exists)
             {
+                ///help is closed, open it
                 Form helpF = new HelpForm();
                 helpF.Show();
             }
