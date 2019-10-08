@@ -300,7 +300,9 @@ namespace GinClientApp.Dialogs
 
             SaveRepoList();
         }
-
+        /// <summary>
+        /// save information about repositories into json file
+        /// </summary>
         private void SaveRepoList()
         {
             var repos = JsonConvert.DeserializeObject<GinRepositoryData[]>(_parentContext.ServiceClient
