@@ -51,6 +51,11 @@ namespace GinClientApp.Dialogs
         {
             ///get dictionary with servers
             Dictionary<string, ServerConf> serverMap = GetServers();
+
+            if (serverMap == null)
+            {
+                return false;
+            }
             ///check if alias exists
             if (serverMap.ContainsKey(serverAlias))
             {
@@ -65,7 +70,7 @@ namespace GinClientApp.Dialogs
                 }
                 else
                 {
-                    MessageBox.Show("Error. Unable to add server " + serverAlias);
+                    MessageBox.Show("Error. Unable to add server " + serverAlias+". Configuration is wrong or the server is not responding.");
                 }
             }
             return true;
