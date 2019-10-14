@@ -376,5 +376,16 @@ namespace GinClientApp
             _serviceThread.Join();
             Environment.Exit(0);
         }
+
+        public void CleanUp()
+        {
+            if (_trayIcon != null)
+                _trayIcon.Visible = false;
+
+            ServiceClient?.EndSession();
+
+            _serviceThread.Abort();
+            _serviceThread.Join();
+        }
     }
 }

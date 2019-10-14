@@ -149,7 +149,7 @@ namespace GinClientApp.Dialogs
             this.serverDefaultBtn.TabIndex = 15;
             this.serverDefaultBtn.Text = "Set Default";
             this.serverDefaultBtn.UseVisualStyleBackColor = true;
-            this.serverDefaultBtn.Click += new System.EventHandler(this.serverDefaultBtn_Click);
+            this.serverDefaultBtn.Click += new System.EventHandler(this.ServerDefaultBtn_Click);
             // 
             // mCBxServer
             // 
