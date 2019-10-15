@@ -70,7 +70,7 @@ namespace GinClientApp.Dialogs
                 }
                 else
                 {
-                    MessageBox.Show("Error. Unable to add server " + serverAlias+". The configuration is wrong or the server is not responding.");
+                    MessageBox.Show("Error. Unable to add server " + serverAlias+". The configuration is invalid or the server is not responding. Please check the configuration and try again.");
                     return false;
                 }
             }
