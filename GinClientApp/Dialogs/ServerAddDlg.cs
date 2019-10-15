@@ -51,10 +51,15 @@ namespace GinClientApp.Dialogs
         {
             ///get dictionary with servers
             Dictionary<string, ServerConf> serverMap = GetServers();
+
+            if (serverMap == null)
+            {
+                return false;
+            }
             ///check if alias exists
             if (serverMap.ContainsKey(serverAlias))
             {
-                MessageBox.Show("Server with this alias already exist!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Server with this alias already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             else
@@ -65,7 +70,8 @@ namespace GinClientApp.Dialogs
                 }
                 else
                 {
-                    MessageBox.Show("Error. Unable to add server " + serverAlias);
+                    MessageBox.Show("Error. Unable to add server " + serverAlias+". The configuration is invalid or the server is not responding. Please check the configuration and try again.");
+                    return false;
                 }
             }
             return true;

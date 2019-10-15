@@ -91,19 +91,30 @@ namespace GinClientApp.Dialogs
             mProgWorking.Visible = false;
             ///load all servers configuration and select default one
             serverMap = GetServers();
-            foreach (var server in serverMap)
+            try
             {
-                if (server.Value.Default)
-                    defServerAlias = server.Key;
+                foreach (var server in serverMap)
+                {
+                    if (server.Value.Default)
+                        defServerAlias = server.Key;
+                }
+                bs = new BindingSource(serverMap, null);
+                mCBxServer.DataSource = bs;
+                mTBAlias.Text = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
+                ///fill login informations
+                var logins = UserCredentials.Instance.loginList;
+                var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
+                mTxBPassword.Text = selectedLogin.Password;
+                mTxBUsername.Text = selectedLogin.Username;
+
             }
-            bs = new BindingSource(serverMap, null);
-            mCBxServer.DataSource = bs;
-            mTBAlias.Text = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
-            ///fill login informations
-            var logins = UserCredentials.Instance.loginList;
-            var selectedLogin = logins.Find(x => x.Server == mTBAlias.Text);
-            mTxBPassword.Text = selectedLogin.Password;
-            mTxBUsername.Text = selectedLogin.Username;
+            catch
+            {
+                MessageBox.Show("Cannot load server information. Please restart WinGIN.");
+                //_parentContext.ServiceClient.EndSession();
+                //_parentContext.CleanUp();
+                //Application.Run(new GinApplicationContext());
+            }
             mTxBDefaultCheckout.Text = GlobalOptions.Instance.DefaultCheckoutDir.FullName;
             mTxBDefaultMountpoint.Text = GlobalOptions.Instance.DefaultMountpointDir.FullName;
             mTglDownloadAnnex.Checked = GlobalOptions.Instance.RepositoryCheckoutOption ==
@@ -158,7 +169,7 @@ namespace GinClientApp.Dialogs
             }
             catch
             {
-                MessageBox.Show("Cannot load servers information.","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+//                MessageBox.Show("Cannot load servers information.","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return map;
         }
@@ -300,7 +311,9 @@ namespace GinClientApp.Dialogs
 
             SaveRepoList();
         }
-
+        /// <summary>
+        /// save information about repositories into json file
+        /// </summary>
         private void SaveRepoList()
         {
             var repos = JsonConvert.DeserializeObject<GinRepositoryData[]>(_parentContext.ServiceClient
@@ -439,7 +452,7 @@ namespace GinClientApp.Dialogs
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void serverDefaultBtn_Click(object sender, EventArgs e)
+        private void ServerDefaultBtn_Click(object sender, EventArgs e)
         {
             defServerAlias = ((KeyValuePair<string, ServerConf>)mCBxServer.SelectedItem).Key;
             _parentContext.ServiceClient.SetDefaultServer(defServerAlias);
@@ -454,13 +467,16 @@ namespace GinClientApp.Dialogs
             var index = mCBxServer.SelectedIndex;
             serverMap = GetServers();
             //bs.ResetBindings(true);
-            bs = new BindingSource(serverMap, null);
-            mCBxServer.DataSource = bs;
             try
             {
+                bs = new BindingSource(serverMap, null);
+                mCBxServer.DataSource = bs;
                 mCBxServer.SelectedIndex = index;
             }
-            catch { }
+            catch
+            {
+                MessageBox.Show("There is issue with loading server configurations.");
+            }
         }
         /// <summary>
         /// Adjust the displayed format of servers in mCBxServer combobox to format Alias [Default] or Alias
