@@ -148,6 +148,13 @@ namespace GinClientApp
                     new Timer(GlobalOptions.Instance.RepositoryUpdateInterval * 1000 * 60) { AutoReset = true };
                 _updateIntervalTimer.Elapsed += (sender, args) => { ServiceClient.DownloadAllUpdateInfo(); };
             }
+            else
+            {
+                ///no automatic updates; check the service every 45 minutes to prevent service time out
+                _updateIntervalTimer =
+                    new Timer(45 * 1000 * 60) { AutoReset = true };
+                _updateIntervalTimer.Elapsed += (sender, args) => { ServiceClient.IsAlive(); };
+            }
 
             GlobalOptions.Save();
 
