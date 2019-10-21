@@ -29,9 +29,11 @@ namespace GinClientApp.Dialogs
                 alias = tBxAlias.Text;
                 web = cBxWebProtocol.Text + "://" + tBxWebHostname.Text + ":" + cBxWebPort.Text;
                 git =cBxGitUser.Text + "@" + tBxGitHostname.Text + ":" + cBxGitPort.Text;
-                DialogResult = DialogResult.OK;
-                AddNewServer(alias, web, git);
-                Close();
+                if (AddNewServer(alias, web, git))
+                {
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
             }
             else
             {
