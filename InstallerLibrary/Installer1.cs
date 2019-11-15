@@ -18,8 +18,13 @@ namespace InstallerLibrary
     [RunInstaller(true)]
     public partial class Installer1 : Installer
     {
+        private bool is64BitOperatingSystem = Environment.Is64BitOperatingSystem;
+
         private static readonly string _ginURL =
             "https://web.gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows-386.zip";
+
+        private static readonly string _gin64URL =
+           "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows-amd64.zip";
 
         private volatile bool _downloadComplete;
 
@@ -56,13 +61,24 @@ namespace InstallerLibrary
                 //Download the current gin-cli release and unpack it into our install directory
                 wb.DownloadFileCompleted += Wb_DownloadFileCompleted;
                 wb.DownloadProgressChanged += WbOnDownloadProgressChanged;
-                string gincli = path.FullName + @"\gin-cli\gin-cli-latest-windows-386.zip";
-                wb.DownloadFileAsync(new Uri(_ginURL), gincli);
+                string gincli;
+                if (is64BitOperatingSystem)
+                {
+                    ///64bit
+                    gincli = path.FullName + @"\gin-cli\gin-cli-latest-windows-amd64.zip";
+                    wb.DownloadFileAsync(new Uri(_gin64URL), gincli);
+                }
+                else
+                {                   
+                    ///32 bit                  
+                    gincli = path.FullName + @"\gin-cli\gin-cli-latest-windows-386.zip";
+                    wb.DownloadFileAsync(new Uri(_ginURL), gincli);
+                }
 
                 while (!_downloadComplete)
                     Thread.Sleep(500);
 
-                ZipFile.ExtractToDirectory(path.FullName + @"\gin-cli\gin-cli-latest-windows-386.zip",
+                ZipFile.ExtractToDirectory(gincli,
                     path.FullName + @"\gin-cli\");
 
                 //Give the client the ability to register a URL to communicate with the service
