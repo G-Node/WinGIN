@@ -77,7 +77,7 @@ namespace GinClientLibrary
 
         private readonly bool _doLogging;
 
-        private NtStatus Trace(string method, string fileName, DokanFileInfo info, NtStatus result,
+        private NtStatus Trace(string method, string fileName, IDokanFileInfo info, NtStatus result,
             params object[] parameters)
         {
             if (_doLogging)
@@ -112,7 +112,7 @@ namespace GinClientLibrary
         }
 
         /// <summary>
-        ///     Event is triggered everytime the driver retrieves a remote file
+        ///     Event is triggered every time the driver retrieves a remote file
         /// </summary>
         public event FileOperationStartedHandler FileOperationStarted;
 
@@ -178,38 +178,7 @@ namespace GinClientLibrary
         private const FileAccess DataWriteAccess = FileAccess.WriteData | FileAccess.AppendData |
                                                    FileAccess.Delete |
                                                    FileAccess.GenericWrite;
-
-        public void Cleanup(string fileName, DokanFileInfo info)
-        {
-            if (info.Context != null && _doLogging)
-                Console.WriteLine(DokanFormat($"{nameof(Cleanup)}('{fileName}', {info} - entering"));
-
-            (info.Context as FileStream)?.Dispose();
-            info.Context = null;
-
-            if (info.DeleteOnClose)
-                if (info.IsDirectory)
-                    Directory.Delete(GetPath(fileName));
-                else
-                    File.Delete(GetPath(fileName));
-
-            Trace(nameof(Cleanup), fileName, info, NtStatus.Success);
-        }
-
-        public void CloseFile(string fileName, DokanFileInfo info)
-        {
-            if (info.Context != null && _doLogging)
-                Console.WriteLine(DokanFormat($"{nameof(CloseFile)}('{fileName}', {info} - entering"));
-
-            (info.Context as FileStream)?.Dispose();
-            info.Context = null;
-            Trace(nameof(CloseFile), fileName, info, NtStatus.Success);
-
-            Trace(nameof(CloseFile), fileName, info, NtStatus.Success);
-        }
-
-        public NtStatus CreateFile(string fileName, FileAccess access, FileShare share, FileMode mode,
-            FileOptions options, FileAttributes attributes, DokanFileInfo info)
+             public NtStatus CreateFile(string fileName, FileAccess access, FileShare share, FileMode mode, FileOptions options, FileAttributes attributes, IDokanFileInfo info)
         {
             var result = NtStatus.Success;
 
@@ -227,16 +196,16 @@ namespace GinClientLibrary
                                 try
                                 {
                                     if (!File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
-                                        return Trace(nameof(CreateFile), fileName, info, access, share, mode, options,
-                                            attributes, NtStatus.NotADirectory);
+                                        return Trace(nameof(CreateFile), fileName, info, NtStatus.NotADirectory, access, share, mode, options,
+                                            attributes);
                                 }
                                 catch (Exception)
                                 {
-                                    return Trace(nameof(CreateFile), fileName, info, access, share, mode, options,
-                                        attributes, DokanResult.FileNotFound);
+                                    return Trace(nameof(CreateFile), fileName, info, DokanResult.FileNotFound, access, share, mode, options,
+                                        attributes);
                                 }
-                                return Trace(nameof(CreateFile), fileName, info, access, share, mode, options,
-                                    attributes, DokanResult.PathNotFound);
+                                return Trace(nameof(CreateFile), fileName, info, DokanResult.PathNotFound, access, share, mode, options,
+                                    attributes);
                             }
 
                             new DirectoryInfo(filePath).EnumerateFileSystemInfos().Any();
@@ -245,14 +214,14 @@ namespace GinClientLibrary
 
                         case FileMode.CreateNew:
                             if (Directory.Exists(filePath))
-                                return Trace(nameof(CreateFile), fileName, info, access, share, mode, options,
-                                    attributes, DokanResult.FileExists);
+                                return Trace(nameof(CreateFile), fileName, info, DokanResult.FileExists, access, share, mode, options,
+                                    attributes);
 
                             try
                             {
                                 if (File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
-                                    return Trace(nameof(CreateFile), fileName, info, access, share, mode, options,
-                                        attributes, DokanResult.AlreadyExists);
+                                    return Trace(nameof(CreateFile), fileName, info, DokanResult.AlreadyExists, access, share, mode, options,
+                                        attributes);
                             }
                             catch (IOException)
                             {
@@ -264,8 +233,7 @@ namespace GinClientLibrary
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    return Trace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes,
-                        DokanResult.AccessDenied);
+                    return Trace(nameof(CreateFile), fileName, info, DokanResult.AccessDenied,access, share, mode, options, attributes);
                 }
             }
             else
@@ -301,15 +269,15 @@ namespace GinClientLibrary
                                 if (pathIsDirectory && (access & FileAccess.Delete) == FileAccess.Delete
                                     && (access & FileAccess.Synchronize) != FileAccess.Synchronize)
                                     //It is a DeleteFile request on a directory
-                                    return Trace(nameof(CreateFile), fileName, info, access, share, mode, options,
-                                        attributes, DokanResult.AccessDenied);
+                                    return Trace(nameof(CreateFile), fileName, info, DokanResult.AccessDenied, access, share, mode, options,
+                                        attributes);
 
                                 info.IsDirectory = pathIsDirectory;
                                 info.Context = new object();
-                                // must set it to someting if you return DokanError.Success
+                                // must set it to something if you return DokanError.Success
 
-                                return Trace(nameof(CreateFile), fileName, info, access, share, mode, options,
-                                    attributes, DokanResult.Success);
+                                return Trace(nameof(CreateFile), fileName, info, DokanResult.Success, access, share, mode, options,
+                                    attributes);
                             }
 
                             //If the file is annexed and the driver definitely wants to open it, retrieve it.
@@ -321,21 +289,21 @@ namespace GinClientLibrary
                         }
                         else
                         {
-                            return Trace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes,
-                                DokanResult.FileNotFound);
+                            return Trace(nameof(CreateFile), fileName, info, DokanResult.FileNotFound, access, share, mode, options, attributes
+                                );
                         }
                         break;
 
                     case FileMode.CreateNew:
                         if (pathExists)
-                            return Trace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes,
-                                DokanResult.FileExists);
+                            return Trace(nameof(CreateFile), fileName, info, DokanResult.FileExists, access, share, mode, options, attributes
+                                );
                         break;
 
                     case FileMode.Truncate:
                         if (!pathExists)
-                            return Trace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes,
-                                DokanResult.FileNotFound);
+                            return Trace(nameof(CreateFile), fileName, info, DokanResult.FileNotFound, access, share, mode, options, attributes
+                                );
                         break;
                 }
 
@@ -361,85 +329,113 @@ namespace GinClientLibrary
                         info.Context = null;
                     }
 
-                    return Trace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes,
-                        DokanResult.AccessDenied);
+                    return Trace(nameof(CreateFile), fileName, info, DokanResult.AccessDenied, access, share, mode, options, attributes
+                        );
                 }
                 catch (DirectoryNotFoundException)
                 {
-                    return Trace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes,
-                        DokanResult.PathNotFound);
+                    return Trace(nameof(CreateFile), fileName, info, DokanResult.PathNotFound, access, share, mode, options, attributes
+                        );
                 }
                 catch (Exception ex)
                 {
-                    var hr = (uint) Marshal.GetHRForException(ex);
+                    var hr = (uint)Marshal.GetHRForException(ex);
                     switch (hr)
                     {
                         case 0x80070020: //Sharing violation
-                            return Trace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes,
-                                DokanResult.SharingViolation);
+                            return Trace(nameof(CreateFile), fileName, info, DokanResult.SharingViolation, access, share, mode, options, attributes
+                                );
                         default:
                             throw;
                     }
                 }
             }
 
-            return Trace(nameof(CreateFile), fileName, info, access, share, mode, options, attributes, result);
+            return Trace(nameof(CreateFile), fileName, info, result, access, share, mode, options, attributes);
         }
 
-        public NtStatus DeleteDirectory(string fileName, DokanFileInfo info)
+        public void Cleanup(string fileName, IDokanFileInfo info)
         {
-            return Trace(nameof(DeleteDirectory), fileName, info,
-                Directory.EnumerateFileSystemEntries(GetPath(fileName)).Any()
-                    ? DokanResult.DirectoryNotEmpty
-                    : DokanResult.Success);
-            // if dir is not empty it can't be deleted
+            if (info.Context != null && _doLogging)
+                Console.WriteLine(DokanFormat($"{nameof(Cleanup)}('{fileName}', {info} - entering"));
+
+            (info.Context as FileStream)?.Dispose();
+            info.Context = null;
+
+            if (info.DeleteOnClose)
+                if (info.IsDirectory)
+                    Directory.Delete(GetPath(fileName));
+                else
+                    File.Delete(GetPath(fileName));
+
+            Trace(nameof(Cleanup), fileName, info, NtStatus.Success);
         }
 
-        public NtStatus DeleteFile(string fileName, DokanFileInfo info)
+        public void CloseFile(string fileName, IDokanFileInfo info)
         {
-            var filePath = GetPath(fileName);
+            if (info.Context != null && _doLogging)
+                Console.WriteLine(DokanFormat($"{nameof(CloseFile)}('{fileName}', {info} - entering"));
 
-            if (Directory.Exists(filePath))
-                return Trace(nameof(DeleteFile), fileName, info, DokanResult.AccessDenied);
+            (info.Context as FileStream)?.Dispose();
+            info.Context = null;
+            Trace(nameof(CloseFile), fileName, info, NtStatus.Success);
 
-            if (!File.Exists(filePath))
-                return Trace(nameof(DeleteFile), fileName, info, DokanResult.FileNotFound);
-
-            if (File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
-                return Trace(nameof(DeleteFile), fileName, info, DokanResult.AccessDenied);
-
-            return Trace(nameof(DeleteFile), fileName, info, DokanResult.Success);
-            // we just check here if we could delete the file - the true deletion is in Cleanup
+            Trace(nameof(CloseFile), fileName, info, NtStatus.Success);
         }
 
-        public NtStatus FindFiles(string fileName, out IList<FileInformation> files, DokanFileInfo info)
+        public NtStatus ReadFile(string fileName, byte[] buffer, out int bytesRead, long offset, IDokanFileInfo info)
         {
-            // This function is not called because FindFilesWithPattern is implemented
-            // Return DokanResult.NotImplemented in FindFilesWithPattern to make FindFiles called
-            files = FindFilesHelper(fileName, "*");
-
-            return Trace(nameof(FindFiles), fileName, info, DokanResult.Success);
+            if (info.Context == null) // memory mapped read
+            {
+                using (var stream = new FileStream(GetPath(fileName), FileMode.Open, System.IO.FileAccess.Read))
+                {
+                    stream.Position = offset;
+                    bytesRead = stream.Read(buffer, 0, buffer.Length);
+                }
+            }
+            else // normal read
+            {
+                var stream = info.Context as FileStream;
+                lock (stream) //Protect from overlapped read
+                {
+                    stream.Position = offset;
+                    bytesRead = stream.Read(buffer, 0, buffer.Length);
+                }
+            }
+            return Trace(nameof(ReadFile), fileName, info, NtStatus.Success, "out " + bytesRead,
+                offset.ToString(CultureInfo.InvariantCulture));
         }
 
-        public NtStatus FindFilesWithPattern(string fileName, string searchPattern, out IList<FileInformation> files,
-            DokanFileInfo info)
+        public NtStatus WriteFile(string fileName, byte[] buffer, out int bytesWritten, long offset, IDokanFileInfo info)
         {
-            files = FindFilesHelper(fileName, searchPattern);
-
-            return Trace(nameof(FindFilesWithPattern), fileName, info, DokanResult.Success);
+            if (info.Context == null)
+            {
+                using (var stream = new FileStream(GetPath(fileName), FileMode.Open, System.IO.FileAccess.Write))
+                {
+                    stream.Position = offset;
+                    stream.Write(buffer, 0, buffer.Length);
+                    bytesWritten = buffer.Length;
+                }
+            }
+            else
+            {
+                var stream = info.Context as FileStream;
+                lock (stream) //Protect from overlapped write
+                {
+                    stream.Position = offset;
+                    stream.Write(buffer, 0, buffer.Length);
+                }
+                bytesWritten = buffer.Length;
+            }
+            return Trace(nameof(WriteFile), fileName, info, DokanResult.Success, "out " + bytesWritten,
+                offset.ToString(CultureInfo.InvariantCulture));
         }
 
-        public NtStatus FindStreams(string fileName, out IList<FileInformation> streams, DokanFileInfo info)
-        {
-            streams = new FileInformation[0];
-            return Trace(nameof(FindStreams), fileName, info, DokanResult.NotImplemented);
-        }
-
-        public NtStatus FlushFileBuffers(string fileName, DokanFileInfo info)
+        public NtStatus FlushFileBuffers(string fileName, IDokanFileInfo info)
         {
             try
             {
-                ((FileStream) info.Context).Flush();
+                ((FileStream)info.Context).Flush();
                 return Trace(nameof(FlushFileBuffers), fileName, info, DokanResult.Success);
             }
             catch (IOException)
@@ -448,20 +444,7 @@ namespace GinClientLibrary
             }
         }
 
-        public NtStatus GetDiskFreeSpace(out long freeBytesAvailable, out long totalNumberOfBytes,
-            out long totalNumberOfFreeBytes, DokanFileInfo info)
-        {
-            var dinfo = DriveInfo.GetDrives().Single(di => string.Equals(di.RootDirectory.Name,
-                Path.GetPathRoot(_repository.PhysicalDirectory + "\\"), StringComparison.OrdinalIgnoreCase));
-
-            freeBytesAvailable = dinfo.TotalFreeSpace;
-            totalNumberOfBytes = dinfo.TotalSize;
-            totalNumberOfFreeBytes = dinfo.AvailableFreeSpace;
-            return Trace(nameof(GetDiskFreeSpace), null, info, DokanResult.Success, "out " + freeBytesAvailable,
-                "out " + totalNumberOfBytes, "out " + totalNumberOfFreeBytes);
-        }
-
-        public NtStatus GetFileInformation(string fileName, out FileInformation fileInfo, DokanFileInfo info)
+        public NtStatus GetFileInformation(string fileName, out FileInformation fileInfo, IDokanFileInfo info)
         {
             // may be called with info.Context == null, but usually it isn't
             var filePath = GetPath(fileName);
@@ -482,59 +465,116 @@ namespace GinClientLibrary
             return Trace(nameof(GetFileInformation), fileName, info, DokanResult.Success);
         }
 
-        public NtStatus GetFileSecurity(string fileName, out FileSystemSecurity security,
-            AccessControlSections sections, DokanFileInfo info)
+        public NtStatus FindFiles(string fileName, out IList<FileInformation> files, IDokanFileInfo info)
+        {
+            // This function is not called because FindFilesWithPattern is implemented
+            // Return DokanResult.NotImplemented in FindFilesWithPattern to make FindFiles called
+            files = FindFilesHelper(fileName, "*");
+
+            return Trace(nameof(FindFiles), fileName, info, DokanResult.Success);
+        }
+
+        public NtStatus FindFilesWithPattern(string fileName, string searchPattern, out IList<FileInformation> files, IDokanFileInfo info)
+        {
+            files = FindFilesHelper(fileName, searchPattern);
+
+            return Trace(nameof(FindFilesWithPattern), fileName, info, DokanResult.Success);
+        }
+
+        public NtStatus SetFileAttributes(string fileName, FileAttributes attributes, IDokanFileInfo info)
         {
             try
             {
-                security = info.IsDirectory
-                    ? (FileSystemSecurity) Directory.GetAccessControl(GetPath(fileName))
-                    : File.GetAccessControl(GetPath(fileName));
-                return Trace(nameof(GetFileSecurity), fileName, info, DokanResult.Success, sections.ToString());
+                File.SetAttributes(GetPath(fileName), attributes);
+                return Trace(nameof(SetFileAttributes), fileName, info, DokanResult.Success, attributes.ToString());
             }
             catch (UnauthorizedAccessException)
             {
-                security = null;
-                return Trace(nameof(GetFileSecurity), fileName, info, DokanResult.AccessDenied, sections.ToString());
+                return Trace(nameof(SetFileAttributes), fileName, info, DokanResult.AccessDenied,
+                    attributes.ToString());
             }
-        }
-
-        public NtStatus GetVolumeInformation(out string volumeLabel, out FileSystemFeatures features,
-            out string fileSystemName, DokanFileInfo info)
-        {
-            volumeLabel = _repository.Mountpoint.FullName + Path.DirectorySeparatorChar + _repository.Name;
-            fileSystemName = "NTFS";
-            features = FileSystemFeatures.CasePreservedNames | FileSystemFeatures.CaseSensitiveSearch |
-                       FileSystemFeatures.PersistentAcls | FileSystemFeatures.SupportsRemoteStorage |
-                       FileSystemFeatures.UnicodeOnDisk;
-
-            return Trace(nameof(GetVolumeInformation), null, info, DokanResult.Success, "out " + volumeLabel,
-                "out " + features, "out " + fileSystemName);
-        }
-
-        public NtStatus LockFile(string fileName, long offset, long length, DokanFileInfo info)
-        {
-            try
+            catch (FileNotFoundException)
             {
-                ((FileStream) info.Context).Lock(offset, length);
-                return Trace(nameof(LockFile), fileName, info, DokanResult.Success,
-                    offset.ToString(CultureInfo.InvariantCulture), length.ToString(CultureInfo.InvariantCulture));
+                return Trace(nameof(SetFileAttributes), fileName, info, DokanResult.FileNotFound,
+                    attributes.ToString());
             }
-            catch (IOException)
+            catch (DirectoryNotFoundException)
             {
-                return Trace(nameof(LockFile), fileName, info, DokanResult.AccessDenied,
-                    offset.ToString(CultureInfo.InvariantCulture), length.ToString(CultureInfo.InvariantCulture));
+                return Trace(nameof(SetFileAttributes), fileName, info, DokanResult.PathNotFound,
+                    attributes.ToString());
             }
         }
 
-        public NtStatus Mounted(DokanFileInfo info)
+        public NtStatus SetFileTime(string fileName, DateTime? creationTime, DateTime? lastAccessTime, DateTime? lastWriteTime, IDokanFileInfo info)
         {
-            var result = NtStatus.Success;
+                try
+                {
+                    if (info.Context is FileStream stream)
+                    {
+                        var ct = creationTime?.ToFileTime() ?? 0;
+                        var lat = lastAccessTime?.ToFileTime() ?? 0;
+                        var lwt = lastWriteTime?.ToFileTime() ?? 0;
+                        if (NativeMethods.SetFileTime(stream.SafeFileHandle, ref ct, ref lat, ref lwt))
+                            return NtStatus.Success;
+                        throw Marshal.GetExceptionForHR(Marshal.GetLastWin32Error());
+                    }
 
-            return Trace(nameof(Mounted), null, info, result);
+                    var filePath = GetPath(fileName);
+
+                    if (creationTime.HasValue)
+                        File.SetCreationTime(filePath, creationTime.Value);
+
+                    if (lastAccessTime.HasValue)
+                        File.SetLastAccessTime(filePath, lastAccessTime.Value);
+
+                    if (lastWriteTime.HasValue)
+                        File.SetLastWriteTime(filePath, lastWriteTime.Value);
+
+                    return Trace(nameof(SetFileTime), fileName, info, DokanResult.Success, creationTime, lastAccessTime,
+                        lastWriteTime);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    return Trace(nameof(SetFileTime), fileName, info, DokanResult.AccessDenied, creationTime,
+                        lastAccessTime,
+                        lastWriteTime);
+                }
+                catch (FileNotFoundException)
+                {
+                    return Trace(nameof(SetFileTime), fileName, info, DokanResult.FileNotFound, creationTime,
+                        lastAccessTime,
+                        lastWriteTime);
+                }
+            
+            }
+
+        public NtStatus DeleteFile(string fileName, IDokanFileInfo info)
+        {
+            var filePath = GetPath(fileName);
+
+            if (Directory.Exists(filePath))
+                return Trace(nameof(DeleteFile), fileName, info, DokanResult.AccessDenied);
+
+            if (!File.Exists(filePath))
+                return Trace(nameof(DeleteFile), fileName, info, DokanResult.FileNotFound);
+
+            if (File.GetAttributes(filePath).HasFlag(FileAttributes.Directory))
+                return Trace(nameof(DeleteFile), fileName, info, DokanResult.AccessDenied);
+
+            return Trace(nameof(DeleteFile), fileName, info, DokanResult.Success);
+            // we just check here if we could delete the file - the true deletion is in Cleanup
         }
 
-        public NtStatus MoveFile(string oldName, string newName, bool replace, DokanFileInfo info)
+        public NtStatus DeleteDirectory(string fileName, IDokanFileInfo info)
+        {
+            return Trace(nameof(DeleteDirectory), fileName, info,
+                Directory.EnumerateFileSystemEntries(GetPath(fileName)).Any()
+                    ? DokanResult.DirectoryNotEmpty
+                    : DokanResult.Success);
+            // if dir is not empty it can't be deleted
+        }
+
+        public NtStatus MoveFile(string oldName, string newName, bool replace, IDokanFileInfo info)
         {
             var oldpath = GetPath(oldName);
             var newpath = GetPath(newName);
@@ -579,49 +619,11 @@ namespace GinClientLibrary
                 replace.ToString(CultureInfo.InvariantCulture));
         }
 
-        public NtStatus ReadFile(string fileName, byte[] buffer, out int bytesRead, long offset, DokanFileInfo info)
-        {
-            if (info.Context == null) // memory mapped read
-            {
-                using (var stream = new FileStream(GetPath(fileName), FileMode.Open, System.IO.FileAccess.Read))
-                {
-                    stream.Position = offset;
-                    bytesRead = stream.Read(buffer, 0, buffer.Length);
-                }
-            }
-            else // normal read
-            {
-                var stream = info.Context as FileStream;
-                lock (stream) //Protect from overlapped read
-                {
-                    stream.Position = offset;
-                    bytesRead = stream.Read(buffer, 0, buffer.Length);
-                }
-            }
-            return Trace(nameof(ReadFile), fileName, info, NtStatus.Success, "out " + bytesRead,
-                offset.ToString(CultureInfo.InvariantCulture));
-        }
-
-        public NtStatus SetAllocationSize(string fileName, long length, DokanFileInfo info)
+        public NtStatus SetEndOfFile(string fileName, long length, IDokanFileInfo info)
         {
             try
             {
-                ((FileStream) info.Context).SetLength(length);
-                return Trace(nameof(SetAllocationSize), fileName, info, DokanResult.Success,
-                    length.ToString(CultureInfo.InvariantCulture));
-            }
-            catch (IOException)
-            {
-                return Trace(nameof(SetAllocationSize), fileName, info, DokanResult.DiskFull,
-                    length.ToString(CultureInfo.InvariantCulture));
-            }
-        }
-
-        public NtStatus SetEndOfFile(string fileName, long length, DokanFileInfo info)
-        {
-            try
-            {
-                ((FileStream) info.Context).SetLength(length);
+                ((FileStream)info.Context).SetLength(length);
                 return Trace(nameof(SetEndOfFile), fileName, info, DokanResult.Success,
                     length.ToString(CultureInfo.InvariantCulture));
             }
@@ -632,95 +634,41 @@ namespace GinClientLibrary
             }
         }
 
-        public NtStatus SetFileAttributes(string fileName, FileAttributes attributes, DokanFileInfo info)
+        public NtStatus SetAllocationSize(string fileName, long length, IDokanFileInfo info)
         {
             try
             {
-                File.SetAttributes(GetPath(fileName), attributes);
-                return Trace(nameof(SetFileAttributes), fileName, info, DokanResult.Success, attributes.ToString());
+                ((FileStream)info.Context).SetLength(length);
+                return Trace(nameof(SetAllocationSize), fileName, info, DokanResult.Success,
+                    length.ToString(CultureInfo.InvariantCulture));
             }
-            catch (UnauthorizedAccessException)
+            catch (IOException)
             {
-                return Trace(nameof(SetFileAttributes), fileName, info, DokanResult.AccessDenied,
-                    attributes.ToString());
-            }
-            catch (FileNotFoundException)
-            {
-                return Trace(nameof(SetFileAttributes), fileName, info, DokanResult.FileNotFound,
-                    attributes.ToString());
-            }
-            catch (DirectoryNotFoundException)
-            {
-                return Trace(nameof(SetFileAttributes), fileName, info, DokanResult.PathNotFound,
-                    attributes.ToString());
+                return Trace(nameof(SetAllocationSize), fileName, info, DokanResult.DiskFull,
+                    length.ToString(CultureInfo.InvariantCulture));
             }
         }
 
-        public NtStatus SetFileSecurity(string fileName, FileSystemSecurity security, AccessControlSections sections,
-            DokanFileInfo info)
+        public NtStatus LockFile(string fileName, long offset, long length, IDokanFileInfo info)
         {
             try
             {
-                if (info.IsDirectory)
-                    Directory.SetAccessControl(GetPath(fileName), (DirectorySecurity) security);
-                else
-                    File.SetAccessControl(GetPath(fileName), (FileSecurity) security);
-                return Trace(nameof(SetFileSecurity), fileName, info, DokanResult.Success, sections.ToString());
+                ((FileStream)info.Context).Lock(offset, length);
+                return Trace(nameof(LockFile), fileName, info, DokanResult.Success,
+                    offset.ToString(CultureInfo.InvariantCulture), length.ToString(CultureInfo.InvariantCulture));
             }
-            catch (UnauthorizedAccessException)
+            catch (IOException)
             {
-                return Trace(nameof(SetFileSecurity), fileName, info, DokanResult.AccessDenied, sections.ToString());
+                return Trace(nameof(LockFile), fileName, info, DokanResult.AccessDenied,
+                    offset.ToString(CultureInfo.InvariantCulture), length.ToString(CultureInfo.InvariantCulture));
             }
         }
 
-        public NtStatus SetFileTime(string fileName, DateTime? creationTime, DateTime? lastAccessTime,
-            DateTime? lastWriteTime, DokanFileInfo info)
+        public NtStatus UnlockFile(string fileName, long offset, long length, IDokanFileInfo info)
         {
             try
             {
-                if (info.Context is FileStream stream)
-                {
-                    var ct = creationTime?.ToFileTime() ?? 0;
-                    var lat = lastAccessTime?.ToFileTime() ?? 0;
-                    var lwt = lastWriteTime?.ToFileTime() ?? 0;
-                    if (NativeMethods.SetFileTime(stream.SafeFileHandle, ref ct, ref lat, ref lwt))
-                        return NtStatus.Success;
-                    throw Marshal.GetExceptionForHR(Marshal.GetLastWin32Error());
-                }
-
-                var filePath = GetPath(fileName);
-
-                if (creationTime.HasValue)
-                    File.SetCreationTime(filePath, creationTime.Value);
-
-                if (lastAccessTime.HasValue)
-                    File.SetLastAccessTime(filePath, lastAccessTime.Value);
-
-                if (lastWriteTime.HasValue)
-                    File.SetLastWriteTime(filePath, lastWriteTime.Value);
-
-                return Trace(nameof(SetFileTime), fileName, info, DokanResult.Success, creationTime, lastAccessTime,
-                    lastWriteTime);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                return Trace(nameof(SetFileTime), fileName, info, DokanResult.AccessDenied, creationTime,
-                    lastAccessTime,
-                    lastWriteTime);
-            }
-            catch (FileNotFoundException)
-            {
-                return Trace(nameof(SetFileTime), fileName, info, DokanResult.FileNotFound, creationTime,
-                    lastAccessTime,
-                    lastWriteTime);
-            }
-        }
-
-        public NtStatus UnlockFile(string fileName, long offset, long length, DokanFileInfo info)
-        {
-            try
-            {
-                ((FileStream) info.Context).Unlock(offset, length);
+                ((FileStream)info.Context).Unlock(offset, length);
                 return Trace(nameof(UnlockFile), fileName, info, DokanResult.Success,
                     offset.ToString(CultureInfo.InvariantCulture), length.ToString(CultureInfo.InvariantCulture));
             }
@@ -731,43 +679,82 @@ namespace GinClientLibrary
             }
         }
 
-        public NtStatus Unmounted(DokanFileInfo info)
+        public NtStatus GetDiskFreeSpace(out long freeBytesAvailable, out long totalNumberOfBytes, out long totalNumberOfFreeBytes, IDokanFileInfo info)
+        {
+            var dinfo = DriveInfo.GetDrives().Single(di => string.Equals(di.RootDirectory.Name,
+                Path.GetPathRoot(_repository.PhysicalDirectory + "\\"), StringComparison.OrdinalIgnoreCase));
+
+            freeBytesAvailable = dinfo.TotalFreeSpace;
+            totalNumberOfBytes = dinfo.TotalSize;
+            totalNumberOfFreeBytes = dinfo.AvailableFreeSpace;
+            return Trace(nameof(GetDiskFreeSpace), null, info, DokanResult.Success, "out " + freeBytesAvailable,
+                "out " + totalNumberOfBytes, "out " + totalNumberOfFreeBytes);
+        }
+
+        public NtStatus GetVolumeInformation(out string volumeLabel, out FileSystemFeatures features, out string fileSystemName, out uint maximumComponentLength, IDokanFileInfo info)
+        {
+            volumeLabel = _repository.Mountpoint.FullName + Path.DirectorySeparatorChar + _repository.Name;
+            fileSystemName = "NTFS";
+            maximumComponentLength = 255;
+            features = FileSystemFeatures.CasePreservedNames | FileSystemFeatures.CaseSensitiveSearch |
+                       FileSystemFeatures.PersistentAcls | FileSystemFeatures.SupportsRemoteStorage |
+                       FileSystemFeatures.UnicodeOnDisk;
+
+            return Trace(nameof(GetVolumeInformation), null, info, NtStatus.Success, "out " + volumeLabel,
+                "out " + features, "out " + fileSystemName);
+        }
+
+        public NtStatus GetFileSecurity(string fileName, out FileSystemSecurity security, AccessControlSections sections, IDokanFileInfo info)
+        {
+            try
+            {
+                security = info.IsDirectory
+                    ? (FileSystemSecurity)Directory.GetAccessControl(GetPath(fileName))
+                    : File.GetAccessControl(GetPath(fileName));
+                return Trace(nameof(GetFileSecurity), fileName, info, DokanResult.Success, sections.ToString());
+            }
+            catch (UnauthorizedAccessException)
+            {
+                security = null;
+                return Trace(nameof(GetFileSecurity), fileName, info, DokanResult.AccessDenied, sections.ToString());
+            }
+        }
+
+        public NtStatus SetFileSecurity(string fileName, FileSystemSecurity security, AccessControlSections sections, IDokanFileInfo info)
+        {
+            try
+            {
+                if (info.IsDirectory)
+                    Directory.SetAccessControl(GetPath(fileName), (DirectorySecurity)security);
+                else
+                    File.SetAccessControl(GetPath(fileName), (FileSecurity)security);
+                return Trace(nameof(SetFileSecurity), fileName, info, DokanResult.Success, sections.ToString());
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Trace(nameof(SetFileSecurity), fileName, info, DokanResult.AccessDenied, sections.ToString());
+            }
+        }
+
+        public NtStatus Mounted(IDokanFileInfo info)
+        {
+            var result = NtStatus.Success;
+
+            return Trace(nameof(Mounted), null, info, result);
+        }
+
+        public NtStatus Unmounted(IDokanFileInfo info)
         {
             var result = NtStatus.Success;
 
             return Trace(nameof(Unmounted), null, info, result);
         }
 
-        public NtStatus WriteFile(string fileName, byte[] buffer, out int bytesWritten, long offset, DokanFileInfo info)
+        public NtStatus FindStreams(string fileName, out IList<FileInformation> streams, IDokanFileInfo info)
         {
-            if (info.Context == null)
-            {
-                using (var stream = new FileStream(GetPath(fileName), FileMode.Open, System.IO.FileAccess.Write))
-                {
-                    stream.Position = offset;
-                    stream.Write(buffer, 0, buffer.Length);
-                    bytesWritten = buffer.Length;
-                }
-            }
-            else
-            {
-                var stream = info.Context as FileStream;
-                lock (stream) //Protect from overlapped write
-                {
-                    stream.Position = offset;
-                    stream.Write(buffer, 0, buffer.Length);
-                }
-                bytesWritten = buffer.Length;
-            }
-            return Trace(nameof(WriteFile), fileName, info, DokanResult.Success, "out " + bytesWritten,
-                offset.ToString(CultureInfo.InvariantCulture));
+            streams = new FileInformation[0];
+            return Trace(nameof(FindStreams), fileName, info, DokanResult.NotImplemented);
         }
-
-        public NtStatus GetVolumeInformation(out string volumeLabel, out FileSystemFeatures features, out string fileSystemName, out uint maximumComponentLength, DokanFileInfo info)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
     }
 }
