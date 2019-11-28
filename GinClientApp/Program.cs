@@ -130,9 +130,9 @@ namespace GinClientApp
             ///add gin-cli to path
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var value = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
-            value += ";" + path + @"gin-cli\bin";
-            value += ";" + path + @"gin-cli\git\usr\bin";
-            value += ";" + path + @"gin-cli\git\bin";
+            value = path + @"gin-cli\bin" + ";" + value;
+            value = path + @"gin-cli\git\usr\bin"+ ";" + value;
+            value = path + @"gin-cli\git\bin" + ";" + value;
             Environment.SetEnvironmentVariable("PATH", value, EnvironmentVariableTarget.Process);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
