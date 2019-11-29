@@ -348,7 +348,7 @@ namespace GinClientApp
 
         private void _trayIcon_DoubleClick(object sender, EventArgs e)
         {
-            ///app is not opened yet, open new form
+            ///application is not opened yet, open new form
             if (Application.OpenForms.OfType<MetroOptionsDlg>().Count() < 1)
             {
                 var repomanager = new MetroOptionsDlg(this, MetroOptionsDlg.Page.Repositories);
@@ -361,7 +361,7 @@ namespace GinClientApp
             }
             else
             {
-                ///App is already open, bring the app form on top
+                ///Application is already open, bring the application form on top
                 var form = Application.OpenForms.OfType<MetroOptionsDlg>().First();
                 form.TopMost = true;
                 form.Show();

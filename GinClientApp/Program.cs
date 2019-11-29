@@ -58,7 +58,7 @@ namespace GinClientApp
             var wb = new WebClient();
             try
             {
-                ///download build ressult from GIN-installers-repository
+                ///download build result from GIN-installers-repository
                 var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
                 var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
                 var remoteVersion = new Version(rootObject.build.version);
@@ -117,7 +117,7 @@ namespace GinClientApp
                 }
                 else
                 {
-                    ///no dokan installed, exit app
+                    ///no dokan installed, exit application
                     return;
                 }
             }
@@ -178,7 +178,7 @@ namespace GinClientApp
         }
     }
 
-    #region stuctures
+    #region structures
     public class NuGetFeed
     {
         public string id { get; set; }
