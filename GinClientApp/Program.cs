@@ -32,6 +32,7 @@ namespace GinClientApp
         private const string dokanApp = "Dokan Library 1.3.0.1000 Bundle";
         private const string connectionError = "Cannot connect to G-Node server.";
         private const string dokanNotInstalled = "Dokan library is missing! Dokan is necessary for WinGIN to work. Do you want to install Dokan now?";
+        private const string oldDokanInstalled = "Old Dokan library is installed! Dokan 1.3.0 is necessary for WinGIN to work. Please uninstall old version.";
         private const string ginNotInstalled = "Local GIN binary is missing. Please reinstall application.";
         private const string winginIsRunning = "WinGIN is already running.";
         #endregion
@@ -58,7 +59,7 @@ namespace GinClientApp
             var wb = new WebClient();
             try
             {
-                ///download build ressult from GIN-installers-repository
+                ///download build result from GIN-installers-repository
                 var response = wb.DownloadString(new Uri(AppVeyorProjectUrl));
                 var rootObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RootObject>(response);
                 var remoteVersion = new Version(rootObject.build.version);
@@ -99,26 +100,39 @@ namespace GinClientApp
             }
             var curPath = AppDomain.CurrentDomain.BaseDirectory;
             ///check if dokan is installed
+            MessageBoxResult dokanResult = MessageBoxResult.No;
             if (!CheckInstalled(dokanApp))
             {
-                var result = MessageBox.Show(dokanNotInstalled, "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                ///try to install dokan
-                if (result == MessageBoxResult.Yes)
+                if (CheckInstalled(dokanAppOld))
+                ///check if old version of dokan is installed
                 {
-                    var procstartinfo = new ProcessStartInfo
-                    {
-                        FileName = curPath + @"dokan/DokanSetup.exe",
-                        CreateNoWindow = true,
-                        UseShellExecute = true,
-                        Verb = "runas"
-                    };
-                    var process = Process.Start(procstartinfo);
-                    Environment.Exit(0);
+                    ///installed old dokan. Show warning and exit.
+                    MessageBox.Show(oldDokanInstalled, "WinGIN", MessageBoxButton.OK, MessageBoxImage.Error);
+                    dokanResult = MessageBoxResult.No;
+                    return;
                 }
                 else
                 {
-                    ///no dokan installed, exit app
-                    return;
+                    ///No dokan installed
+                    dokanResult = MessageBox.Show(dokanNotInstalled, "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    ///try to install dokan
+                    if (dokanResult == MessageBoxResult.Yes)
+                    {
+                        var procstartinfo = new ProcessStartInfo
+                        {
+                            FileName = curPath + @"dokan/DokanSetup.exe",
+                            CreateNoWindow = true,
+                            UseShellExecute = true,
+                            Verb = "runas"
+                        };
+                        var process = Process.Start(procstartinfo);
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        ///no dokan installed, exit application
+                        return;
+                    }
                 }
             }
             ///check if local gin-cli is present
@@ -178,7 +192,7 @@ namespace GinClientApp
         }
     }
 
-    #region stuctures
+    #region structures
     public class NuGetFeed
     {
         public string id { get; set; }

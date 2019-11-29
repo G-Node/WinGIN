@@ -140,7 +140,7 @@ namespace GinClientLibrary
         #region Helpers
 
         /// <summary>
-        ///     Translates a filename from the virtual filesystem to the actual one
+        ///     Translates a filename from the virtual file system to the actual one
         /// </summary>
         /// <param name="fileName">The filename, relative to the mountpoint</param>
         /// <returns></returns>
@@ -571,7 +571,7 @@ namespace GinClientLibrary
                 Directory.EnumerateFileSystemEntries(GetPath(fileName)).Any()
                     ? DokanResult.DirectoryNotEmpty
                     : DokanResult.Success);
-            // if dir is not empty it can't be deleted
+            // if directory is not empty it can't be deleted
         }
 
         public NtStatus MoveFile(string oldName, string newName, bool replace, IDokanFileInfo info)

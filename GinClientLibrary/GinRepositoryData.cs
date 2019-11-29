@@ -34,7 +34,7 @@ namespace GinClientLibrary
         public DirectoryInfo PhysicalDirectory { get; set; }
 
         /// <summary>
-        ///     Path where the Repo will be mounted
+        ///     Path where the Repository will be mounted
         /// </summary>
         [DataMember]
         public DirectoryInfo Mountpoint { get; set; }

@@ -41,7 +41,7 @@ namespace GinClientApp
         public int RepositoryUpdateInterval { get; set; }
 
         /// <summary>
-        ///     Default behaviour for the client when checking out a GIN repository
+        ///     Default behavior for the client when checking out a GIN repository
         /// </summary>
         public CheckoutOption RepositoryCheckoutOption { get; set; }
 
