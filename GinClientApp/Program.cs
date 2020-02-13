@@ -100,10 +100,11 @@ namespace GinClientApp
                 return;
             }
             var curPath = AppDomain.CurrentDomain.BaseDirectory;
-            ///check if dokan is installed
+            ///check if supported dokan is installed
             MessageBoxResult dokanResult = MessageBoxResult.No;
             if (!CheckInstalled(dokanApp) && !CheckInstalled(dokanApp2))
             {
+                /// no supported dokan installed
                 if (CheckInstalled(dokanAppOld))
                 ///check if old version of dokan is installed
                 {
@@ -114,11 +115,11 @@ namespace GinClientApp
                 }
                 else
                 {
-                    ///No dokan installed
+                    ///No dokan installed,  ask for installation
                     dokanResult = MessageBox.Show(dokanNotInstalled, "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    ///try to install dokan
                     if (dokanResult == MessageBoxResult.Yes)
                     {
+                    ///try to install dokan
                         var procstartinfo = new ProcessStartInfo
                         {
                             FileName = curPath + @"dokan/DokanSetup.exe",
@@ -151,6 +152,7 @@ namespace GinClientApp
             Environment.SetEnvironmentVariable("PATH", value, EnvironmentVariableTarget.Process);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ///start WinGIN
             Application.Run(new GinApplicationContext());
         }
 
