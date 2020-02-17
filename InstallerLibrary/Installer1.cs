@@ -21,10 +21,10 @@ namespace InstallerLibrary
         private bool is64BitOperatingSystem = Environment.Is64BitOperatingSystem;
 
         private static readonly string _ginURL =
-            "https://web.gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows-386.zip";
+            "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows32.zip";
 
         private static readonly string _gin64URL =
-           "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows-amd64.zip";
+           "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows64.zip";
 
         private volatile bool _downloadComplete;
 
