@@ -27,10 +27,25 @@ namespace GinClientApp
         /// </summary>
         private static readonly string AppVeyorProjectUrl = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/build.json";
 
-        #region Forms Strings
+        #region Dokan Versions
+        /// <summary>
+        /// unsupported dokan from old WinGIN bundle
+        /// </summary>
         private const string dokanAppOld = "Dokan Library 1.1.0.2000 Bundle";
+        /// <summary>
+        /// supported dokan version
+        /// </summary>
         private const string dokanApp = "Dokan Library 1.3.0.1000 Bundle";
+        /// <summary>
+        /// supported dokan version
+        /// </summary>
         private const string dokanApp2 = "Dokan Library 1.3.1.1000 Bundle";
+        #endregion
+
+        #region Forms Strings
+        /// <summary>
+        /// error messages
+        /// </summary>
         private const string connectionError = "Cannot connect to G-Node server.";
         private const string dokanNotInstalled = "Dokan library is missing or wrong version is installed! Dokan is necessary for WinGIN to work. Do you want to install Dokan now?";
         private const string oldDokanInstalled = "Old Dokan library is installed! Dokan 1.3.0 is necessary for WinGIN to work. Please uninstall old version.";
