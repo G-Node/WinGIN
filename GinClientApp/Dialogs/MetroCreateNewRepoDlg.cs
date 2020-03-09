@@ -208,12 +208,20 @@ namespace GinClientApp.Dialogs
 
         private void mBtnRepoBrowser_Click(object sender, EventArgs e)
         {
-            var repoBrowser = new MetroRepoBrowser(_appContext);
-
-            if (repoBrowser.ShowDialog() == DialogResult.OK)
+            if (_appContext != null)
             {
-                mTxBRepoAddress.Text = repoBrowser.SelectedRepository;
-                mTxBRepoAddress_Leave(null, EventArgs.Empty);
+
+                var repoBrowser = new MetroRepoBrowser(_appContext);
+
+                if (repoBrowser.ShowDialog() == DialogResult.OK)
+                {
+                    mTxBRepoAddress.Text = repoBrowser.SelectedRepository;
+                    mTxBRepoAddress_Leave(null, EventArgs.Empty);
+                }
+            }
+            else
+            {
+                MetroMessageBox.Show(this,"Error: Unable to browse repositories.");
             }
         }
     }
