@@ -208,7 +208,7 @@ namespace GinClientApp.Dialogs
 
         private void mBtnRepoBrowser_Click(object sender, EventArgs e)
         {
-            if (_appContext != null)
+            try
             {
 
                 var repoBrowser = new MetroRepoBrowser(_appContext);
@@ -219,7 +219,7 @@ namespace GinClientApp.Dialogs
                     mTxBRepoAddress_Leave(null, EventArgs.Empty);
                 }
             }
-            else
+            catch
             {
                 MetroMessageBox.Show(this,"Error: Unable to browse repositories.");
             }
