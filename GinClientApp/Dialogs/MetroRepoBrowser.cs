@@ -17,9 +17,19 @@ namespace GinClientApp.Dialogs
             InitializeComponent();
 
             var repoListJson = context.ServiceClient.GetRemoteRepositoryList();
+            if (repoListJson.Length <= 0)
+            {
+                MessageBox.Show("No repositories attached to logged account.");
+                return;
+            }
             var repoList = JsonConvert.DeserializeObject<RepositoryListing[]>(repoListJson);
 
-            if (!repoList.Any()) return;
+            if (!repoList.Any())
+            {
+                MessageBox.Show("No repositories attached to logged account.");
+                return;
+            }
+
             ///change it for default server
             string serverAddress = "gin.g-node.org";
             var servers = context.ServiceClient.GetServers();
