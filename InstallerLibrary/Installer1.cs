@@ -78,6 +78,7 @@ namespace InstallerLibrary
 
                 _downloadComplete = false;
                 var wb = new WebClient();
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 wb.Headers.Add("user-agent","archive_download");
                 //Download the current gin-cli release and unpack it into our install directory
                 wb.DownloadFileCompleted += Wb_DownloadFileCompleted;
