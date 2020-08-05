@@ -20,11 +20,30 @@ namespace InstallerLibrary
     {
         private bool is64BitOperatingSystem = Environment.Is64BitOperatingSystem;
 
-        private static readonly string _ginURL =
+        /// <summary>
+        /// latest version of gin-cli for windows 32 bit (not tested) 
+        /// is not used currently
+        /// </summary>
+        private static readonly string _ginURL_latest =
             "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows32.zip";
 
-        private static readonly string _gin64URL =
+        /// <summary>
+        /// latest version of gin-cli for windows 64 bit (not tested) 
+        /// is not used currently
+        /// </summary>
+        private static readonly string _gin64URL_latest =
            "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows64.zip";
+
+        /// <summary>
+        /// gin-cli for windows 32 bit that was tested
+        /// </summary>
+        private static readonly string _ginURL =
+           "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/v1.11/gin-cli-1.11-windows32.zip";
+        /// <summary>
+        /// gin-cli for windows 34 bit that was tested
+        /// </summary>
+        private static readonly string _gin64URL =
+           "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/v1.11/gin-cli-1.11-windows64.zip";
 
         private volatile bool _downloadComplete;
 
