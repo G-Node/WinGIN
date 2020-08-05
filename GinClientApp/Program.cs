@@ -32,10 +32,11 @@ namespace GinClientApp
         /// unsupported dokan from old WinGIN bundle
         /// </summary>
         private const string dokanAppOld = "Dokan Library 1.1.0.2000 Bundle";
+        private const string dokanAppOld2 = "Dokan Library 1.3.0.1000 Bundle";
         /// <summary>
         /// supported dokan version
         /// </summary>
-        private const string dokanApp = "Dokan Library 1.3.0.1000 Bundle";
+        private const string dokanApp = "Dokan Library 1.4.0.1000 Bundle";
         /// <summary>
         /// supported dokan version
         /// </summary>
