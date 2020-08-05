@@ -39,12 +39,12 @@ namespace InstallerLibrary
         /// gin-cli for windows 32 bit that was tested
         /// </summary>
         private static readonly string _ginURL =
-           "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/v1.11/gin-cli-1.11-windows32.zip";
+           "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows32.zip";
         /// <summary>
         /// gin-cli for windows 34 bit that was tested
         /// </summary>
         private static readonly string _gin64URL =
-           "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/v1.11/gin-cli-1.11-windows64.zip";
+           "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows64.zip";
 
         private volatile bool _downloadComplete;
 
