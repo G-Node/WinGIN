@@ -33,6 +33,7 @@ namespace GinClientApp
         /// </summary>
         private const string dokanAppOld = "Dokan Library 1.1.0.2000 Bundle";
         private const string dokanAppOld2 = "Dokan Library 1.3.0.1000 Bundle";
+        private const string dokanAppOld3 = "Dokan Library 1.3.1.1000 Bundle";
         /// <summary>
         /// supported dokan version
         /// </summary>
@@ -40,7 +41,6 @@ namespace GinClientApp
         /// <summary>
         /// supported dokan version
         /// </summary>
-        private const string dokanApp2 = "Dokan Library 1.3.1.1000 Bundle";
         #endregion
 
         #region Forms Strings
@@ -48,8 +48,8 @@ namespace GinClientApp
         /// error messages
         /// </summary>
         private const string connectionError = "Cannot connect to G-Node server.";
-        private const string dokanNotInstalled = "Dokan library is missing or wrong version is installed! Dokan is necessary for WinGIN to work. Do you want to install Dokan now?";
-        private const string oldDokanInstalled = "Old Dokan library is installed! Dokan 1.3.0 is necessary for WinGIN to work. Please uninstall old version.";
+        private const string dokanNotInstalled = "Dokan library is missing or wrong version is installed! Dokan is necessary for WinGIN to work. Do you want to install Dokan 1.4.0 now?";
+        private const string oldDokanInstalled = "Old Dokan library is installed! Dokan 1.4.0 is necessary for WinGIN to work. Please uninstall old version.";
         private const string ginNotInstalled = "Local GIN binary is missing. Please reinstall application.";
         private const string winginIsRunning = "WinGIN is already running.";
         #endregion
@@ -118,10 +118,10 @@ namespace GinClientApp
             var curPath = AppDomain.CurrentDomain.BaseDirectory;
             ///check if supported dokan is installed
             MessageBoxResult dokanResult = MessageBoxResult.No;
-            if (!CheckInstalled(dokanApp) && !CheckInstalled(dokanApp2))
+            if (!CheckInstalled(dokanApp))
             {
                 /// no supported dokan installed
-                if (CheckInstalled(dokanAppOld))
+                if (CheckInstalled(dokanAppOld) || CheckInstalled(dokanAppOld2) || CheckInstalled(dokanAppOld3))
                 ///check if old version of dokan is installed
                 {
                     ///installed old dokan. Show warning and exit.
