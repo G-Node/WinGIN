@@ -19,7 +19,7 @@ namespace InstallerLibrary
     public partial class Installer1 : Installer
     {
         private bool is64BitOperatingSystem = Environment.Is64BitOperatingSystem;
-
+        /*
         /// <summary>
         /// latest version of gin-cli for windows 32 bit (not tested) 
         /// is not used currently
@@ -33,6 +33,7 @@ namespace InstallerLibrary
         /// </summary>
         private static readonly string _gin64URL_latest =
            "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows64.zip";
+        */
 
         /// <summary>
         /// gin-cli for windows 32 bit that was tested
