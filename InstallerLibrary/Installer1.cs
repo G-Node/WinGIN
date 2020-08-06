@@ -19,12 +19,32 @@ namespace InstallerLibrary
     public partial class Installer1 : Installer
     {
         private bool is64BitOperatingSystem = Environment.Is64BitOperatingSystem;
-
-        private static readonly string _ginURL =
+        /*
+        /// <summary>
+        /// latest version of gin-cli for windows 32 bit (not tested) 
+        /// is not used currently
+        /// </summary>
+        private static readonly string _ginURL_latest =
             "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows32.zip";
 
-        private static readonly string _gin64URL =
+        /// <summary>
+        /// latest version of gin-cli for windows 64 bit (not tested) 
+        /// is not used currently
+        /// </summary>
+        private static readonly string _gin64URL_latest =
            "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows64.zip";
+        */
+
+        /// <summary>
+        /// gin-cli for windows 32 bit that was tested
+        /// </summary>
+        private static readonly string _ginURL =
+           "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows32.zip";
+        /// <summary>
+        /// gin-cli for windows 34 bit that was tested
+        /// </summary>
+        private static readonly string _gin64URL =
+           "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows64.zip";
 
         private volatile bool _downloadComplete;
 
@@ -58,6 +78,8 @@ namespace InstallerLibrary
 
                 _downloadComplete = false;
                 var wb = new WebClient();
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                wb.Headers.Add("user-agent","archive_download");
                 //Download the current gin-cli release and unpack it into our install directory
                 wb.DownloadFileCompleted += Wb_DownloadFileCompleted;
                 wb.DownloadProgressChanged += WbOnDownloadProgressChanged;
