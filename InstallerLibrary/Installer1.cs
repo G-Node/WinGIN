@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Configuration.Install;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
+using Ionic.Zip;
 using IWshRuntimeLibrary;
 using Newtonsoft.Json;
 using File = System.IO.File;
@@ -79,7 +79,7 @@ namespace InstallerLibrary
                 _downloadComplete = false;
                 var wb = new WebClient();
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                wb.Headers.Add("user-agent","archive_download");
+                wb.Headers.Add("user-agent", "archive_download");
                 //Download the current gin-cli release and unpack it into our install directory
                 wb.DownloadFileCompleted += Wb_DownloadFileCompleted;
                 wb.DownloadProgressChanged += WbOnDownloadProgressChanged;
@@ -91,7 +91,7 @@ namespace InstallerLibrary
                     wb.DownloadFileAsync(new Uri(_gin64URL), gincli);
                 }
                 else
-                {                   
+                {
                     ///32 bit                  
                     gincli = path.FullName + @"\gin-cli\gin-cli-latest-windows-386.zip";
                     wb.DownloadFileAsync(new Uri(_ginURL), gincli);
@@ -99,10 +99,15 @@ namespace InstallerLibrary
 
                 while (!_downloadComplete)
                     Thread.Sleep(500);
-
-                ZipFile.ExtractToDirectory(gincli,
-                    path.FullName + @"\gin-cli\");
-
+                /*
+                                ZipFile.ExtractToDirectory(gincli,
+                                    path.FullName + @"\gin-cli\");
+                                    */
+                using (var archive = new ZipFile(gincli))
+                {
+                    archive.ExtractProgress += ZipProgressChanged;
+                    archive.ExtractAll(path.FullName + @"\gin-cli\");
+                }
                 //Give the client the ability to register a URL to communicate with the service
                 var everyone = new System.Security.Principal.SecurityIdentifier(
                     "S-1-1-0").Translate(typeof(System.Security.Principal.NTAccount)).ToString();
@@ -114,7 +119,7 @@ namespace InstallerLibrary
                     CreateNoWindow = true
                 };
 
-                var process = new Process {StartInfo = procStartInfo};
+                var process = new Process { StartInfo = procStartInfo };
                 var Output = new StringBuilder();
                 process.OutputDataReceived += (o, args) =>
                 {
@@ -135,7 +140,7 @@ namespace InstallerLibrary
                     CreateNoWindow = true
                 };
 
-                process = new Process {StartInfo = procStartInfo};
+                process = new Process { StartInfo = procStartInfo };
                 Output = new StringBuilder();
                 process.OutputDataReceived += (o, args) =>
                 {
@@ -196,6 +201,19 @@ namespace InstallerLibrary
             DownloadProgressChangedEventArgs downloadProgressChangedEventArgs)
         {
             Console.WriteLine(downloadProgressChangedEventArgs.ProgressPercentage);
+        }
+
+        private void ZipProgressChanged(object sender,
+           ExtractProgressEventArgs zipProgressEventArgs)
+        {
+            float percent;
+            float total = zipProgressEventArgs.EntriesTotal;
+            if (zipProgressEventArgs.EntriesExtracted != 0)
+            {
+                percent = (zipProgressEventArgs.EntriesExtracted / total) * 100;
+
+                Console.WriteLine(Convert.ToInt32(Math.Floor(percent)));
+            }
         }
 
         private void Wb_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
