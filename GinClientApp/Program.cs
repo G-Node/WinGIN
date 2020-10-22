@@ -29,11 +29,12 @@ namespace GinClientApp
 
         #region Dokan Versions
         /// <summary>
-        /// unsupported dokan from old WinGIN bundle
+        /// unsupported dokan versions from old WinGIN bundles
         /// </summary>
         private const string dokanAppOld = "Dokan Library 1.1.0.2000 Bundle";
         private const string dokanAppOld2 = "Dokan Library 1.3.0.1000 Bundle";
         private const string dokanAppOld3 = "Dokan Library 1.3.1.1000 Bundle";
+        private static readonly List<string> oldDokanList = new List<string>(new string[] { dokanAppOld, dokanAppOld2, dokanAppOld3 });
         /// <summary>
         /// supported dokan version
         /// </summary>
@@ -121,21 +122,23 @@ namespace GinClientApp
             if (!CheckInstalled(dokanApp))
             {
                 /// no supported dokan installed
-                if (CheckInstalled(dokanAppOld) || CheckInstalled(dokanAppOld2) || CheckInstalled(dokanAppOld3))
-                ///check if old version of dokan is installed
+                foreach (string dokan in oldDokanList)
                 {
-                    ///installed old dokan. Show warning and exit.
-                    MessageBox.Show(oldDokanInstalled, "WinGIN", MessageBoxButton.OK, MessageBoxImage.Error);
-                    dokanResult = MessageBoxResult.No;
-                    return;
+                    ///check if old version is installed
+                    if (CheckInstalled(dokan))
+                    {
+                        ///installed old dokan. Show warning and exit.
+                        MessageBox.Show(oldDokanInstalled, "WinGIN", MessageBoxButton.OK, MessageBoxImage.Error);
+                        dokanResult = MessageBoxResult.No;
+                        return;
+                    }
                 }
-                else
                 {
                     ///No dokan installed,  ask for installation
                     dokanResult = MessageBox.Show(dokanNotInstalled, "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                     if (dokanResult == MessageBoxResult.Yes)
                     {
-                    ///try to install dokan
+                        ///try to install dokan
                         var procstartinfo = new ProcessStartInfo
                         {
                             FileName = curPath + @"dokan/DokanSetup.exe",
@@ -163,7 +166,7 @@ namespace GinClientApp
             var path = AppDomain.CurrentDomain.BaseDirectory;
             var value = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
             value = path + @"gin-cli\bin" + ";" + value;
-            value = path + @"gin-cli\git\usr\bin"+ ";" + value;
+            value = path + @"gin-cli\git\usr\bin" + ";" + value;
             value = path + @"gin-cli\git\bin" + ";" + value;
             Environment.SetEnvironmentVariable("PATH", value, EnvironmentVariableTarget.Process);
             Application.EnableVisualStyles();
