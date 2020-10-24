@@ -7,15 +7,26 @@ using System.Windows.Forms;
 
 namespace GinClientApp.Dialogs
 {
-
+    /// <summary>
+    /// Dialog for showing gin-cli download and extraction progress
+    /// </summary>
     public partial class GinCliDownloadDlg : Form
     {
+        /// <summary>
+        /// path to gin-cli folder
+        /// </summary>
         public string path;
+        /// <summary>
+        /// path to gin-cli archive
+        /// </summary>
         private string gincli;
+        /// <summary>
+        /// gin-cli for x86 Windows
+        /// </summary>
         private static readonly string _ginURL =
           "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows32.zip";
         /// <summary>
-        /// gin-cli for windows 34 bit that was tested
+        /// gin-cli for windows 64 bit that was tested
         /// </summary>
         private static readonly string _gin64URL =
            "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows64.zip";
@@ -25,30 +36,38 @@ namespace GinClientApp.Dialogs
             var appDataPath = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\");
             path = appDataPath.FullName;
             DownloadGinCli();
-
         }
 
+        /// <summary>
+        /// When finishes async download, start bg worker for extraction
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Wb_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
-
             label1.Text = "Download Complete. Extracting... Please wait...";
             label1.Refresh();
-
             this.backgroundWorker1.RunWorkerAsync();
-                      
         }
-
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        /// <summary>
+        /// Extraction of gin-cli zip in backroung
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             using (var archive = new ZipFile(gincli))
             {
                 archive.ExtractProgress += ZipProgressChanged;
-                archive.ExtractAll(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\",ExtractExistingFileAction.OverwriteSilently);
+                archive.ExtractAll(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\", ExtractExistingFileAction.OverwriteSilently);
             }
-            
-
         }
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        /// <summary>
+        /// when extraction finishes, show error, or delete archive and close dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
@@ -56,25 +75,36 @@ namespace GinClientApp.Dialogs
             }
             else
             {
-            File.Delete(gincli);
-            Close();
-
+                File.Delete(gincli);
+                Close();
             }
         }
-
-        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {         
-            progressBar1.Value = e.ProgressPercentage;   
+        /// <summary>
+        /// show extraction progress in progress bar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
         }
 
-        
+        /// <summary>
+        /// show download progress in progress bar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="downloadProgressChangedEventArgs"></param>
         private void WbOnDownloadProgressChanged(object sender,
             DownloadProgressChangedEventArgs downloadProgressChangedEventArgs)
         {
             progressBar1.Value = downloadProgressChangedEventArgs.ProgressPercentage;
         }
 
-
+        /// <summary>
+        /// calculate extraction progress (number of files) and send them to bg worker progress
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="zipProgressChangedEventArgs"></param>
         private void ZipProgressChanged(object sender,
                 ExtractProgressEventArgs zipProgressChangedEventArgs)
         {
@@ -86,12 +116,15 @@ namespace GinClientApp.Dialogs
                 int done = Convert.ToInt32(Math.Floor(percent));
                 this.backgroundWorker1.ReportProgress(done);
             }
-
         }
+        /// <summary>
+        /// starting method, download gin-cli
+        /// </summary>
         public void DownloadGinCli()
         {
             try
             {
+                ///clear existing directory
                 if (Directory.Exists(path))
                 {
                     Directory.Delete(path, true);
@@ -103,7 +136,7 @@ namespace GinClientApp.Dialogs
                 web.Headers.Add("user-agent", "archive_download");
                 web.DownloadFileCompleted += new AsyncCompletedEventHandler(Wb_DownloadFileCompleted);
                 web.DownloadProgressChanged += new DownloadProgressChangedEventHandler(WbOnDownloadProgressChanged);
-                //Download the current gin-cli release and unpack it into our install directory
+                //Download the current gin-cli release and run bg worker to unpack it into program data directory
                 if (Environment.Is64BitOperatingSystem)
                 {
                     ///64bit
@@ -123,13 +156,11 @@ namespace GinClientApp.Dialogs
             }
         }
     }
-
-
 }
 
 
- 
-        
-   
+
+
+
 
 
