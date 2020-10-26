@@ -23,11 +23,20 @@ namespace GinClientApp
 
             var path = new DirectoryInfo(Assembly.GetCallingAssembly().Location).Parent;
 
+            ///delete gin-cli in Program Files folder
             if (Directory.Exists(path.FullName + @"\gin-cli\"))
             {
                 var dInfo = new DirectoryInfo(path.FullName + @"\gin-cli\");
                 DirectoryInfoExtension.Empty(dInfo);
                 Directory.Delete(path.FullName + @"\gin-cli\", true);
+            }
+
+            ///delete gin-cli in ProgramData folder
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\"))
+            {
+                var dInfo = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\");
+                DirectoryInfoExtension.Empty(dInfo);
+                Directory.Delete(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\", true);
             }
 
             var deleteDlg = new DeleteDataDlg();
