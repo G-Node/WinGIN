@@ -80,7 +80,7 @@ namespace GinClientApp.Dialogs
                 ///fix config.yml git binary key
                 if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml"))
                     {
-                    var removal = File.ReadLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => !line.Contains("git: "));
+                    var removal = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => !line.Contains("git: "));
                     File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml", removal);
                 }             
                 this.DialogResult = DialogResult.OK;
