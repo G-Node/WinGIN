@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using GinClientApp.Dialogs;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -157,13 +158,26 @@ namespace GinClientApp
                 }
             }
             ///check if local gin-cli is present
-            if (!File.Exists(curPath + @"gin-cli/bin/gin.exe"))
+            
+            if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\bin\gin.exe"))
             {
-                var result = MessageBox.Show(ginNotInstalled, "WinGIN", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                GinCliDownloadDlg dlg = new GinCliDownloadDlg();
+                dlg.ShowDialog();
+                if (dlg.DialogResult != System.Windows.Forms.DialogResult.OK)
+                {
+                    MessageBox.Show("Error during gin-cli installation.");
+                    return;
+                }
+                else
+                {
+                    //MessageBox.Show("Gin-Cli installed.");
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
             }
+            
             ///add gin-cli to path
-            var path = AppDomain.CurrentDomain.BaseDirectory;
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\";
             var value = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
             value = path + @"gin-cli\bin" + ";" + value;
             value = path + @"gin-cli\git\usr\bin" + ";" + value;
