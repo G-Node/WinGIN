@@ -51,7 +51,7 @@ namespace GinClientApp.Dialogs
             this.backgroundWorker1.RunWorkerAsync();
         }
         /// <summary>
-        /// Extraction of gin-cli zip in backroung
+        /// Extraction of gin-cli zip in background
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

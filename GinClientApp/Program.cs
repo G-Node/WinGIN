@@ -164,7 +164,16 @@ namespace GinClientApp
                 GinCliDownloadDlg dlg = new GinCliDownloadDlg();
                 dlg.ShowDialog();
                 if (dlg.DialogResult != System.Windows.Forms.DialogResult.OK)
+                {
+                    MessageBox.Show("Error during gin-cli installation.");
                     return;
+                }
+                else
+                {
+                    MessageBox.Show("Gin-Cli installed.");
+                    Application.Restart();
+                    Environment.Exit(0);
+                }
             }
             
             ///add gin-cli to path
