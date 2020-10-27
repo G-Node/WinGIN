@@ -170,7 +170,7 @@ namespace GinClientApp
                 }
                 else
                 {
-                    MessageBox.Show("Gin-Cli installed.");
+                    //MessageBox.Show("Gin-Cli installed.");
                     Application.Restart();
                     Environment.Exit(0);
                 }
