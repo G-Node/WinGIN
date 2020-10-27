@@ -163,7 +163,10 @@ namespace GinClientApp
             {
                 GinCliDownloadDlg dlg = new GinCliDownloadDlg();
                 dlg.ShowDialog();
+                if (dlg.DialogResult != System.Windows.Forms.DialogResult.OK)
+                    return;
             }
+            
             ///add gin-cli to path
             var path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\";
             var value = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);

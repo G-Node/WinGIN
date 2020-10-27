@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
@@ -69,13 +70,20 @@ namespace GinClientApp.Dialogs
         /// <param name="e"></param>
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            File.Delete(gincli);
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message);
             }
             else
             {
-                File.Delete(gincli);
+                ///fix config.yml git binary key
+                if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml"))
+                    {
+                    var removal = File.ReadLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => !line.Contains("git: "));
+                    File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml", removal);
+                }             
+                this.DialogResult = DialogResult.OK;
                 Close();
             }
         }
