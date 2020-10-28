@@ -13,6 +13,7 @@ namespace GinClientApp.Dialogs
     /// </summary>
     public partial class GinCliDownloadDlg : Form
     {
+        private const string gitConfigWarning = "The git binary path configuration for gin-cli was detected on your system. \nThis may interfere with WinGIN which distributes its own gin, git and git-annex. If you experience any issue, please remove the binary files paths from configuration file located here: ";
         /// <summary>
         /// path to gin-cli folder
         /// </summary>
@@ -89,7 +90,7 @@ namespace GinClientApp.Dialogs
                     var gitLocation = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => line.Contains("git.exe"));
                     if (gitLocation.Any())
                     {
-                        MessageBox.Show("Git.exe location specified in config.yml", "Warning",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(gitConfigWarning + Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml", "Warning",MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 this.DialogResult = DialogResult.OK;
