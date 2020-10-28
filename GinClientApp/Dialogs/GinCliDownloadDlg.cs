@@ -79,10 +79,19 @@ namespace GinClientApp.Dialogs
             {
                 ///fix config.yml git binary key
                 if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml"))
-                    {
-                    var removal = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => !line.Contains("git: "));
+                {
+                    /*
+                     * removes git.exe path from config file
+                    var removal = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => !line.Contains("git.exe"));
                     File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml", removal);
-                }             
+                    */
+                    ///searches config.yml for git.exe if it is there shows Warning
+                    var gitLocation = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => line.Contains("git.exe"));
+                    if (gitLocation.Any())
+                    {
+                        MessageBox.Show("Git.exe location specified in config.yml", "Warning",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
                 this.DialogResult = DialogResult.OK;
                 Close();
             }
