@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace GinClientApp.Dialogs
     /// </summary>
     public partial class GinCliDownloadDlg : Form
     {
+        private const string gitConfigWarning = "The git binary path configuration for gin-cli was detected on your system. \nThis may interfere with WinGIN which distributes its own gin, git and git-annex. If you experience any issue, please remove the binary files paths from configuration file located here: ";
         /// <summary>
         /// path to gin-cli folder
         /// </summary>
@@ -50,7 +52,7 @@ namespace GinClientApp.Dialogs
             this.backgroundWorker1.RunWorkerAsync();
         }
         /// <summary>
-        /// Extraction of gin-cli zip in backroung
+        /// Extraction of gin-cli zip in background
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -69,13 +71,29 @@ namespace GinClientApp.Dialogs
         /// <param name="e"></param>
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            File.Delete(gincli);
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message);
             }
             else
             {
-                File.Delete(gincli);
+                ///fix config.yml git binary key
+                if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml"))
+                {
+                    /*
+                     * removes git.exe path from config file
+                    var removal = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => !line.Contains("git.exe"));
+                    File.WriteAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml", removal);
+                    */
+                    ///searches config.yml for git.exe if it is there shows Warning
+                    var gitLocation = File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml").Where(line => line.Contains("git.exe"));
+                    if (gitLocation.Any())
+                    {
+                        MessageBox.Show(gitConfigWarning + Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml", "Warning",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                this.DialogResult = DialogResult.OK;
                 Close();
             }
         }

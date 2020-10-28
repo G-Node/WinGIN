@@ -18,35 +18,6 @@ namespace InstallerLibrary
     [RunInstaller(true)]
     public partial class Installer1 : Installer
     {
-        private bool is64BitOperatingSystem = Environment.Is64BitOperatingSystem;
-        /*
-        /// <summary>
-        /// latest version of gin-cli for windows 32 bit (not tested) 
-        /// is not used currently
-        /// </summary>
-        private static readonly string _ginURL_latest =
-            "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows32.zip";
-
-        /// <summary>
-        /// latest version of gin-cli for windows 64 bit (not tested) 
-        /// is not used currently
-        /// </summary>
-        private static readonly string _gin64URL_latest =
-           "https://gin.g-node.org/G-Node/gin-cli-releases/raw/master/gin-cli-latest-windows64.zip";
-        */
-
-        /// <summary>
-        /// gin-cli for windows 32 bit that was tested
-        /// </summary>
-        private static readonly string _ginURL =
-           "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows32.zip";
-        /// <summary>
-        /// gin-cli for windows 34 bit that was tested
-        /// </summary>
-        private static readonly string _gin64URL =
-           "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows64.zip";
-
-        private volatile bool _downloadComplete;
 
         public Installer1()
         {
@@ -74,40 +45,7 @@ namespace InstallerLibrary
                     Directory.Delete(path.FullName + @"\gin-cli\", true);
                 }
                 Directory.CreateDirectory(path.FullName + @"\dokan\");
-                Directory.CreateDirectory(path.FullName + @"\gin-cli\");
-
-                _downloadComplete = false;
-                var wb = new WebClient();
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                wb.Headers.Add("user-agent", "archive_download");
-                //Download the current gin-cli release and unpack it into our install directory
-                wb.DownloadFileCompleted += Wb_DownloadFileCompleted;
-                wb.DownloadProgressChanged += WbOnDownloadProgressChanged;
-                string gincli;
-                if (is64BitOperatingSystem)
-                {
-                    ///64bit
-                    gincli = path.FullName + @"\gin-cli\gin-cli-latest-windows-amd64.zip";
-                    wb.DownloadFileAsync(new Uri(_gin64URL), gincli);
-                }
-                else
-                {
-                    ///32 bit                  
-                    gincli = path.FullName + @"\gin-cli\gin-cli-latest-windows-386.zip";
-                    wb.DownloadFileAsync(new Uri(_ginURL), gincli);
-                }
-
-                while (!_downloadComplete)
-                    Thread.Sleep(500);
-                /*
-                                ZipFile.ExtractToDirectory(gincli,
-                                    path.FullName + @"\gin-cli\");
-                                    */
-                using (var archive = new ZipFile(gincli))
-                {
-                    archive.ExtractProgress += ZipProgressChanged;
-                    archive.ExtractAll(path.FullName + @"\gin-cli\");
-                }
+                
                 //Give the client the ability to register a URL to communicate with the service
                 var everyone = new System.Security.Principal.SecurityIdentifier(
                     "S-1-1-0").Translate(typeof(System.Security.Principal.NTAccount)).ToString();
@@ -184,7 +122,6 @@ namespace InstallerLibrary
                 shortcut.WorkingDirectory = path.FullName;
                 shortcut.IconLocation = path.FullName + @"\gin_icon.ico";
                 shortcut.Save();
-                File.Delete(gincli);
             }
             catch (Exception exc)
             {
@@ -195,30 +132,6 @@ namespace InstallerLibrary
                 fs.Close();
                 throw new InstallException("Installation failed. Please check your internet connection and try it later.");
             }
-        }
-
-        private void WbOnDownloadProgressChanged(object sender,
-            DownloadProgressChangedEventArgs downloadProgressChangedEventArgs)
-        {
-            Console.WriteLine(downloadProgressChangedEventArgs.ProgressPercentage);
-        }
-
-        private void ZipProgressChanged(object sender,
-           ExtractProgressEventArgs zipProgressEventArgs)
-        {
-            float percent;
-            float total = zipProgressEventArgs.EntriesTotal;
-            if (zipProgressEventArgs.EntriesExtracted != 0)
-            {
-                percent = (zipProgressEventArgs.EntriesExtracted / total) * 100;
-
-                Console.WriteLine(Convert.ToInt32(Math.Floor(percent)));
-            }
-        }
-
-        private void Wb_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {
-            _downloadComplete = true;
         }
 
         public override void Install(IDictionary stateSaver)

@@ -33,7 +33,7 @@ namespace GinClientLibrary
             Removed
         }
 
-        private readonly string GinCliExe = "\""+AppDomain.CurrentDomain.BaseDirectory + "gin-cli\\bin\\gin.exe\"";
+        private readonly string GinCliExe = "\""+ Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\g-node\\WinGIN\\gin-cli\\bin\\gin.exe\"";
 
         private static readonly StringBuilder Output = new StringBuilder("");
 
