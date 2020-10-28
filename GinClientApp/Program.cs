@@ -52,8 +52,8 @@ namespace GinClientApp
         private const string connectionError = "Cannot connect to G-Node server.";
         private const string dokanNotInstalled = "Dokan library is missing or wrong version is installed! Dokan is necessary for WinGIN to work. Do you want to install Dokan 1.4.0 now?";
         private const string oldDokanInstalled = "Old Dokan library is installed! Dokan 1.4.0 is necessary for WinGIN to work. Please uninstall old version.";
-        private const string ginNotInstalled = "Local GIN binary is missing. Please reinstall application.";
         private const string winginIsRunning = "WinGIN is already running.";
+        private const string ginCliInstallError = "Error during gin-cli installation.";
         #endregion
 
         /// <summary>
@@ -134,48 +134,47 @@ namespace GinClientApp
                         return;
                     }
                 }
+                ///No dokan installed,  ask for installation
+                dokanResult = MessageBox.Show(dokanNotInstalled, "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (dokanResult == MessageBoxResult.Yes)
                 {
-                    ///No dokan installed,  ask for installation
-                    dokanResult = MessageBox.Show(dokanNotInstalled, "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (dokanResult == MessageBoxResult.Yes)
+                    ///try to install dokan
+                    var procstartinfo = new ProcessStartInfo
                     {
-                        ///try to install dokan
-                        var procstartinfo = new ProcessStartInfo
-                        {
-                            FileName = curPath + @"dokan/DokanSetup.exe",
-                            CreateNoWindow = true,
-                            UseShellExecute = true,
-                            Verb = "runas"
-                        };
-                        var process = Process.Start(procstartinfo);
-                        Environment.Exit(0);
-                    }
-                    else
-                    {
-                        ///no dokan installed, exit application
-                        return;
-                    }
+                        FileName = curPath + @"dokan/DokanSetup.exe",
+                        CreateNoWindow = true,
+                        UseShellExecute = true,
+                        Verb = "runas"
+                    };
+                    var process = Process.Start(procstartinfo);
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    ///no dokan installed, exit application
+                    return;
                 }
             }
             ///check if local gin-cli is present
-            
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\bin\gin.exe"))
             {
+                ///gin cli not installed in WinGIN location, try to install it
                 GinCliDownloadDlg dlg = new GinCliDownloadDlg();
                 dlg.ShowDialog();
                 if (dlg.DialogResult != System.Windows.Forms.DialogResult.OK)
                 {
-                    MessageBox.Show("Error during gin-cli installation.");
+                    ///installation was unsuccessful
+                    MessageBox.Show(ginCliInstallError,"Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 else
                 {
-                    //MessageBox.Show("Gin-Cli installed.");
+                    ///Restart application with installed gin-cli
                     Application.Restart();
                     Environment.Exit(0);
                 }
             }
-            
+
             ///add gin-cli to path
             var path = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\";
             var value = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
