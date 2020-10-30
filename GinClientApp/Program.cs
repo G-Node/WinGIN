@@ -50,8 +50,8 @@ namespace GinClientApp
         /// error messages
         /// </summary>
         private const string connectionError = "Cannot connect to G-Node server.";
-        private const string dokanNotInstalled = "Dokan library is missing or wrong version is installed! Dokan is necessary for WinGIN to work. Do you want to install Dokan 1.4.0 now?";
-        private const string oldDokanInstalled = "Old Dokan library is installed! Dokan 1.4.0 is necessary for WinGIN to work. Please uninstall old version.";
+        private const string dokanNotInstalled = "Dokan library is missing or unsupported version is installed! Dokan is necessary for WinGIN to work. \nDo you want to install Dokan 1.4.0 now?";
+        private const string oldDokanInstalled = "Unsupported Dokan library is installed! Dokan 1.4.0 is necessary for WinGIN to work. Please uninstall old version.";
         private const string winginIsRunning = "WinGIN is already running.";
         private const string ginCliInstallError = "Error during gin-cli installation.";
         #endregion
@@ -158,7 +158,7 @@ namespace GinClientApp
             ///check if local gin-cli is present
             if (!File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + @"\g-node\WinGIN\gin-cli\bin\gin.exe"))
             {
-                ///gin cli not installed in WinGIN location, try to install it
+                ///gin cli not installed in AppData location, try to install it
                 GinCliDownloadDlg dlg = new GinCliDownloadDlg();
                 dlg.ShowDialog();
                 if (dlg.DialogResult != System.Windows.Forms.DialogResult.OK)

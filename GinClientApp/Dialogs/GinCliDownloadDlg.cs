@@ -71,14 +71,16 @@ namespace GinClientApp.Dialogs
         /// <param name="e"></param>
         private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            ///remove downloaded archive
             File.Delete(gincli);
             if (e.Error != null)
             {
                 MessageBox.Show(e.Error.Message);
+                this.DialogResult = DialogResult.Abort;
             }
             else
             {
-                ///fix config.yml git binary key
+                ///detect in config.yml git binary key
                 if (File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\g-node\gin\config.yml"))
                 {
                     /*
@@ -170,6 +172,7 @@ namespace GinClientApp.Dialogs
             }
             catch (Exception e)
             {
+                this.DialogResult = DialogResult.Abort;
                 MessageBox.Show(e.Message);
             }
         }
