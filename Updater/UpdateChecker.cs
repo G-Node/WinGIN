@@ -48,7 +48,7 @@ namespace Updater
             process.WaitForExit();
         }
         /// <summary>
-        /// uninstalls old version of WinGIN
+        /// uninstall old version of WinGIN
         /// </summary>
         /// <param name="ProgramName">Name of program</param>
         /// <returns>true for success</returns>

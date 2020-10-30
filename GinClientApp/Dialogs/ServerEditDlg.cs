@@ -1,5 +1,4 @@
-﻿using GinClientApp.GinService;
-using GinClientLibrary;
+﻿using GinClientLibrary;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
