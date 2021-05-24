@@ -26,12 +26,12 @@ namespace GinClientApp.Dialogs
         /// gin-cli for x86 Windows
         /// </summary>
         private static readonly string _ginURL =
-          "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows32.zip";
+          "https://github.com/G-Node/gin-cli/releases/download/v1.12/gin-cli-1.12-windows32.zip";
         /// <summary>
         /// gin-cli for windows 64 bit that was tested
         /// </summary>
         private static readonly string _gin64URL =
-           "https://github.com/G-Node/gin-cli/releases/download/v1.11/gin-cli-1.11-windows64.zip";
+           "https://github.com/G-Node/gin-cli/releases/download/v1.12/gin-cli-1.12-windows64.zip";
         public GinCliDownloadDlg()
         {
             InitializeComponent();
