@@ -51,7 +51,7 @@ namespace GinClientApp
         /// error messages
         /// </summary>
         private const string connectionError = "Cannot connect to G-Node server.";
-        private const string dokanNotInstalled = "Dokan library is missing or unsupported version is installed! Dokan is necessary for WinGIN to work. \nDo you want to install Dokan 1.4.0 now?";
+        private const string dokanNotInstalled = "Dokan library is missing or unsupported version is installed! Dokan is necessary for WinGIN to work. \nDo you want to install "+ dokanApp + " now?";
         private const string oldDokanInstalled = "Unsupported Dokan library is installed! Dokan 1.4.0 is necessary for WinGIN to work. Please uninstall old version.";
         private const string winginIsRunning = "WinGIN is already running.";
         private const string ginCliInstallError = "Error during gin-cli installation.";
