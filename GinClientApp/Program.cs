@@ -36,11 +36,12 @@ namespace GinClientApp
         private const string dokanAppOld2 = "Dokan Library 1.3.0.1000 Bundle";
         private const string dokanAppOld3 = "Dokan Library 1.3.1.1000 Bundle";
         private const string dokanAppOld4 = "Dokan Library 1.4.0.1000 Bundle";
-        private static readonly List<string> oldDokanList = new List<string>(new string[] { dokanAppOld, dokanAppOld2, dokanAppOld3, dokanAppOld4 });
+        private const string dokanAppOld5 = "Dokan Library 1.4.0.1000 Bundle";
+        private static readonly List<string> oldDokanList = new List<string>(new string[] { dokanAppOld, dokanAppOld2, dokanAppOld3, dokanAppOld4, dokanAppOld5 });
         /// <summary>
         /// supported dokan version
         /// </summary>
-        private const string dokanApp = "Dokan Library 1.4.1.1000 Bundle";
+        private const string dokanApp = "Dokan Library 1.5.0.3000 Bundle";
         /// <summary>
         /// supported dokan version
         /// </summary>
