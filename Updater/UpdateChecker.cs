@@ -20,7 +20,7 @@ namespace Updater
         /// </summary>
         private const string UpdatedMsi = "https://web.gin.g-node.org/G-Node/wingin-installers/raw/master/Setup.msi";
         /// <summary>
-        /// downloads latest WinGIN, uninstalls old version and install new version
+        /// downloads latest WinGIN, uninstall old version and install new version
         /// </summary>
         public static void DoUpdate()
         {
@@ -32,7 +32,7 @@ namespace Updater
             }
             catch
             {
-                MessageBox.Show("Error: unable to download new version.");
+                MessageBox.Show("Error: unable to download new version.", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (!UninstallProgram("WinGIN")) return;
