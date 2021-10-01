@@ -35,11 +35,13 @@ namespace GinClientApp
         private const string dokanAppOld = "Dokan Library 1.1.0.2000 Bundle";
         private const string dokanAppOld2 = "Dokan Library 1.3.0.1000 Bundle";
         private const string dokanAppOld3 = "Dokan Library 1.3.1.1000 Bundle";
-        private static readonly List<string> oldDokanList = new List<string>(new string[] { dokanAppOld, dokanAppOld2, dokanAppOld3 });
+        private const string dokanAppOld4 = "Dokan Library 1.4.0.1000 Bundle";
+        private const string dokanAppOld5 = "Dokan Library 1.4.0.1000 Bundle";
+        private static readonly List<string> oldDokanList = new List<string>(new string[] { dokanAppOld, dokanAppOld2, dokanAppOld3, dokanAppOld4, dokanAppOld5 });
         /// <summary>
         /// supported dokan version
         /// </summary>
-        private const string dokanApp = "Dokan Library 1.4.0.1000 Bundle";
+        private const string dokanApp = "Dokan Library 1.5.0.3000 Bundle";
         /// <summary>
         /// supported dokan version
         /// </summary>
@@ -49,11 +51,12 @@ namespace GinClientApp
         /// <summary>
         /// error messages
         /// </summary>
-        private const string connectionError = "Cannot connect to G-Node server.";
-        private const string dokanNotInstalled = "Dokan library is missing or unsupported version is installed! Dokan is necessary for WinGIN to work. \nDo you want to install Dokan 1.4.0 now?";
-        private const string oldDokanInstalled = "Unsupported Dokan library is installed! Dokan 1.4.0 is necessary for WinGIN to work. Please uninstall old version.";
+        private const string connectionError = "Cannot connect to G-Node server. Unable to check the latest Gin-Cli version.";
+        private const string dokanNotInstalled = "Dokan library is missing, or an unsupported version is installed! Dokan is necessary for WinGIN to work. \nDo you want to install "+ dokanApp + " now?";
+        private const string oldDokanInstalled = "Unsupported Dokan library is installed! Dokan 1.4.0 is necessary for WinGIN to work. Please uninstall the old version.";
         private const string winginIsRunning = "WinGIN is already running.";
         private const string ginCliInstallError = "Error during gin-cli installation.";
+        private const string appName = "WinGIN";
         #endregion
 
         /// <summary>
@@ -90,8 +93,8 @@ namespace GinClientApp
                 {
                     ///if new version available ask for installation
                     var result = System.Windows.MessageBox.Show(
-                        "A new version " + remoteVersion + " of WinGIN is available. Do you want to update it now?",
-                        "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        "A new version " + remoteVersion + " of "+appName+" is available. Do you want to update it now?",
+                        appName, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                     if (result == MessageBoxResult.Yes)
                     {
@@ -129,13 +132,13 @@ namespace GinClientApp
                     if (CheckInstalled(dokan))
                     {
                         ///installed old dokan. Show warning and exit.
-                        MessageBox.Show(oldDokanInstalled, "WinGIN", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(oldDokanInstalled, appName, MessageBoxButton.OK, MessageBoxImage.Error);
                         dokanResult = MessageBoxResult.No;
                         return;
                     }
                 }
                 ///No dokan installed,  ask for installation
-                dokanResult = MessageBox.Show(dokanNotInstalled, "WinGIN", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                dokanResult = MessageBox.Show(dokanNotInstalled, appName, MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (dokanResult == MessageBoxResult.Yes)
                 {
                     ///try to install dokan
